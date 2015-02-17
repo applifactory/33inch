@@ -1,10 +1,9 @@
 doctype html
 html
   head
-    != css("app")
-    != js("app")
-    != LRScript
+    link(rel='stylesheet', href='/assets/app.min.css')
     block title
       title Default title
   body
     block content
+    script(src="//localhost:35729/livereload.js")

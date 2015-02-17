@@ -1,7 +1,6 @@
 var express         = require('express'); // call express
 var app             = express(); // define our app using express
 var bodyParser      = require('body-parser');
-var connectAssets   = require('connect-assets');
 var morgan          = require('morgan');
 var mongoose        = require('mongoose'); // for working w/ our database
 var port            = process.env.PORT || 3000; // set the port for pur app
@@ -18,13 +17,7 @@ app.set('views', __dirname + '/modules');
 app.set('view engine', 'jade');
 
 //  Assets
-app.use(connectAssets());
-
-//  Livereload
-//app.use(require('connect-livereload')({
-//  port: 35729,
-//  include: [/.*/]
-//}));
+app.use(express.static(__dirname + '/public'));
 
 //  Request params parser
 app.use(bodyParser.urlencoded({ extended: true }));

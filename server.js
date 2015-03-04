@@ -9,6 +9,7 @@ var config          = require('./config/config.js');
 
 //  Startup
 console.log('NODE_ENV = ' + ( process.env.ENV || 'development' ) );
+console.log(config);
 
 //  Logger
 app.use(morgan('dev'));

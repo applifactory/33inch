@@ -8,7 +8,7 @@ var fs              = require('fs');
 var config          = require('./config/config.js');
 
 //  Startup
-console.log('NODE_ENV = ' + ( process.env.NODE_ENV || 'development' ) );
+console.log('NODE_ENV = ' + ( process.env.ENV || 'development' ) );
 
 //  Logger
 app.use(morgan('dev'));

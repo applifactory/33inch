@@ -4,5 +4,5 @@ var _ = require('lodash');
 
 module.exports = _.extend(
   require('./env/all'),
-  require('./env/' + ( process.env.NODE_ENV || 'development' ) ) || {}
+  require('./env/' + ( process.env.ENV || 'development' ) ) || {}
 );

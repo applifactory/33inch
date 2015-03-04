@@ -5,6 +5,10 @@ var morgan          = require('morgan');
 var mongoose        = require('mongoose'); // for working w/ our database
 var port            = process.env.PORT || 3000; // set the port for pur app
 var fs              = require('fs');
+var config          = require('./config/config.js');
+
+//  Startup
+console.log('NODE_ENV = ' + ( process.env.NODE_ENV || 'development' ) );
 
 //  Logger
 app.use(morgan('dev'));
@@ -41,6 +45,6 @@ fs.readdirSync('./modules').forEach(function (moduleName) {
   });
 });
 
-app.listen(port);
-console.log('Magic happens on port ' + port);
+app.listen(config.port);
+console.log('Magic happens on port ' + config.port);
 

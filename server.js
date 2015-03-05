@@ -8,8 +8,8 @@ var fs              = require('fs');
 var config          = require('./config/config.js');
 
 //  Startup
-console.log('ENV = ' + ( process.env.ENV || 'development' ) );
-console.log(config);
+console.log('ENV: ' + ( process.env.ENV || 'development' ) );
+app.settings.env = process.env.ENV || 'development';
 
 //  Logger
 app.use(morgan('dev'));

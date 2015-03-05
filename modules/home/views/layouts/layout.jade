@@ -6,4 +6,5 @@ html
       title Default title
   body
     block content
-    script(src="//localhost:35729/livereload.js")
+    - if ( settings.env == 'development' )
+      script(src="//localhost:35729/livereload.js")

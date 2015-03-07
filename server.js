@@ -37,13 +37,14 @@ app.use(function(req, res, next) {
 });
 
 fs.readdirSync('./modules').forEach(function (moduleName) {
-  fs.readdirSync('./modules/' + moduleName + '/controllers').forEach(function (controllerName) {
-    if(controllerName.substr(-3) == '.js') {
-      route = require('./modules/' + moduleName + '/controllers/' + controllerName);
-      if ( route.controller )
-        route.controller(app);
-    }
-  });
+  if ( fs.existsSync('./modules/' + moduleName + '/routes') ) {
+    fs.readdirSync('./modules/' + moduleName + '/routes').forEach(function (routeName) {
+      if(routeName.substr(-3) == '.js') {
+        var route = require('./modules/' + moduleName + '/routes/' + routeName);
+        route(app);
+      }
+    });
+  }
 });
 
 app.listen(config.port);

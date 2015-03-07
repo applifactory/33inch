@@ -1,0 +1,21 @@
+{
+  "name": "33inch",
+  "version": "0.0.1",
+  "authors": [
+    "Matthew Witalinski <mateusz@applifactory.pl>"
+  ],
+  "description": "33 Inch Webapp",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "assets/js/vendors",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angularjs": "~1.3.14"
+  }
+}

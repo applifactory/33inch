@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = {
-  db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/yo-meanjs',
-  port: 3000
+  db: 'mongodb://localhost/33inch_dev',
+  port: 3000,
+  secret: 't0q^)7#q*bh-s9k2qhxrxv+xw_eywwce%es0jlm3l)8mt2!36!'
 };

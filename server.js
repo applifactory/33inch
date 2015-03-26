@@ -15,7 +15,7 @@ app.settings.env = process.env.ENV || 'development';
 app.use(morgan('dev'));
 
 //  Database
-mongoose.connect('mongodb://localhost/test_db');
+mongoose.connect(config.db);
 
 //  Views
 app.set('views', __dirname + '/modules');

@@ -10,7 +10,7 @@ var jade        = require('gulp-jade');
 
 gulp.task('css', function(done) {
   return gulp.src('assets/css/*.css.styl')
-    .pipe( stylus() )
+    .pipe( stylus({ errors: true }) )
     .pipe( minifyCSS() )
     .pipe( rename(function(path){
       path.basename = path.basename.replace('.css', '');

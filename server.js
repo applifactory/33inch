@@ -24,6 +24,7 @@ app.set('view engine', 'jade');
 //  Assets
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/assets/img'));
+app.use(express.static(__dirname + '/assets/font'));
 
 //  Request params parser
 app.use(bodyParser.urlencoded({ extended: true }));

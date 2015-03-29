@@ -1,1 +1,1 @@
-alert('qwdqwddss');
+console.log 'hello'

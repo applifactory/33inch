@@ -1,9 +1,12 @@
 $(function(){
-  $('section.boxes').affix({
-    offset: {
-      top: function () {
-        return $('section.boxes').offset().top;
+  $('.boxes, .style, .stock').each(function(){
+    var $item = $(this);
+    $item.affix({
+      offset: {
+        top: function () {
+          return $item.offset().top;
+        }
       }
-    }
+    })
   })
 })

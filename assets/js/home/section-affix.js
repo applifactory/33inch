@@ -1,5 +1,5 @@
 $(function(){
-  $('.boxes, .style, .stock').each(function(){
+  $('.boxes, .style, .stock, .publish').each(function(){
     var $item = $(this);
     $item.affix({
       offset: {

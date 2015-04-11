@@ -7,6 +7,12 @@ var User = require('../models/user');
 
 module.exports.requireUserAuth = function(req, res, next) {
   console.log('# requireUserAuth');
+  res.redirect('/account');
+//  next();
+};
+
+module.exports.requireAdminAuth = function(req, res, next) {
+  console.log('# requireAdminAuth');
   next();
 };
 
@@ -50,8 +56,3 @@ module.exports.registerUser = function(email, password, callback) {
       callback(null);
   });
 }
-
-module.exports.requireAdminAuth = function(req, res, next) {
-  console.log('# requireAdminAuth');
-  next();
-};

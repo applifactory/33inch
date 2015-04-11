@@ -8,6 +8,9 @@ module.exports = function(app) {
     .all(authUtil.requireUserAuth)
     .get(index.index);
 
+  app.route('/account')
+    .get(index.account);
+
     //.delete(users.requiresLogin, articles.hasAuthorization, articles.delete);
   // Finish by binding the article middleware
   //app.param('articleId', articles.articleByID);

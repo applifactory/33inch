@@ -1,0 +1,12 @@
+doctype html
+html
+  block variables
+  head
+    link(rel='stylesheet', href='/assets/app.min.css')
+    script(src="/assets/home.js")
+    block title
+      title 33 Inch
+  body(class="#{bodyClass}")
+    block content
+    - if ( settings.env == 'development' )
+      script(src="//localhost:35729/livereload.js")

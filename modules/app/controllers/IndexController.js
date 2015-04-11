@@ -7,3 +7,7 @@ var _views = 'app/views/index/';
 module.exports.index = function(req, res) {
   res.render(_views+'index');
 };
+
+module.exports.account = function(req, res) {
+  res.render(_views+'account');
+};

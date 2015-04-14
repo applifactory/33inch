@@ -12,7 +12,7 @@ button(color = black, altColor = white)
   cursor: pointer
   height: auto
   margin: 0.15em
-  vertical-align: top
+  vertical-align: middle
   transition: color 0.2s ease, border 0.2s ease, background 0.2s ease
   &:focus
     outline: none
@@ -26,6 +26,9 @@ button(color = black, altColor = white)
   &.block
     display: block
     text-align: center
+  &.small
+    font-size: 0.9em
+    padding: 0.25em 0.65em
   &.fill
     color: altColor
     border-color: color

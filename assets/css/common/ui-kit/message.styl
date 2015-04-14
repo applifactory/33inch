@@ -1,0 +1,27 @@
+.message
+  display: block
+  color: white
+  background: defaultColor
+  padding: 0.5em
+  border-radius: 0.25em
+  max-height: 100px
+  overflow: hidden
+  opacity: 1
+  visibility: visible
+  transition: max-height 0.3s ease, padding 0.3s ease
+  &.ng-inactive, &.ng-hide
+    max-height: 0
+    padding: 0 0.5em
+    display: block !important
+    opacity: 0
+    visibility: hidden
+  &.primary
+    background: primaryColor
+  &.info
+    background: infoColor
+  &.success
+    background: successColor
+  &.warning
+    background: warningColor
+  &.danger
+    background: dangerColor

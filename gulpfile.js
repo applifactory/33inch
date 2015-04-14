@@ -1,16 +1,19 @@
 // load the plugins
-var gulp        = require('gulp');
-var stylus      = require('gulp-stylus');
-var minifyCSS   = require('gulp-minify-css');
-var rename      = require('gulp-rename');
-var include     = require('gulp-include');
-var livereload  = require('gulp-livereload')
-var nodemon     = require('gulp-nodemon');
-var jade        = require('gulp-jade');
+var gulp         = require('gulp');
+var stylus       = require('gulp-stylus');
+var minifyCSS    = require('gulp-minify-css');
+var rename       = require('gulp-rename');
+var include      = require('gulp-include');
+var livereload   = require('gulp-livereload')
+var nodemon      = require('gulp-nodemon');
+var jade         = require('gulp-jade');
+var jeet         = require('jeet');
+var autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('css', function(done) {
   return gulp.src('assets/css/*.css.styl')
-    .pipe( stylus({ errors: true }) )
+    .pipe( stylus({ errors: true, use: [jeet()] }) )
+    .pipe( autoprefixer({ cascade: false }) )
     .pipe( minifyCSS() )
     .pipe( rename(function(path){
       path.basename = path.basename.replace('.css', '');

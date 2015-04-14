@@ -1,0 +1,46 @@
+.loader
+  width: 30px
+  height: 30px
+  display: inline-block
+  background: url(../loader.svg) no-repeat center
+  background-size: 100%
+  -webkit-animation-name: rotate-bounce
+  -webkit-animation-duration: 1s
+  -webkit-animation-iteration-count: infinite
+  -webkit-animation-timing-function: linear
+
+&.loading
+  position: relative
+  &::before
+    content: ''
+    background: rgba(255, 255, 255, 0.75)
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+  &::after
+    content: ''
+    background: url(../loader.svg) no-repeat center
+    background-size: 30px
+    position: absolute
+    top: 50%
+    left: 50%
+    width: 30px
+    height: 30px
+    margin: -15px 0 0 -15px
+    -webkit-animation-name: rotate-bounce
+    -webkit-animation-duration: 1s
+    -webkit-animation-iteration-count: infinite
+    -webkit-animation-timing-function: linear
+
+
+@keyframes rotate-bounce
+  0%
+    transform: rotate(0deg) scale(1)
+  30%
+    transform: rotate(180deg) scale(0.2)
+  60%
+    transform: rotate(360deg) scale(1)
+  100%
+    transform: rotate(360deg) scale(1)

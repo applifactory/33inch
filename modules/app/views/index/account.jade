@@ -4,39 +4,27 @@ block title
   title 33inch
 
 block content
-  h1 account
+  .sign-in(ng-app="App33Inch", ng-controller="SignInCtrl")
+    h1 Sign in
+    form(name="signInForm", ng-submit="submitForm()", novalidate, ng-class="{loading: isLoading}")
+      .message.danger(ng-show="signInForm.$submitted && ( signInForm.$invalid || errorMessage )")
+        span(ng-if="signInForm.$submitted", ng-messages="signInForm.email.$error")
+          span(ng-message="required") Enter your email
+          span(ng-message="email") Wrong email format
+        span(ng-if="signInForm.$submitted && !signInForm.email.$invalid", ng-messages="signInForm.password.$error")
+          span(ng-message="required") Enter your pasword
+        span(ng-if="signInForm.$submitted && !signInForm.email.$invalid && !signInForm.password.$invalid && errorMessage")
+          | {{errorMessage}}
 
-  form
-    label(hint="This is tooltip")
-      | Login
-      input.error(type="email")
-    label.error(hint="This is tooltip")
-      | Password
-      input(type="password")
-    label
-      | Select
-      select
-        option(value="1") All
-        option(value="2") None
-    label
-      | Description
-      textarea
-    .button(hint="This is tooltip") Submit default
-    .button.primary(hint="This is tooltip") Submit button
-    button.danger Regular button
-    input.warning(type="submit", value="Input submit hh")
-    submit.success qwdqwdq
-
-    .button.fill.block(hint="This is tooltip") Submit button
-    button.fill Regular button
-    button.fill.success Regular button
-    button.fill.info Regular button
-    button.fill.warning Regular button
-    button.fill.danger Regular button
-    button.fill.primary Regular button
-    input.fill(type="submit", value="Input submit")
-    submit.fill qwdqwdq
+      label(ng-class="{error: signInForm.$submitted && signInForm.email.$invalid}")
+        | Email
+        input(type="email", name="email", ng-model="credentials.email", required)
+      label(ng-class="{error: signInForm.$submitted && signInForm.password.$invalid}")
+        | Password
+        input(type="password", name="password", ng-model="credentials.password", required)
+      .actions
+        input.button.success.fill(type="submit", value="Sign in")
+        .button.primary.fill.small Sign up
 
 
-  p inspiration: http://www.creative-tim.com/get-shit-done#
-
+  //p inspiration: http://www.creative-tim.com/get-shit-done#

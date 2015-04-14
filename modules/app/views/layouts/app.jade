@@ -1,9 +1,10 @@
 doctype html
 html
   block variables
+    - var bodyClass = 'app'
   head
     link(rel='stylesheet', href='/assets/app.min.css')
-    script(src="/assets/home.js")
+    script(src="/assets/app.js")
     block title
       title 33 Inch
   body(class="#{bodyClass}")

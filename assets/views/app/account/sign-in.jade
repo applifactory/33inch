@@ -16,6 +16,9 @@
     label(ng-class="{error: signInForm.$submitted && signInForm.password.$invalid}")
       | Password
       input(type="password", name="password", ng-model="credentials.password", required)
+    label.checkbox
+      input(type="checkbox", ng-model="credentials.stayLogged")
+      | Stay logged in
     .actions
       input.button.success.fill(type="submit", value="Sign in")
       .button.primary.fill.small Sign up

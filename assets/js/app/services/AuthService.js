@@ -1,10 +1,11 @@
 app.service('AuthService', function($http, $q, SettingsService, $window, $timeout){
   return {
-    signIn: function(login, password) {
+    signIn: function(login, password, stayLogged) {
       var deferred = $q.defer();
       $http.post(SettingsService.apiUrl + 'auth', {
         login: login,
-        password: password
+        password: password,
+        stayLogged: stayLogged
       }).success(function(result){
         deferred.resolve(result.token);
         $window.localStorage.authToken = result.token;

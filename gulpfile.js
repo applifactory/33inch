@@ -58,7 +58,7 @@ gulp.task('nodemon', function() {
     //ext: 'js css html'
     ignore: ['public/**', 'assets/**']
   })
-    .on('start', ['build', 'watch'])
+    .on('start', ['watch'])
     .on('restart', function() {
       console.log('Server restarted!');
     });

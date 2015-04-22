@@ -37,9 +37,9 @@ module.exports.requireAdminAuth = function(req, res, next) {
     res.status(401).end();
 };
 
-module.exports.loginUser = function(login, password, callback) {
+module.exports.loginUser = function(login, password, stayLogged, callback) {
   User.findOne({email: login}).select('name email password roles').exec(function(err, user){
-    console.log(login, password);
+    console.log(login, password, stayLogged);
     if ( !user || !user.comparePassword(password) ) {
       callback(false);
     } else {
@@ -47,7 +47,7 @@ module.exports.loginUser = function(login, password, callback) {
         jwt.sign({
           userId: user._id,
           roles: user.roles
-        }, config.secret, { expiresInMinutes: 60 * 24 * 3 }),
+        }, config.secret, { expiresInMinutes: 60 * 24 * ( stayLogged ? 356 : 3 ) }),
         user
       );
     }

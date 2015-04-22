@@ -9,8 +9,7 @@ module.exports.index = function(req, res) {
 };
 
 module.exports.login = function(req, res) {
-  authUtil.loginUser( req.body.login, req.body.password, function(token, user){
-    console.log(user);
+  authUtil.loginUser( req.body.login, req.body.password, req.body.stayLogged, function(token, user){
     if ( token ) {
       res
         .json({

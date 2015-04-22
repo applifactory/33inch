@@ -4,12 +4,13 @@ var index = require('../controllers/IndexController.js');
 var authUtil = require('../../../utils/AuthService.js');
 
 module.exports = function(app) {
-  app.route('/app')
-    .all(authUtil.requireUserAuth)
-    .get(index.index);
+  app.all('/app', index.index)
+  app.all('/app/*', index.index)
+  app.all('/account', index.index)
+  app.all('/account/*', index.index)
 
-  app.route('/account')
-    .get(index.account);
+    //.all(authUtil.requireUserAuth)
+
 
     //.delete(users.requiresLogin, articles.hasAuthorization, articles.delete);
   // Finish by binding the article middleware

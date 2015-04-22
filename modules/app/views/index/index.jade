@@ -1,1 +1,10 @@
-h1 Hello to your app
+extends ../layouts/app.jade
+
+block title
+  title 33inch
+
+block head
+  base(href="/")
+
+block content
+  div(ng-app="App33Inch", ui-view)

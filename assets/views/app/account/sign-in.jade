@@ -1,0 +1,21 @@
+.sign-in
+  h1 Sign in
+  form(name="signInForm", ng-submit="submitForm()", novalidate, ng-class="{loading: isLoading}")
+    .message.danger(ng-show="signInForm.$submitted && ( signInForm.$invalid || errorMessage )")
+      span(ng-if="signInForm.$submitted", ng-messages="signInForm.email.$error")
+        span(ng-message="required") Enter your email
+        span(ng-message="email") Wrong email format
+      span(ng-if="signInForm.$submitted && !signInForm.email.$invalid", ng-messages="signInForm.password.$error")
+        span(ng-message="required") Enter your pasword
+      span(ng-if="signInForm.$submitted && !signInForm.email.$invalid && !signInForm.password.$invalid && errorMessage")
+        | {{errorMessage}}
+
+    label(ng-class="{error: signInForm.$submitted && signInForm.email.$invalid}")
+      | Email
+      input(type="email", name="email", ng-model="credentials.email", required)
+    label(ng-class="{error: signInForm.$submitted && signInForm.password.$invalid}")
+      | Password
+      input(type="password", name="password", ng-model="credentials.password", required)
+    .actions
+      input.button.success.fill(type="submit", value="Sign in")
+      .button.primary.fill.small Sign up

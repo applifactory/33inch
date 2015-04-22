@@ -6,26 +6,49 @@ var config = require('../config/config.js');
 var User = require('../models/user');
 
 module.exports.requireUserAuth = function(req, res, next) {
-  console.log('# requireUserAuth');
-  res.redirect('/account');
-//  next();
+  var token = req.header('X-Auth-Token');
+  if ( token )
+    jwt.verify(token, config.secret, function(err, decoded) {
+      if ( decoded ) {
+        if ( decoded.roles && decoded.roles.indexOf('user') >= 0 ) {
+          req.params.authUser = decoded;
+          return next();
+        }
+      }
+      res.status(401).end();
+    });
+  else
+    res.status(401).end();
 };
 
 module.exports.requireAdminAuth = function(req, res, next) {
-  console.log('# requireAdminAuth');
-  next();
+  var token = req.header('X-Auth-Token');
+  if ( token )
+    jwt.verify(token, config.secret, function(err, decoded) {
+      if ( decoded ) {
+        if ( decoded.roles && decoded.roles.indexOf('admin') >= 0 ) {
+          req.params.authUser = decoded;
+          return next();
+        }
+      }
+      res.status(401).end();
+    });
+  else
+    res.status(401).end();
 };
 
 module.exports.loginUser = function(login, password, callback) {
-  User.findOne({email: login}).select('name email password').exec(function(err, user){
+  User.findOne({email: login}).select('name email password roles').exec(function(err, user){
     console.log(login, password);
     if ( !user || !user.comparePassword(password) ) {
       callback(false);
     } else {
       callback(
         jwt.sign({
-          foo: 'bar'
-        }, config.secret, { expiresInMinutes: 60 * 24 * 3 })
+          userId: user._id,
+          roles: user.roles
+        }, config.secret, { expiresInMinutes: 60 * 24 * 3 }),
+        user
       );
     }
   });
@@ -41,6 +64,7 @@ module.exports.registerUser = function(email, password, callback) {
   var user = new User();
   user.email = email;
   user.password = password;
+  user.roles.push('user');
   user.save(function(error){
     if ( error ) {
       var errorMessage = '';

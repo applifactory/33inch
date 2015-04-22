@@ -1,18 +1,28 @@
 var authUtil = require('../../../utils/AuthService.js');
-//var express    = require('express'); // call express
-//var mongoose = require('mongoose')
-//var Video = require('../models/user');
+var User = require('../../../models/user');
 
 module.exports.index = function(req, res) {
-  res.json({message: 'hello world'});
+  User.findById(req.params.authUser.userId, function(err, user){
+    if (err) return res.status(401).end();
+    res.json({user: user});
+  })
 };
 
 module.exports.login = function(req, res) {
-  authUtil.loginUser( req.body.login, req.body.password, function(token){
+  authUtil.loginUser( req.body.login, req.body.password, function(token, user){
+    console.log(user);
     if ( token ) {
-      res.json({message: 'Login success', token: token});
+      res
+        .json({
+          message: 'Login success',
+          token: token
+        });
     } else {
-      res.status(401).json({ message: 'Wrong email or password' });
+      res
+        .status(401)
+        .json({
+          message: 'Wrong email or password'
+        });
     }
   });
 };

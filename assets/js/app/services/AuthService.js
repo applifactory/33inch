@@ -1,4 +1,4 @@
-app.service('AuthService', function($http, $q, SettingsService, $window){
+app.service('AuthService', function($http, $q, SettingsService, $window, $timeout){
   return {
     signIn: function(login, password) {
       var deferred = $q.defer();
@@ -11,6 +11,21 @@ app.service('AuthService', function($http, $q, SettingsService, $window){
       }).error(function(error){
         deferred.reject(error.message);
       });
+      return deferred.promise;
+    },
+    me: function() {
+      var deferred = $q.defer();
+      if ( $window.localStorage.authToken ) {
+        $http.get(SettingsService.apiUrl + 'auth').success(function(result){
+          deferred.resolve(result);
+        }).error(function(error){
+          $window.localStorage.removeItem('authToken')
+          deferred.reject();
+        });
+      } else
+        $timeout(function(){
+          deferred.reject();
+        });
       return deferred.promise;
     }
   }

@@ -40,6 +40,7 @@ module.exports.requireAdminAuth = function(req, res, next) {
 module.exports.loginUser = function(login, password, stayLogged, callback) {
   User.findOne({email: login}).select('name email password roles').exec(function(err, user){
     console.log(login, password, stayLogged);
+    console.log('callback', callback);
     if ( !user || !user.comparePassword(password) ) {
       callback(false);
     } else {

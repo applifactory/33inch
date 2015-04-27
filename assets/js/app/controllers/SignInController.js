@@ -28,11 +28,11 @@ app.controller('SignInCtrl', function($scope, AuthService, $state){
   //  do login
   $scope.submitForm = function() {
     if ( !$scope.isLoading && $scope.signInForm.$valid ) {
-//      $scope.isLoading = true;
+      $scope.isLoading = true;
       $scope.errorMessage = null;
       AuthService.signIn($scope.credentials.email, $scope.credentials.password, $scope.credentials.stayLogged).then(function(){
         $scope.errorMessage = false;
-//        $state.go('app');
+        $state.go('app');
       }, function(error){
         $scope.isLoading = false;
         $scope.errorMessage = error;

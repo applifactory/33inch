@@ -9,7 +9,7 @@ module.exports.register = function(req, res) {
     if ( error ) {
       res.status(403).json({message: error});
     } else {
-      authService.loginUser(login, password, function(token){
+      authService.loginUser(login, password, false, function(token){
         if ( token )
           res.json({message: 'Register success', token: token});
         else

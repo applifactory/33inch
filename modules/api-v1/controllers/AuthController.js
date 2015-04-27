@@ -4,6 +4,7 @@ var User = require('../../../models/user');
 module.exports.index = function(req, res) {
   User.findById(req.params.authUser.userId, function(err, user){
     if (err) return res.status(401).end();
+    if (!user) return res.status(401).end();
     res.json({user: user});
   })
 };

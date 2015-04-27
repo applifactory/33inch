@@ -1,5 +1,5 @@
 .sign-in
-  h1 Sign in
+  h1 Sign in {{isLoading}}
   form(name="signInForm", ng-submit="submitForm()", novalidate, ng-class="{loading: isLoading}")
     .message.danger(ng-show="signInForm.$submitted && ( signInForm.$invalid || errorMessage )")
       span(ng-if="signInForm.$submitted", ng-messages="signInForm.email.$error")

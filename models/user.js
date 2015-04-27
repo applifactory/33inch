@@ -7,6 +7,7 @@ var UserSchema = new Schema({
   email: { type: String, required: true, index: { unique: true } },
   password: { type: String, required: true, select: false },
   roles: Array
+  //websites: [{ type: Schema.Types.ObjectId, ref: 'Website' }]
 });
 
 UserSchema.pre('save', function(next){

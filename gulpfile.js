@@ -20,8 +20,8 @@ gulp.task('css', function(done) {
       path.extname = '.min.css';
     }))
     .pipe( gulp.dest('public/assets') )
-    .pipe( livereload() );
-    //.on('end', done);
+    .pipe( livereload() )
+    .on('end', done);
 });
 
 gulp.task('js', function(done) {

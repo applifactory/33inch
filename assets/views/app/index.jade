@@ -1,1 +1,14 @@
-h1 app/index
+h1 Websites
+table
+  thead
+    tr
+      th Website name
+      th Website link
+      th Actions
+  tbody
+    tr(ng-repeat="website in websites")
+      td {{website.name}}
+      td
+        a(href="http://{{getWebsiteLink(website)}}", target="_blank") {{getWebsiteLink(website)}}
+      td
+        a(href="/app/{{website.permalink}}") Edit

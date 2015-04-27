@@ -31,7 +31,7 @@ var Website = mongoose.model('Website', WebsiteSchema);
 
 //  validate permalink
 Website.schema.path('permalink').validate(function (value) {
-  return /^[a-z0-9\-]+$/g.test(value);
+  return /^([a-z0-9\-]+)$/g.test(value);
 }, 'Invalid link format');
 
 //  validate domain

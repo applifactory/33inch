@@ -14,6 +14,14 @@ app.service('AuthService', function($http, $q, SettingsService, $window, $timeou
       });
       return deferred.promise;
     },
+    signOut: function() {
+      var deferred = $q.defer();
+      $window.localStorage.removeItem('authToken');
+      $timeout(function(){
+        deferred.resolve();
+      });
+      return deferred.promise;
+    },
     me: function() {
       var deferred = $q.defer();
       if ( $window.localStorage.authToken ) {

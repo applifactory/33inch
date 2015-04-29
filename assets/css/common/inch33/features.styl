@@ -1,0 +1,36 @@
+.inch33
+  article.features
+    background: whitesmoke
+    padding: 1em 0
+    .container
+      margin-top: 2em
+    ul
+      list-style: none
+      padding: 0
+      overflow: hidden
+      li
+        text-align: center
+        padding: 2em 0
+        img
+          max-width: 100%
+        p
+          margin-bottom: 0
+        +size($small)
+          column(1/3)
+          text-align: center
+      &.col2
+        li
+          +size($small)
+            column(1/2)
+            text-align: center
+      &.col4
+        li
+          +size($small)
+            column(1/4)
+            text-align: center
+      &.col5
+        li
+          +size($small)
+            column(1/5)
+            text-align: center
+

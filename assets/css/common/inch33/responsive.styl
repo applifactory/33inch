@@ -7,15 +7,16 @@ size($size)
   @media screen and (min-width: $size)
     {block}
 
-.container
-  width: auto
-  margin: 1em 0.5em
-  +size($small)
-    width: 750px
-    margin: 1em auto
-  +size($medium)
-    width: 970px
-    margin: 1em auto
-  +size($large)
-    width: 1170px
-    margin: 1em auto
+.inch33
+  .container
+    width: auto
+    margin: 1em 0.5em
+    +size($small)
+      width: 750px
+      margin: 1em auto
+    +size($medium)
+      width: 970px
+      margin: 1em auto
+    +size($large)
+      width: 1170px
+      margin: 1em auto

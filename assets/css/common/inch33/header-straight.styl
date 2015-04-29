@@ -1,0 +1,31 @@
+.inch33
+  header.straight
+    min-height: 100vh
+    background: url(https://download.unsplash.com/photo-1425136738262-212551713a58) no-repeat center
+    background-size: cover
+    position: relative
+    overflow: hidden
+    &::after
+      content: ''
+      position: absolute
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+      background: rgba(54, 92, 152, 0.53)
+      z-index: 1
+    .hero
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+      color: white
+      width: 550px
+      max-width: 100%
+      text-align: center
+      z-index: 2
+      margin: 1em
+      h1
+        font-size: 4.5em
+      h2
+        font-family: 'Raleway', sans-serif

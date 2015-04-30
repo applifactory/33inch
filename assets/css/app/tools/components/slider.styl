@@ -1,0 +1,53 @@
+$height = 5px
+slider, [slider]
+  display: block
+  position: relative
+  height: $height
+  margin: 10px 15px 10px
+  vertical-align: middle
+  div
+    white-space: nowrap
+    position: absolute
+    &.bar
+      width: 100%;
+      height: 100%;
+      border-radius: $height;
+      background: #444;
+      overflow: hidden;
+      .selection
+        width: 0%;
+        height: 100%;
+        background: #13b6ff;
+    &.handle
+      cursor: pointer
+      width: 15px
+      height: 15px
+      top: -5px
+      background-color: toolText
+      z-index: 2
+      border-radius: 100%
+      &:hover
+        background-color: lighten(toolAccent, 40%)
+      &.active
+        background-color: toolAccent
+        & ~ .bubble.limit
+          display: inline-block
+    &.bubble
+      display: none
+      cursor: default
+      top: -22px
+      padding: 1px 3px 1px 3px
+      font-size: 0.7em
+      font-family: sans-serif
+      color: toolText
+      &.active
+
+        color: toolAccent
+      &.limit
+        color: darken(toolText, 20%)
+        top: -8px
+        display: inline-block
+        &.low
+          margin-left: -15px
+        &.high
+          margin-left: 15px

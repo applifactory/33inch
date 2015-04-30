@@ -1,0 +1,21 @@
+i.fa.fa-ellipsis-h
+.dropdown
+  .item.move
+    i.fa.fa-arrow-circle-down
+    | Move
+    i.fa.fa-arrow-circle-up
+  .item(ng-click)
+    | Background
+    i.fa.fa-angle-right.right
+  .item(ng-click)
+    | Appearance
+    i.fa.fa-angle-right.right
+  .item(ng-click)
+    | Delete
+    i.fa.fa-angle-right.right
+  .item
+    | Columns:
+    span.value {{cols}}
+    slider(floor="1", ceiling="5", step="1", precision="1", ng-model="cols")
+  .item
+    | Something else

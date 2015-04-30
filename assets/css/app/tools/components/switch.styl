@@ -1,0 +1,25 @@
+switchSize = 18px
+
+.switch
+  background: lighten(toolBg, 20%)
+  position: relative
+  cursor: pointer
+  width: switchSize*2
+  height: switchSize
+  border-radius: 25px
+  transition: all .2s ease
+  .switch-button
+    height: switchSize
+    width: switchSize
+    background: toolText
+    display: block
+    border-radius: 25px
+    position: absolute
+    transition: all .2s ease
+  &.switch-left .switch-button
+    left: 0
+  &.switch-right
+    background: toolAccent
+    .switch-button
+      left: 20px
+      background: white

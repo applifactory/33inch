@@ -13,13 +13,20 @@ app.directive('inch33Element', function($compile, $http, Inch33ElementService){
 
             var el = angular.element(html);
 
+            //  init data object
+            if ( !scope.ngModel.hasOwnProperty('data') )
+              scope.ngModel.data = {};
+
+            //  columns
+            if ( scope.config.columns && !scope.ngModel.data.hasOwnProperty('columns') ) {
+              scope.ngModel.data.columns = scope.config.columns.default;
+              var _el = el[0].querySelector('.columns');
+              _el.setAttribute('class', 'col-{{ngModel.data.columns}}');
+            }
+
             if ( scope.config.elements ) {
               scope.config.elements.forEach(function(element){
                 element.id = element.selector.replace(/[^a-z0-9]+/gi, ' ').trim().replace(/ /gi, '-');
-
-                //  init data object
-                if ( !scope.ngModel.hasOwnProperty('data') )
-                  scope.ngModel.data = {};
 
                 //  init data elements
                 if ( !scope.ngModel.data.hasOwnProperty(element.id) )
@@ -28,11 +35,8 @@ app.directive('inch33Element', function($compile, $http, Inch33ElementService){
                 //  set default element values, bind view
                 if ( element.hasOwnProperty('elements') && !scope.ngModel.data[element.id].hasOwnProperty('elements') ) {
                   scope.ngModel.data[element.id].elements = element.elements;
-
                   var _el = el[0].querySelector(element.selector);
                   _el.setAttribute('ng-if', 'ngModel.data["' + element.id + '"].elements');
-                  console.log(element.id + '.elements');
-
                 }
 
               });

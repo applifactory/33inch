@@ -17,13 +17,10 @@ i.fa.fa-ellipsis-h
       .item(ng-if="config.background", ng-click)
         | Background
         i.fa.fa-angle-right.right
-      .item
+      .item(ng-if="config.columns")
         | Columns:
-        span.value {{cols}}
-        slider(floor="1", ceiling="5", step="1", precision="1", ng-model="cols")
-      .item
-        | Something else
-        div(ng-switcher, ng-model="switchStatus")
+        span.value {{data.columns}}
+        slider(floor="{{config.columns.min}}", ceiling="{{config.columns.max}}", step="1", precision="1", ng-model="data.columns")
       .item(ng-click)
         | Delete
         i.fa.fa-angle-right.right

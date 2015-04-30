@@ -41,6 +41,44 @@ app.service('Inch33ElementService', function(){
             elements: false
           }
         ]
+      },
+      'article-features': {
+        background: true,
+        columns: {
+          min: 2,
+          max: 5,
+          default: 3
+        },
+        elements: [
+          {
+            name: 'Title',
+            type: 'text',
+            selector: '.container h1',
+            elements: true
+          },
+          {
+            name: 'Text',
+            type: 'text',
+            selector: '.container .regular',
+            elements: false
+          }
+        ]
+      },
+      'showcase-grid': {
+        background: false,
+        columns: {
+          min: 2,
+          max: 6,
+          default: 3
+        }
+      },
+      'list-grid': {
+        background: true,
+        columns: {
+          min: 1,
+          max: 4,
+          default: 2
+        }
       }
     },
     getConfig: function(type) {

@@ -2,15 +2,20 @@ app.controller('WebsiteEditCtrl', function($scope){
 
   $scope.elements = [
     {
-      template: 'header-straight'
+      template: 'header-straight',
+      //data: {}
     }, {
-      template: 'article-text'
+      template: 'article-text',
+      data: {}
     }, {
-      template: 'article-features'
+      template: 'article-features',
+      data: {}
     }, {
-      template: 'showcase-grid'
+      template: 'showcase-grid',
+      data: {}
     }, {
-      template: 'list-grid'
+      template: 'list-grid',
+      data: {}
     }
   ];
 

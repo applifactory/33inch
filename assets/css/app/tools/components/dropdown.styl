@@ -12,7 +12,7 @@ tools-dropdown
   width: 36px
   text-align: center
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5)
-  //opacity: 0
+  margin-left: -18px
   &:hover
     background: lighten(toolBg, 10%)
   article:hover &
@@ -30,6 +30,22 @@ tools-dropdown
     margin-left: -82px
     top: 50px
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5)
+    z-index: 1002
+    .viewport
+      overflow: hidden
+      transition: height 0.3s ease
+      position: relative
+      min-height: 30px
+      .view
+        position: absolute
+        left: 200px
+        top: 5px
+        width: 100%
+        transition: left 0.3s ease
+        &.active
+          left: 0
+        &.hidden
+          left: -200px
     &::after
       bottom: 100%
       left: 50%
@@ -46,8 +62,10 @@ tools-dropdown
     //.group
     .fa
       font-size: 16px
-      &.right
-        float: right
+    .left
+      float: left
+    .right
+      float: right
     .item
       color: toolColor
       padding: 3px 6px
@@ -60,6 +78,19 @@ tools-dropdown
         &:hover
           background: lighten(toolBg, 10%)
           color: toolAccent
+      &.title
+        text-align: center
+        font-weight: bold
+        position: relative
+        .back
+          position: absolute
+          left: 5px
+          font-weight: normal
+          cursor: pointer
+          &:hover
+            color: toolAccent
+          .fa
+            margin-right: 3px
       &.move
         text-align: center
         .fa

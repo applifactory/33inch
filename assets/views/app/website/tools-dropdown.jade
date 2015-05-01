@@ -21,6 +21,9 @@ i.fa.fa-ellipsis-h
         | Columns:
         span.value {{data.columns}}
         slider(floor="{{config.columns.min}}", ceiling="{{config.columns.max}}", step="1", precision="1", ng-model="data.columns")
+      .item
+        | Color
+        color-picker
       .item(ng-click)
         | Delete
         i.fa.fa-angle-right.right

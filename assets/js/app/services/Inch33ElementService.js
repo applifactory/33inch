@@ -2,7 +2,6 @@ app.service('Inch33ElementService', function(){
   return {
     config: {
       'header-straight': {
-        background: true,
         elements: [
           {
             name: 'Title',
@@ -21,7 +20,9 @@ app.service('Inch33ElementService', function(){
         ]
       },
       'article-text': {
-        background: true,
+        style: {
+          backgroundColor: '#ffffff'
+        },
         elements: [
           {
             name: 'Title',
@@ -43,7 +44,9 @@ app.service('Inch33ElementService', function(){
         ]
       },
       'article-features': {
-        background: true,
+        style: {
+          backgroundColor: '#F5F5F5'
+        },
         columns: {
           min: 2,
           max: 5,
@@ -66,6 +69,9 @@ app.service('Inch33ElementService', function(){
       },
       'showcase-grid': {
         background: false,
+        style: {
+          backgroundColor: '#1D262D'
+        },
         columns: {
           min: 2,
           max: 6,
@@ -73,7 +79,9 @@ app.service('Inch33ElementService', function(){
         }
       },
       'list-grid': {
-        background: true,
+        style: {
+          backgroundColor: '#C0A85A'
+        },
         columns: {
           min: 1,
           max: 4,

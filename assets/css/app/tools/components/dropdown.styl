@@ -106,3 +106,26 @@ tools-dropdown
       [ng-switcher]
         display: inline-block
         float: right
+      .button
+        float: right
+      .colors
+        overflow: hidden
+        .color
+          float: left
+          width: 25px
+          height: 25px
+          border: solid 1px lighten(toolBg, 10%)
+          margin: 2px 3px 3px 2px
+          position: relative
+          text-align: center
+          line-height: 27px
+          cursor: pointer
+          &:hover
+            border-color: toolAccent
+          &.add
+            &:hover
+              background: lighten(toolBg, 10%)
+              color: toolAccent
+          &.active
+            border: black 1px solid
+            box-shadow: 0 0 0 1px white

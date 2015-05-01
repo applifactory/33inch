@@ -17,6 +17,9 @@ app.directive('toolsDropdown', function($timeout){
       }, true);
     },
     controller: function($scope){
+
+      $scope.colors = ['#ffffff', '#F5F5F5', '#1D262D', '#C0A85A'];
+
       $scope.hasElements = false;
       $scope.hasAppearance = false;
       if ( $scope.config.elements ) {
@@ -29,6 +32,11 @@ app.directive('toolsDropdown', function($timeout){
       $scope.showView = function(view) {
         $scope.currentView = view;
       }
+
+      $scope.setBackgroundColor = function(color) {
+        $scope.data.style.backgroundColor = color;
+      }
+
     }
   }
 })

@@ -3,10 +3,12 @@ app.controller('WebsiteEditCtrl', function($scope){
   $scope.elements = [
     {
       template: 'header-straight',
-      //data: {}
+      data: {
+      }
     }, {
       template: 'article-text',
-      data: {}
+      data: {
+      }
     }, {
       template: 'article-features',
       data: {}

@@ -14,16 +14,13 @@ i.fa.fa-ellipsis-h
       .item(ng-if="hasAppearance", ng-click="showView('appearance')")
         | Appearance
         i.fa.fa-angle-right.right
-      .item(ng-if="config.background", ng-click)
+      .item(ng-if="!config.hasOwnProperty('background') || config.background", ng-click="showView('background')")
         | Background
         i.fa.fa-angle-right.right
       .item(ng-if="config.columns")
         | Columns:
         span.value {{data.columns}}
         slider(floor="{{config.columns.min}}", ceiling="{{config.columns.max}}", step="1", precision="1", ng-model="data.columns")
-      .item
-        | Color
-        color-picker
       .item(ng-click)
         | Delete
         i.fa.fa-angle-right.right
@@ -46,3 +43,30 @@ i.fa.fa-ellipsis-h
           i.fa.fa-angle-left
           | back
         | Appearance
+
+    //  background
+    .view(ng-class="{active: currentView=='background', hidden: currentView=='new-bg-color'}")
+      .item.title
+        .back(ng-click="showView('main')")
+          i.fa.fa-angle-left
+          | back
+        | Background
+      .item
+        | Color
+        .colors
+          .color(ng-repeat="color in colors" style="background: {{color}}", ng-click="setBackgroundColor(color)")
+          .color.add(ng-click="showView('new-bg-color')")
+            .fa.fa-plus-circle
+      .item
+        | Image
+        .button Upload
+
+    .view(ng-class="{active: currentView=='new-bg-color'}")
+      .item.title
+        .back(ng-click="showView('background')")
+          i.fa.fa-angle-left
+          | back
+        | New color
+      .item
+        color-picker
+        .button Save

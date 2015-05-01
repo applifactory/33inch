@@ -1,4 +1,4 @@
-app.directive('toolsDropdown', function($timeout){
+app.directive('toolsDropdown', function($timeout, Inch33ElementService){
   return {
     restrict: 'E',
     templateUrl: '/assets/app/website/tools-dropdown.html',
@@ -15,10 +15,25 @@ app.directive('toolsDropdown', function($timeout){
       scope.$watch('data', function(data){
         console.log('data:', data);
       }, true);
+      angular.element(element[0].querySelector('.btn')).bind('click', function(e){
+        element[0].classList.toggle('open');
+      });
+      element.parent().bind('mouseout', function(event){
+
+        var e = event.toElement || event.relatedTarget;
+        while(e && e.parentNode && e.parentNode != window) {
+          if (e.parentNode == this||  e == this) {
+            if(e.preventDefault) e.preventDefault();
+            return false;
+          }
+          e = e.parentNode;
+        }
+        element[0].classList.remove('open');
+      });
     },
     controller: function($scope){
 
-      $scope.colors = ['#ffffff', '#F5F5F5', '#1D262D', '#C0A85A'];
+      $scope.colors = Inch33ElementService.colors;
 
       $scope.hasElements = false;
       $scope.hasAppearance = false;
@@ -35,6 +50,12 @@ app.directive('toolsDropdown', function($timeout){
 
       $scope.setBackgroundColor = function(color) {
         $scope.data.style.backgroundColor = color;
+      }
+
+      $scope.addColor = function(color) {
+        if ( Inch33ElementService.colors.indexOf(color) < 0 ) {
+          Inch33ElementService.colors.push(color);
+        }
       }
 
     }

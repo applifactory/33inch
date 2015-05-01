@@ -1,22 +1,31 @@
 tools-dropdown
-  background: toolBg
-  color: toolText
-  border-radius: 5px
-  padding: 0.25em
   position: absolute
   left: 50%
   top: 35px
-  padding: 6px 0 5px
-  cursor: pointer
+  color: toolText
   z-index: 1001
-  width: 36px
-  text-align: center
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5)
-  margin-left: -18px
-  &:hover
-    background: lighten(toolBg, 10%)
-  article:hover &
+  opacity: 0
+  transition: all 0.2s ease
+  article:hover &, header:hover &
     opacity: 1
+  .btn
+    background: toolBg
+    border-radius: 5px
+    padding: 0.25em
+    padding: 6px 0 5px
+    cursor: pointer
+    width: 36px
+    text-align: center
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5)
+    margin-left: -18px
+    &:hover
+      background: lighten(toolBg, 10%)
+  &.open
+    .btn
+      background: lighten(toolBg, 5%)
+    .dropdown
+      opacity: 1
+      visibility: visible
   .dropdown
     cursor: default
     text-align: left
@@ -27,10 +36,13 @@ tools-dropdown
     font-size: 14px
     line-height: 19px
     width: 200px
-    margin-left: -82px
+    margin-left: -100px
     top: 50px
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5)
     z-index: 1002
+    opacity: 0
+    visibility: hidden
+    transition: all 0.2s ease
     .viewport
       overflow: hidden
       transition: height 0.3s ease
@@ -108,12 +120,13 @@ tools-dropdown
         float: right
       .button
         float: right
+        margin-left: 4px
       .colors
         overflow: hidden
         .color
           float: left
-          width: 25px
-          height: 25px
+          width: 24px
+          height: 24px
           border: solid 1px lighten(toolBg, 10%)
           margin: 2px 3px 3px 2px
           position: relative

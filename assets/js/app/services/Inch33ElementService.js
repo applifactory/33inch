@@ -8,14 +8,14 @@ app.service('Inch33ElementService', function(){
             type: 'text',
             selector: '.hero h1',
             elements: true,
-            appearance: true
+            //appearance: true
           },
           {
             name: 'Claim',
             type: 'text',
             selector: '.hero h2',
             elements: true,
-            appearance: true
+            //appearance: true
           }
         ]
       },
@@ -89,6 +89,7 @@ app.service('Inch33ElementService', function(){
         }
       }
     },
+    colors: ['#ffffff', '#F5F5F5', '#1D262D', '#C0A85A'],
     getConfig: function(type) {
       return this.config.hasOwnProperty(type) ? this.config[type] : {};
     }

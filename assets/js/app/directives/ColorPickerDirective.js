@@ -2,6 +2,9 @@ app.directive('colorPicker', function($window){
   return {
     restrict: 'E',
     replace: true,
+    scope: {
+      color: '=ngModel'
+    },
     template:
       '<div class="color-picker">' +
         '<div class="color" style="background: {{bgColor}}">' +
@@ -20,7 +23,8 @@ app.directive('colorPicker', function($window){
           '<div class="overlay" ng-class="{active: mode==\'alpha\'}"></div>' +
         '</div>' +
         '<div class="preview">' +
-          '<div class="overlay" style="background: {{color}}"></div>' +
+          '<div class="overlay left" style="background: {{newColor}}"></div>' +
+          '<div class="overlay right" style="background: {{color}}"></div>' +
         '</div>' +
       '</div>',
     link: function(scope, element, attrs){
@@ -30,20 +34,32 @@ app.directive('colorPicker', function($window){
       scope.light = 0.5;
       scope.alpha = 1;
       scope.bgColor = '#000000';
-      scope.color = '#000000';
+      scope.newColor = '#000000';
       scope.mode = null;
+
+      scope.$watch('color', function(color){
+        if ( color != scope.newColor ) {
+          var _color = tinycolor(color).toHsl();
+          scope.hue = _color.h / 360;
+          scope.sat = _color.s;
+          scope.light = _color.l / ( 1 - scope.sat/2 );
+          scope.alpha = _color.a;
+          updateColors();
+        }
+      });
 
       var updateColors = function() {
         scope.bgColor = tinycolor({ h: scope.hue * 360, s: 1, l: 0.5 }).toHexString();
-        scope.color = tinycolor({ h: scope.hue * 360, s: scope.sat, l: scope.light * ( 1 - scope.sat/2 ), a: scope.alpha }).toRgbString();
+        scope.newColor = tinycolor({ h: scope.hue * 360, s: scope.sat, l: scope.light * ( 1 - scope.sat/2 ), a: scope.alpha }).toRgbString();
       }
 
       angular.element(document.body).bind('mouseup', function(e){
         if ( scope.mode != null ) {
           scope.$apply(function(){
             scope.mode = null;
+            console.log(scope.color);
+            scope.color = scope.newColor;
           });
-          console.log('done');
         }
       });
 

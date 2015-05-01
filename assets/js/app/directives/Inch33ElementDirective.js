@@ -26,9 +26,8 @@ app.directive('inch33Element', function($compile, $http, Inch33ElementService){
             }
 
             //  styles
-            if ( scope.config.style && !scope.ngModel.data.hasOwnProperty('style') ) {
-              scope.ngModel.data.style = scope.config.style;
-            }
+            if ( !scope.ngModel.data.hasOwnProperty('style') )
+              scope.ngModel.data.style = scope.config.style ? scope.config.style : {};
             el[0].setAttribute('ng-style', 'ngModel.data.style');
 
             //  elements

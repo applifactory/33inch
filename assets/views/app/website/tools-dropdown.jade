@@ -1,4 +1,5 @@
-i.fa.fa-ellipsis-h
+.btn
+  i.fa.fa-ellipsis-h
 .dropdown
   .viewport
 
@@ -54,8 +55,8 @@ i.fa.fa-ellipsis-h
       .item
         | Color
         .colors
-          .color(ng-repeat="color in colors" style="background: {{color}}", ng-click="setBackgroundColor(color)")
-          .color.add(ng-click="showView('new-bg-color')")
+          .color(ng-class="{active: color==data.style.backgroundColor}", ng-repeat="color in colors" style="background: {{color}}", ng-click="setBackgroundColor(color)")
+          .color.add(ng-click="lastColor = data.style.backgroundColor; showView('new-bg-color')")
             .fa.fa-plus-circle
       .item
         | Image
@@ -63,10 +64,11 @@ i.fa.fa-ellipsis-h
 
     .view(ng-class="{active: currentView=='new-bg-color'}")
       .item.title
-        .back(ng-click="showView('background')")
+        .back(ng-click="data.style.backgroundColor = lastColor; showView('background')")
           i.fa.fa-angle-left
           | back
         | New color
       .item
-        color-picker
-        .button Save
+        color-picker(ng-model="data.style.backgroundColor")
+        .button(ng-click="addColor(data.style.backgroundColor); showView('background')") Save
+        .button(ng-click="data.style.backgroundColor = lastColor; showView('background')") Cancel

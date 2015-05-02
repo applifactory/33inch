@@ -28,6 +28,8 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService){
           e = e.parentNode;
         }
         scope.$apply(function(){
+          if ( scope.currentView == 'new-bg-color' )
+            scope.data.style.backgroundColor = scope.lastColor;
           scope.showView('main');
           element[0].classList.remove('open');
         });

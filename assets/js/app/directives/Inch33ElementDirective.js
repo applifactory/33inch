@@ -39,12 +39,22 @@ app.directive('inch33Element', function($compile, $http, Inch33ElementService){
                 if ( !scope.ngModel.data.hasOwnProperty(element.id) )
                   scope.ngModel.data[element.id] = {};
 
+                //  find element
+                var _el = el[0].querySelector(element.selector);
+
                 //  set default element values, bind view
                 if ( element.hasOwnProperty('elements') ) {
                   if ( !scope.ngModel.data[element.id].hasOwnProperty('elements') )
                     scope.ngModel.data[element.id].elements = element.elements;
-                  var _el = el[0].querySelector(element.selector);
                   _el.setAttribute('ng-if', 'ngModel.data["' + element.id + '"].elements');
+                }
+
+                //  texts
+                if ( element.type && element.type == 'text' ) {
+                  if ( !scope.ngModel.data[element.id].hasOwnProperty('text') )
+                    scope.ngModel.data[element.id].text = _el.innerHTML;
+                  _el.setAttribute('ng-model', 'ngModel.data["' + element.id + '"].text');
+                  _el.setAttribute('contenteditable', '');
                 }
 
               });

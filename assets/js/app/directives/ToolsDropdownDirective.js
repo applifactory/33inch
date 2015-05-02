@@ -18,17 +18,19 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService){
       angular.element(element[0].querySelector('.btn')).bind('click', function(e){
         element[0].classList.toggle('open');
       });
-      element.parent().bind('mouseout', function(event){
-
+      element.parent().bind('mouseout click', function(event){
+        var rel = event.type == 'mouseout' ? this : element[0];
         var e = event.toElement || event.relatedTarget;
-        while(e && e.parentNode && e.parentNode != window) {
-          if (e.parentNode == this||  e == this) {
-            if(e.preventDefault) e.preventDefault();
+        while( e && e.parentNode && e.parentNode != window ) {
+          if ( e.parentNode == rel ||  e == rel ) {
             return false;
           }
           e = e.parentNode;
         }
-        element[0].classList.remove('open');
+        scope.$apply(function(){
+          scope.showView('main');
+          element[0].classList.remove('open');
+        });
       });
     },
     controller: function($scope){

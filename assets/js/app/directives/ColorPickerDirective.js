@@ -70,7 +70,7 @@ app.directive('colorPicker', function($window){
         if ( e.which == 1 && scope.mode == 'hue' ) {
           e.preventDefault();
           var offset = e.target.classList.contains('active') ? 20 : 0;
-          scope.hue = Math.max( Math.min( ( e.layerY - offset ) / ( e.currentTarget.offsetHeight - 2 * offset ), 1 ), 0 );
+          scope.hue = Math.max( Math.min( ( e.offsetY - offset ) / ( e.currentTarget.offsetHeight - 2 * offset ), 1 ), 0 );
           $window.getSelection().removeAllRanges();
           updateColors();
           scope.$apply();
@@ -84,8 +84,11 @@ app.directive('colorPicker', function($window){
         if ( e.which == 1 && scope.mode == 'color' ) {
           e.preventDefault();
           var offset = e.target.classList.contains('active') ? 20 : 0;
-          scope.sat = Math.max( Math.min( ( e.layerX - offset ) / ( e.currentTarget.offsetWidth - 2 * offset ), 1 ), 0 );
-          scope.light = 1 - Math.max( Math.min( ( e.layerY - offset ) / ( e.currentTarget.offsetHeight - 2 * offset ), 1 ), 0 );
+          console.log('offsetX', e.offsetX);
+          console.log('offsetX', e.offsetX);
+          console.log('event', e);
+          scope.sat = Math.max( Math.min( ( e.offsetX - offset ) / ( e.currentTarget.offsetWidth - 2 * offset ), 1 ), 0 );
+          scope.light = 1 - Math.max( Math.min( ( e.offsetY - offset ) / ( e.currentTarget.offsetHeight - 2 * offset ), 1 ), 0 );
           $window.getSelection().removeAllRanges();
           updateColors();
           scope.$apply();
@@ -99,7 +102,7 @@ app.directive('colorPicker', function($window){
         if ( e.which == 1 && scope.mode == 'alpha' ) {
           e.preventDefault();
           var offset = e.target.classList.contains('active') ? 20 : 0;
-          scope.alpha = Math.max( Math.min( ( e.layerX - offset ) / ( e.currentTarget.offsetWidth - 2 * offset ), 1 ), 0 );
+          scope.alpha = Math.max( Math.min( ( e.offsetX - offset ) / ( e.currentTarget.offsetWidth - 2 * offset ), 1 ), 0 );
           $window.getSelection().removeAllRanges();
           updateColors();
           scope.$apply();

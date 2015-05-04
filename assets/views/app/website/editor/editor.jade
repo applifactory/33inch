@@ -1,0 +1,15 @@
+.toolbar
+  .btn-group
+    .btn(ng-click="setTextAlign('left')", ng-class="{active: data.style.textAlign == 'left'}")
+      i.fa.fa-align-left
+    .btn(ng-click="setTextAlign('center')", ng-class="{active: data.style.textAlign == 'center'}")
+      i.fa.fa-align-center
+    .btn(ng-click="setTextAlign('right')", ng-class="{active: data.style.textAlign == 'right'}")
+      i.fa.fa-align-right
+  .btn-group
+    .btn(dropdown="/assets/app/website/editor/fonts-dropdown.html")
+      i.fa.fa-font
+    .btn(dropdown="/assets/app/website/editor/colors-dropdown.html")
+      i.fa.fa-tint
+
+ng-transclude

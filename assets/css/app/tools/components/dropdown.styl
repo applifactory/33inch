@@ -9,23 +9,14 @@ tools-dropdown
   article:hover &, header:hover &
     opacity: 1
   .btn
-    background: toolBg
-    border-radius: 5px
-    padding: 0.25em
-    padding: 6px 0 5px
-    cursor: pointer
-    width: 36px
-    text-align: center
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5)
     margin-left: -18px
-    &:hover
-      background: lighten(toolBg, 10%)
   &.open
     .btn
       background: lighten(toolBg, 5%)
     .dropdown
       opacity: 1
       visibility: visible
+tools-dropdown, .btn
   .dropdown
     cursor: default
     text-align: left
@@ -71,6 +62,7 @@ tools-dropdown
       border-bottom-color: toolBg
       border-width: 12px
       margin-left: -12px
+      margin-bottom: -1px
     //.group
     .fa
       font-size: 16px
@@ -79,13 +71,13 @@ tools-dropdown
     .right
       float: right
     .item
-      color: toolColor
+      color: toolText
       padding: 3px 6px
       margin: 0
       border-bottom: solid 1px lighten(toolBg, 10%)
       &:last-child
         border-bottom: none
-      &[ng-click]
+      &[ng-click], &[view]
         cursor: pointer
         &:hover
           background: lighten(toolBg, 10%)
@@ -133,6 +125,7 @@ tools-dropdown
           text-align: center
           line-height: 27px
           cursor: pointer
+          transform: translate3d(0,0,0)
           &:hover
             border-color: toolAccent
           &.add
@@ -142,3 +135,10 @@ tools-dropdown
           &.active
             border: black 1px solid
             box-shadow: 0 0 0 1px white
+.btn
+  .dropdown
+    left: 16px
+  &.open
+    .dropdown
+      opacity: 1
+      visibility: visible

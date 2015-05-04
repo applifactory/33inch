@@ -1,0 +1,16 @@
+.view(name="main")
+  .item
+    | Color
+    .colors
+      .color(ng-class="{active: color==data.style.color}", ng-repeat="color in colors" style="background: {{color}}", ng-click="setColor(color)")
+      .color.add(view="new-color", ng-click="lastColor = data.style.color")
+        .fa.fa-plus-circle
+
+.view(name="new-color")
+  .item.title
+    .back
+    | New color
+  .item
+    color-picker(ng-model="data.style.color")
+    .button(ng-click="addColor(data.style.color); showView('background')") Save
+    .button(ng-click="data.style.color = lastColor; showView('background')") Cancel

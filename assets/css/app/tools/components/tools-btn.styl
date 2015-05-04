@@ -1,0 +1,30 @@
+.btn
+  background: toolBg
+  border-radius: 5px
+  padding: 0.25em
+  padding: 6px 0 5px
+  cursor: pointer
+  min-width: 36px
+  text-align: center
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5)
+  display: inline-block
+  color: toolText
+  &:hover
+    background: lighten(toolBg, 10%)
+  &[dropdown]
+    position: relative
+  &.active
+    color: toolAccent
+
+.btn-group
+  display: inline-block
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5)
+  margin: 0 3px
+  border-radius: 5px
+  .btn
+    box-shadow: none
+    border-radius: 0
+    &:first-child
+      border-radius: 5px 0 0 5px
+    &:last-child
+      border-radius: 0 5px 5px 0

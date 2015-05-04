@@ -53,8 +53,18 @@ app.directive('inch33Element', function($compile, $http, Inch33ElementService){
                 if ( element.type && element.type == 'text' ) {
                   if ( !scope.ngModel.data[element.id].hasOwnProperty('text') )
                     scope.ngModel.data[element.id].text = _el.innerHTML;
+
                   _el.setAttribute('ng-model', 'ngModel.data["' + element.id + '"].text');
+                  _el.setAttribute('ng-style', 'ngModel.data["' + element.id + '"].style');
                   _el.setAttribute('contenteditable', '');
+
+                  var editor = document.createElement('editor');
+                  editor.setAttribute('ng-model', 'ngModel.data["' + element.id + '"]');
+                  if ( element.hasOwnProperty('elements') ) {
+                    editor.setAttribute('ng-if', 'ngModel.data["' + element.id + '"].elements');
+                  }
+                  _el.parentElement.insertBefore(editor, _el);
+                  editor.appendChild(_el);
                 }
 
               });
@@ -62,9 +72,6 @@ app.directive('inch33Element', function($compile, $http, Inch33ElementService){
 
             var dropdown = angular.element('<tools-dropdown ng-model="ngModel.data" config="config"></tools-dropdown>');
             el.prepend(dropdown);
-
-            //console.log(scope.ngModel.template);
-            //console.log(scope.config);
 
             var compiled = $compile(el);
             iElement.append(el);

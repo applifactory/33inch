@@ -1,0 +1,25 @@
+.view(name="main")
+  .item(view="elements")
+    | Elements
+    i.fa.fa-angle-right.right
+  .item(view="appearance")
+    | Appearance
+    i.fa.fa-angle-right.right
+
+.view(name="elements")
+  .item.title
+    .back
+    | Elements
+  .item(view="sub-elements")
+    | Sub Elements
+    i.fa.fa-angle-right.right
+
+.view(name="sub-elements")
+  .item.title
+    .back
+    | Sub Elements
+
+.view(name="appearance")
+  .item.title
+    .back
+    | Appearance

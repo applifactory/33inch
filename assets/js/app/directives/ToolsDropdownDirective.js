@@ -18,8 +18,19 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService){
       angular.element(element[0].querySelector('.btn')).bind('click', function(e){
         element[0].classList.toggle('open');
       });
-      element.parent().bind('mouseout click', function(event){
-        var rel = event.type == 'mouseout' ? this : element[0];
+      angular.element(document).bind('click', function(event){
+        if ( element.hasClass('open') ) {
+          var e = event.target;
+          while ( e && e.parentElement && e.parentElement != window ) {
+            if ( e == element[0] )
+              return;
+            e = e.parentElement;
+          }
+          element[0].classList.remove('open');
+        }
+      });
+      element.parent().bind('mouseout', function(event){
+        var rel = this;
         var e = event.toElement || event.relatedTarget;
         while( e && e.parentNode && e.parentNode != window ) {
           if ( e.parentNode == rel ||  e == rel ) {

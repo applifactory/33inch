@@ -25,28 +25,25 @@ app.directive('dropdown', function($http, $compile, $timeout){
             }
           }
           iElement.bind('click', function(event){
+            var e = event.target;
             var rel = iElement[0].querySelector('.dropdown');
-            var e = event.toElement || event.relatedTarget;
-            while( e && e.parentNode && e.parentNode != window ) {
-              if ( e.parentNode == rel ||  e == rel ) {
-                return false;
-              }
-              e = e.parentNode;
+            while ( e && e.parentElement && e.parentElement != window ) {
+              if ( e == rel )
+                return;
+              e = e.parentElement;
             }
             toggle();
           });
 
           angular.element(document).bind('click', function(event){
             if ( iElement.hasClass('open') ) {
-              var rel = iElement[0].querySelector('.dropdown').parentNode;
-              var e = event.toElement || event.relatedTarget;
-              while( e && e.parentNode && e.parentNode != window ) {
-                if ( e.parentNode == rel ||  e == rel ) {
-                  return false;
-                }
-                e = e.parentNode;
+              var e = event.target;
+              while ( e && e.parentElement && e.parentElement != window ) {
+                if ( e == iElement[0] )
+                  return;
+                e = e.parentElement;
               }
-              toggle();
+              scope[name].close();
             }
           });
 
@@ -115,6 +112,10 @@ app.directive('dropdown', function($http, $compile, $timeout){
               if ( iElement.hasClass('open') ) {
                 iElement.removeClass('open');
                 scope.$broadcast('dropdown:close', name, stack[stack.length-1]);
+                $timeout(function() {
+                  stack = ['main'];
+                  updateStack();
+                }, 350);
               }
             },
             back: function(){

@@ -64,6 +64,21 @@ tools-dropdown, .btn
       margin-left: -12px
       margin-bottom: -1px
     //.group
+    .item
+      svg
+        path
+          fill: toolText
+      &.active, &:hover
+        svg
+          path
+            fill: toolAccent
+      &[font-family]
+        &:hover
+          background: lighten(toolBg, 10%)
+        svg
+          width: 100%
+          height: 13px
+          margin-top: 2px
     .fa
       font-size: 16px
     .left
@@ -125,7 +140,6 @@ tools-dropdown, .btn
           text-align: center
           line-height: 27px
           cursor: pointer
-          transform: translate3d(0,0,0)
           &:hover
             border-color: toolAccent
           &.add
@@ -138,6 +152,7 @@ tools-dropdown, .btn
 .btn
   .dropdown
     left: 16px
+    transform: translate3d(0,0,0)
   &.open
     .dropdown
       opacity: 1

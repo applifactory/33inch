@@ -1,6 +1,7 @@
-app.directive('dropdown', function($http, $compile){
+app.directive('dropdown', function($http, $compile, $timeout){
   return {
     restrict: 'A',
+    scope: false,
     compile: function(tElement, tAttrs, transclude) {
       return {
         pre: function(scope, iElement, iAttrs, controller) {
@@ -8,15 +9,20 @@ app.directive('dropdown', function($http, $compile){
             console.error('Missing `dropdown` value');
             return;
           }
-          var name = iAttrs.dropdown.replace(/^[\S]+\/([\S]+)\.[\S]+$/gi, '$1');
+          var name = iAttrs.dropdown.replace(/^[\S]+\/([\S]+)\.[\S]+$/gi, '$1').replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
           var toggle = function() {
-            stack = ['main'];
-            updateStack();
             iElement.toggleClass('open');
-            if ( iElement.hasClass('open') )
-              scope.$broadcast('dropdown:open', name);
-            else
-              scope.$broadcast('dropdown:close', name);
+            if ( iElement.hasClass('open') ) {
+              stack = ['main'];
+              updateStack();
+              scope.$broadcast('dropdown:open', name, stack[stack.length-1]);
+            } else {
+              scope.$broadcast('dropdown:close', name, stack[stack.length-1]);
+              $timeout(function(){
+                stack = ['main'];
+                updateStack();
+              }, 350);
+            }
           }
           iElement.bind('click', function(event){
             var rel = iElement[0].querySelector('.dropdown');
@@ -63,7 +69,9 @@ app.directive('dropdown', function($http, $compile){
                 view.el.classList.add('hidden');
               }
             });
-            iElement[0].querySelector('.viewport').style.height = ( iElement[0].querySelector('.view.active').offsetHeight + 10 ) + 'px';
+            $timeout(function(){
+              iElement[0].querySelector('.viewport').style.height = ( iElement[0].querySelector('.view.active').offsetHeight + 10 ) + 'px';
+            });
           }
 
           $http.get(iAttrs.dropdown).success(function(template){
@@ -80,18 +88,42 @@ app.directive('dropdown', function($http, $compile){
             angular.forEach(iElement[0].querySelectorAll('[view]'), function(item){
               angular.element(item).bind('click', function(){
                 stack.push(item.getAttribute('view'));
+                scope.$broadcast('dropdown:push', name, stack[stack.length-1]);
                 updateStack();
               });
             });
             angular.forEach(iElement[0].querySelectorAll('.back'), function(item){
               angular.element(item).html('<i class="fa fa-angle-left"></i> back').bind('click', function(){
-                stack.pop();
+                scope.$broadcast('dropdown:pop', name, stack.pop());
                 updateStack();
               });
             });
             stack = ['main'];
             updateStack();
           });
+
+          scope[name] = {
+            open: function() {
+              if ( !iElement.hasClass('open') ) {
+                stack = ['main'];
+                updateStack();
+                iElement.addClass('open');
+                scope.$broadcast('dropdown:open', name, stack[stack.length-1]);
+              }
+            },
+            close: function() {
+              if ( iElement.hasClass('open') ) {
+                iElement.removeClass('open');
+                scope.$broadcast('dropdown:close', name, stack[stack.length-1]);
+              }
+            },
+            back: function(){
+              if ( stack.length > 1 ) {
+                scope.$broadcast('dropdown:pop', name, stack.pop());
+                updateStack();
+              }
+            }
+          }
         }
       }
     }

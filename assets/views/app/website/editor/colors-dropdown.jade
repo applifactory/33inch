@@ -12,5 +12,5 @@
     | New color
   .item
     color-picker(ng-model="data.style.color")
-    .button(ng-click="addColor(data.style.color); showView('background')") Save
-    .button(ng-click="data.style.color = lastColor; showView('background')") Cancel
+    .button(ng-click="addColor(data.style.color)") Save
+    .button(ng-click="colorsDropdown.back()") Cancel

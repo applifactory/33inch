@@ -1,25 +1,47 @@
 .view(name="main")
-  .item(view="elements")
-    | Elements
+  .item(view="family")
+    span.selected-font Font family
     i.fa.fa-angle-right.right
-  .item(view="appearance")
-    | Appearance
-    i.fa.fa-angle-right.right
+  .item
+    | Size:
+    span.value {{data.style.fontSize}}
+    slider(floor="6", ceiling="99", step="1", precision="1", ng-model="fontSize")
+  .item
+    | Line height:
+    span.value {{data.style.lineHeight}}
+    slider(floor="0.5", ceiling="3", step="0.001", precision="1", ng-model="data.style.lineHeight")
 
-.view(name="elements")
+.view(name="family")
   .item.title
     .back
-    | Elements
-  .item(view="sub-elements")
-    | Sub Elements
-    i.fa.fa-angle-right.right
-
-.view(name="sub-elements")
-  .item.title
-    .back
-    | Sub Elements
-
-.view(name="appearance")
-  .item.title
-    .back
-    | Appearance
+    | Font family
+  .item(font-family="Abel, sans-serif")
+    include fonts/Abel.svg
+  .item(font-family="Arvo, serif")
+    include fonts/Arvo.svg
+  .item(font-family="Bitter, serif")
+    include fonts/Bitter.svg
+  .item(font-family="Dosis, sans-serif")
+    include fonts/Dosis.svg
+  .item(font-family="Droid Sans, sans-serif")
+    include fonts/Droid Sans.svg
+  .item(font-family="Lobster Two, serif")
+    include fonts/Lobster Two.svg
+  .item(font-family="Montserrat, sans-serif")
+    include fonts/Montserrat.svg
+  .item(font-family="Open Sans, sans-serif")
+    include fonts/Open Sans.svg
+  .item(font-family="Pacifico, serif")
+    include fonts/Pacifico.svg
+  .item(font-family="Poiret One, sans-serif")
+    include fonts/Poiret One.svg
+  .item(font-family="Quicksand, sans-serif")
+    include fonts/Quicksand.svg
+  .item(font-family="Raleway, sans-serif")
+    include fonts/Raleway.svg
+  .item(font-family="Roboto Slab, serif")
+    include fonts/Roboto Slab.svg
+  .item(font-family="Roboto, sans-serif")
+    include fonts/Roboto.svg
+  .item(font-family="Ubuntu, sans-serif")
+    include fonts/Ubuntu.svg

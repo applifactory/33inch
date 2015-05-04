@@ -1,4 +1,4 @@
-app.directive("editor", function($timeout, $window, Inch33ElementService) {
+app.directive("editor", function($timeout, $window, Inch33ElementService, $rootScope) {
   return {
     restrict: "E",
     require: "ngModel",
@@ -67,10 +67,34 @@ app.directive("editor", function($timeout, $window, Inch33ElementService) {
           if ( scope.data.style.lineHeight == 'normal' )
             scope.data.style.lineHeight = 1.5;
           else
-            scope.data.style.lineHeight = parseInt(scope.data.style.lineHeight) / scope.fontSize;
+            scope.data.style.lineHeight = Math.round(parseInt(scope.data.style.lineHeight) / scope.fontSize * 10) / 10;
         }
-      });
 
+        angular.element(element[0].querySelector('[contenteditable]')).bind('focus', function(){
+          element.addClass('focus');
+          scope.$emit('editor:focus');
+        });
+
+        $rootScope.$on('editor:focus', function(e){
+          if ( e.targetScope != scope ) {
+            element.removeClass('focus');
+          }
+        });
+
+        angular.element(document).bind('click', function(event){
+          if ( element.hasClass('focus') ) {
+            var e = event.target;
+            while ( e && e.parentElement && e.parentElement != window ) {
+              if ( e == element[0] ) {
+                return;
+              }
+              e = e.parentElement;
+            }
+            element.removeClass('focus');
+          }
+        });
+
+      });
     }
   };
 });

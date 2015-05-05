@@ -84,11 +84,19 @@ app.directive('colorPicker', function($window){
         if ( e.which == 1 && scope.mode == 'color' ) {
           e.preventDefault();
           var offset = e.target.classList.contains('active') ? 20 : 0;
+          var x, y;
+          if ( e.offsetX || e.offsetY ) {
+            x = e.offsetX;
+            y = e.offsetY;
+          } else {
+            x = e.layerX;
+            y = e.layerY;
+          }
           console.log('offsetX', e.offsetX);
           console.log('offsetX', e.offsetX);
           console.log('event', e);
-          scope.sat = Math.max( Math.min( ( e.offsetX - offset ) / ( e.currentTarget.offsetWidth - 2 * offset ), 1 ), 0 );
-          scope.light = 1 - Math.max( Math.min( ( e.offsetY - offset ) / ( e.currentTarget.offsetHeight - 2 * offset ), 1 ), 0 );
+          scope.sat = Math.max( Math.min( ( x - offset ) / ( e.currentTarget.offsetWidth - 2 * offset ), 1 ), 0 );
+          scope.light = 1 - Math.max( Math.min( ( y - offset ) / ( e.currentTarget.offsetHeight - 2 * offset ), 1 ), 0 );
           $window.getSelection().removeAllRanges();
           updateColors();
           scope.$apply();

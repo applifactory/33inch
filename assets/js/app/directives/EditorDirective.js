@@ -50,7 +50,7 @@ app.directive("editor", function($timeout, $window, Inch33ElementService, $rootS
     },
     link: function(scope, element, attrs, ngModel) {
       $timeout(function(){
-        var el = element[0].querySelector('ng-transclude > *');
+        var el = element[0].querySelector(':scope > ng-transclude > *');
         if ( !scope.data.style )
           scope.data.style = {};
         if ( !scope.data.style.textAlign )

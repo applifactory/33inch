@@ -56,6 +56,20 @@
           z-index: 2
           transition: all 0.3s ease
           text-shadow: 0 0 20px black, 0 0 50px black
+        editor
+          position: absolute
+          top: 50%
+          left: 10px
+          right: 10px
+          opacity: 0
+          transform: translate(0, -50%)
+          transition: all 0.2s ease
+          h3
+            position: static
+            transform: none
+        &:hover
+          editor
+            opacity: 1
       +size($small)
         li
           width: 33.333333333%

@@ -86,11 +86,19 @@ app.service('Inch33ElementService', function(){
         style: {
           backgroundColor: '#1D262D'
         },
-//        columns: {
-//          min: 2,
-//          max: 6,
-//          default: 3
-//        }
+        columns: {
+          min: 2,
+          max: 6,
+          default: 3
+        },
+        elements: [
+          {
+            name: 'Title',
+            type: 'text',
+            selector: 'li h3',
+            column: true
+          }
+        ]
       },
       'list-grid': {
         style: {
@@ -119,15 +127,6 @@ app.service('Inch33ElementService', function(){
         ]
       }
     },
-//    styles: {
-//      h3: {
-//        textAlign: left,
-//        color: '#FFF',
-//        fontFamily: 'Arvo, serif',
-//        fontSize: '21px',
-//        lineHeight: 1.5
-//      }
-//    },
     colors: ['#ffffff', '#F5F5F5', '#1D262D', '#C0A85A', '#3a4553'],
     registerColor: function(color) {
       if ( this.colors.indexOf(color) < 0 )

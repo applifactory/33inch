@@ -73,6 +73,15 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService){
         }
       }
 
+      $scope.addColumnItem = function() {
+        var item = {};
+        angular.forEach($scope.config.elements, function(element){
+          var _id = element.selector.replace(/[^a-z0-9]+/gi, ' ').trim().replace(/ /gi, '-');
+          item[_id] = {text: element.name};
+        });
+        $scope.data.columns.push(item);
+      }
+
     }
   }
 })

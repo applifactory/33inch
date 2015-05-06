@@ -17,20 +17,13 @@ app.directive('inch33Element', function($compile, $http, Inch33ElementService){
             if ( !scope.ngModel.hasOwnProperty('data') )
               scope.ngModel.data = {};
 
-            //  columns
-            if ( scope.config.columns ) {
-              if ( !scope.ngModel.data.hasOwnProperty('columns') )
-                scope.ngModel.data.columns = scope.config.columns.default;
-              var _el = el[0].querySelector('.columns');
-              _el.setAttribute('class', 'col-{{ngModel.data.columns}}');
-            }
-
             //  styles
             if ( !scope.ngModel.data.hasOwnProperty('style') )
               scope.ngModel.data.style = scope.config.style ? scope.config.style : {};
             el[0].setAttribute('ng-style', 'ngModel.data.style');
 
             //  elements
+            var agregateColumns = ( scope.config.columns && !scope.ngModel.data.hasOwnProperty('columns') );
             if ( scope.config.elements ) {
               scope.config.elements.forEach(function(element){
                 element.id = element.selector.replace(/[^a-z0-9]+/gi, ' ').trim().replace(/ /gi, '-');
@@ -51,10 +44,33 @@ app.directive('inch33Element', function($compile, $http, Inch33ElementService){
 
                 //  texts
                 if ( element.type && element.type == 'text' ) {
-                  if ( !scope.ngModel.data[element.id].hasOwnProperty('text') )
-                    scope.ngModel.data[element.id].text = _el.innerHTML;
 
-                  _el.setAttribute('ng-model', 'ngModel.data["' + element.id + '"].text');
+                  if ( element.column ) {
+                    //  column repeater texts
+                    if ( !scope.ngModel.data.hasOwnProperty('columns') )
+                      scope.ngModel.data.columns = [];
+
+                    if ( agregateColumns ) {
+                      var _els = el[0].querySelectorAll(element.selector);
+                      angular.forEach(_els, function(__el, i){
+                        if ( scope.ngModel.data.columns.length <= i )
+                          scope.ngModel.data.columns.push({});
+                        if ( !scope.ngModel.data.columns[i].hasOwnProperty(element.id) )
+                          scope.ngModel.data.columns[i][element.id] = {};
+                        if ( !scope.ngModel.data.columns[i][element.id].hasOwnProperty('text') )
+                        scope.ngModel.data.columns[i][element.id].text = __el.innerHTML;
+                      });
+                    }
+
+                    _el.setAttribute('ng-model', 'column["' + element.id + '"].text');
+
+                  } else {
+                    //  regular text
+                    if ( !scope.ngModel.data[element.id].hasOwnProperty('text') )
+                      scope.ngModel.data[element.id].text = _el.innerHTML;
+                    _el.setAttribute('ng-model', 'ngModel.data["' + element.id + '"].text');
+                  }
+
                   _el.setAttribute('ng-style', 'ngModel.data["' + element.id + '"].style');
                   _el.setAttribute('contenteditable', '');
 
@@ -70,6 +86,20 @@ app.directive('inch33Element', function($compile, $http, Inch33ElementService){
               });
             }
 
+            //  columns
+            if ( scope.config.columns ) {
+              //  column count
+              if ( !scope.ngModel.data.hasOwnProperty('columnCount') )
+                scope.ngModel.data.columnCount = scope.config.columns.default;
+              var _el = el[0].querySelector('.columns');
+              _el.setAttribute('class', 'col-{{ngModel.data.columnCount}}');
+              //  column repeater
+              var _col = _el.querySelector('*');
+              _col.setAttribute('ng-repeat', 'column in ngModel.data.columns');
+              while ( _el.children.length > 1 )
+                _el.children[1].remove();
+            }
+
             var dropdown = angular.element('<tools-dropdown ng-model="ngModel.data" config="config"></tools-dropdown>');
             el.prepend(dropdown);
 
@@ -80,7 +110,6 @@ app.directive('inch33Element', function($compile, $http, Inch33ElementService){
           });
         },
         post: function(scope, iElement, iAttrs, controller) {
-
         }
       }
     }

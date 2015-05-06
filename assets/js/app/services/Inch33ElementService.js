@@ -60,10 +60,24 @@ app.service('Inch33ElementService', function(){
             elements: true
           },
           {
-            name: 'Text',
+            name: 'Claim',
             type: 'text',
             selector: '.container .regular',
             elements: false
+          },
+          {
+            name: 'Item title',
+            type: 'text',
+            selector: '.container li h3',
+            elements: true,
+            column: true
+          },
+          {
+            name: 'Item text',
+            type: 'text',
+            selector: '.container li p',
+            elements: true,
+            column: true
           }
         ]
       },
@@ -72,11 +86,11 @@ app.service('Inch33ElementService', function(){
         style: {
           backgroundColor: '#1D262D'
         },
-        columns: {
-          min: 2,
-          max: 6,
-          default: 3
-        }
+//        columns: {
+//          min: 2,
+//          max: 6,
+//          default: 3
+//        }
       },
       'list-grid': {
         style: {
@@ -86,9 +100,34 @@ app.service('Inch33ElementService', function(){
           min: 1,
           max: 4,
           default: 2
-        }
+        },
+        elements: [
+          {
+            name: 'Title',
+            type: 'text',
+            selector: '.container li h3',
+            elements: true,
+            column: true
+          },
+          {
+            name: 'Text',
+            type: 'text',
+            selector: '.container li p',
+            elements: true,
+            column: true
+          }
+        ]
       }
     },
+//    styles: {
+//      h3: {
+//        textAlign: left,
+//        color: '#FFF',
+//        fontFamily: 'Arvo, serif',
+//        fontSize: '21px',
+//        lineHeight: 1.5
+//      }
+//    },
     colors: ['#ffffff', '#F5F5F5', '#1D262D', '#C0A85A', '#3a4553'],
     registerColor: function(color) {
       if ( this.colors.indexOf(color) < 0 )

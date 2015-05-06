@@ -11,7 +11,18 @@ app.controller('WebsiteEditCtrl', function($scope){
       }
     }, {
       template: 'article-features',
-      data: {}
+      data: {
+        columns: [
+          {
+            'container-li-h3': {
+              text: 'qdwdqwdqwd'
+            },
+            'container-li-p': {
+              text: 'qdwdqwdqwd qw dq wdqw'
+            }
+          }
+        ]
+      }
     }, {
       template: 'showcase-grid',
       data: {}

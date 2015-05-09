@@ -1,4 +1,4 @@
-app.directive('inch33Element', function($compile, $http, Inch33ElementService){
+app.directive('inch33Element', function($compile, $http, Inch33ElementService, Diff, ElementsService){
   return {
     restrict: 'E',
     replace: true,
@@ -110,6 +110,14 @@ app.directive('inch33Element', function($compile, $http, Inch33ElementService){
           });
         },
         post: function(scope, iElement, iAttrs, controller) {
+          scope.$watch('ngModel.data', function(data, oldData){
+            if ( data ) {
+              _data = data ? JSON.parse(angular.toJson(data)) : {};
+              _oldData = oldData ? JSON.parse(angular.toJson(oldData)) : {};
+              ElementsService.updateData(scope.$parent.$parent.link, scope.ngModel._id, Diff.getChanges(_oldData, _data));
+              console.log(Diff.getChanges(_oldData, _data));
+            }
+          }, true);
         }
       }
     }

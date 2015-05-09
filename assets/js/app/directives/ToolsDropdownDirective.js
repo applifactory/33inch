@@ -12,9 +12,6 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService){
           element[0].querySelector('.viewport').style.height = ( element[0].querySelector('.view.active').offsetHeight + 10 ) + 'px';
         });
       });
-      scope.$watch('data', function(data){
-        console.log('data:', data);
-      }, true);
       angular.element(element[0].querySelector('.btn')).bind('click', function(e){
         element[0].classList.toggle('open');
       });

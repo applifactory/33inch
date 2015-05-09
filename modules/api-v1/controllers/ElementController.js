@@ -1,6 +1,7 @@
 var authUtil = require('../../../utils/AuthService.js');
 var Website = require('../../../models/website');
 var Element = require('../../../models/element');
+var merge = require('merge-util');
 
 module.exports.findWebsite = function(req, res, next) {
   Website.findOne({ permalink: req.params.link }).exec(function(err, website){
@@ -9,21 +10,6 @@ module.exports.findWebsite = function(req, res, next) {
     return next();
   });
 }
-
-//module.exports.list = function(req, res) {
-//  Node.find( { parentWebsite: req.params.website._id }, 'name link nodes' ).populate('nodes').exec(function(err, nodes){
-//    if (err) return res.status(404).end();
-//    res.json({ nodes: nodes });
-//  });
-//}
-
-//module.exports.details = function(req, res) {
-//  Node.findById( req.params.website._id ).exec(function(err, node){
-//    if (err) return res.status(404).end();
-//    res.json({ node: node });
-//    res.status(401).end();
-//  });
-//}
 
 module.exports.create = function(req, res) {
   var element = new Element();
@@ -40,5 +26,20 @@ module.exports.create = function(req, res) {
   element.save(function(err, element){
     if (err) return res.status(400).end();
     res.json(element);
+  });
+}
+
+module.exports.update = function(req, res) {
+  Element.findById(req.params.elementId, function (err, element) {
+    if (err || !element) return res.status(404).end();
+    if ( !element.data )
+      element.data = req.body.data;
+    else
+      element.data = merge(element.data, req.body.data);
+    element.markModified('data');
+    element.save(function(err){
+      if(err) return res.status(400).end();
+      res.end();
+    })
   });
 }

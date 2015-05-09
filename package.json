@@ -27,6 +27,7 @@
     "jeet": "^6.1.2",
     "jsonwebtoken": "^4.2.1",
     "lodash": "^3.3.1",
+    "merge-util": "^0.3.1",
     "mongoose": "^3.8.21",
     "mongoose-relationship": "^0.1.4",
     "morgan": "^1.5.1",

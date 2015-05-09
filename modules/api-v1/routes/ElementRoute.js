@@ -9,5 +9,7 @@ module.exports = function(app) {
     .all(elementCtrl.findWebsite)
     //.get(elementCtrl.list)
     .post(elementCtrl.create);
+  app.route('/api/v1/website/:link/element/:elementId')
+    .put(elementCtrl.update);
 
 }

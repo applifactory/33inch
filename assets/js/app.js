@@ -6,6 +6,7 @@
 //= require vendors/tinycolor/tinycolor.js
 //= require vendors/rangy-release/rangy-core.js
 //= require vendors/rangy-release/rangy-selectionsaverestore.js
+//= require vendors/underscore/underscore.js
 
 //= require_tree app/config
 //= require_tree app/directives

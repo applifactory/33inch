@@ -38,6 +38,7 @@
     "angular-slider": "~0.2.14",
     "ng-switcher": "*",
     "tinycolor": "~1.1.2",
-    "rangy-release": "~1.2.3"
+    "rangy-release": "~1.2.3",
+    "underscore": "~1.8.3"
   }
 }

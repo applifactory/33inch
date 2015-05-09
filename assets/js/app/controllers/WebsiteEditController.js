@@ -1,5 +1,6 @@
 app.controller('WebsiteEditCtrl', function($scope, $stateParams, NodesService){
 
+  $scope.link = $stateParams.link;
   $scope.path = null;
   $scope.currentNode = null;
   $scope.elements = null;
@@ -15,42 +16,9 @@ app.controller('WebsiteEditCtrl', function($scope, $stateParams, NodesService){
           $scope.elements = node.elements;
         });
       }, function(){
-        console.log('#TODO: redirect to parent');
+        console.error('#TODO: redirect to parent');
       });
     }
   });
-
-//
-//  $scope.elements = [
-//    {
-//      template: 'header-straight',
-//      data: {
-//      }
-//    }, {
-//      template: 'article-text',
-//      data: {
-//      }
-//    }, {
-//      template: 'article-features',
-//      data: {
-//        columns: [
-//          {
-//            'container-li-h3': {
-//              text: 'qdwdqwdqwd'
-//            },
-//            'container-li-p': {
-//              text: 'qdwdqwdqwd qw dq wdqw'
-//            }
-//          }
-//        ]
-//      }
-//    }, {
-//      template: 'showcase-grid',
-//      data: {}
-//    }, {
-//      template: 'list-grid',
-//      data: {}
-//    }
-//  ];
 
 });

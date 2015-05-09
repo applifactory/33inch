@@ -9,9 +9,9 @@ module.exports.index = function(req, res) {
 
 module.exports.details = function(req, res) {
   Website
-    .findOne({ permalink: req.params.link })
+    .findOne({ permalink: req.params.link }, 'name permalink')
     .exec(function(err, website){
-      if (err) return res.status(404).end();
+      if (err || !website) return res.status(404).end();
       res.json(website);
     });
 };

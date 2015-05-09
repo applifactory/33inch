@@ -14,9 +14,16 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
     .state('edit', {
       url: '/app/:link',
-      templateUrl: 'assets/app/website/edit.html',
-      controller: 'WebsiteEditCtrl'
+      abstract: true,
+      templateUrl: 'assets/app/website/editor-container.html',
+      controller: 'WebsiteEditorContainerCtrl'
     })
+
+      .state('edit.node', {
+        url: '*path',
+        templateUrl: 'assets/app/website/edit.html',
+        controller: 'WebsiteEditCtrl'
+      })
 
     .state('account', {
       url: '/account',

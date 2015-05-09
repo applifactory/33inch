@@ -1,8 +1,16 @@
-app.controller('WebsiteEditCtrl', function($scope, $stateParams, WebsitesService){
+app.controller('WebsiteEditCtrl', function($scope, $stateParams, NodesService){
 
-  WebsitesService.getWebsite($stateParams.link).then(function(website){
-    console.log(website);
+  var unwatchNodes = $scope.$watchCollection('nodes', function(nodes){
+    if ( nodes ) {
+      NodesService.findPath($stateParams.path, nodes);
+      unwatchNodes();
+    }
   })
+
+//  console.log($stateParams);
+//  WebsitesService.getWebsite($stateParams.link).then(function(website){
+//    console.log(website);
+//  })
 
 
 

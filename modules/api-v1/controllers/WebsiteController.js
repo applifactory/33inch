@@ -10,9 +10,8 @@ module.exports.index = function(req, res) {
 module.exports.details = function(req, res) {
   Website
     .findOne({ permalink: req.params.link })
-    .populate('nodes')
     .exec(function(err, website){
-      if (err) return res.status(401).end();
+      if (err) return res.status(404).end();
       res.json(website);
     });
 };
@@ -48,7 +47,7 @@ module.exports.create = function(req, res) {
         node.link = '';
         node.parentWebsite = website._id;
         node.save(function(err){
-          if (err) return res.status(401).end();
+          if (err) return res.status(400).end();
         });
         res.json({message: 'Website created'});
       }

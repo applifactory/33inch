@@ -10,4 +10,9 @@ module.exports = function(app) {
     .get(nodeCtrl.list)
     .post(nodeCtrl.create);
 
+  app.route('/api/v1/website/:link/node/:nodeId')
+    .all(authUtil.requireUserAuth)
+    .all(nodeCtrl.findWebsite)
+    .get(nodeCtrl.details)
+
 }

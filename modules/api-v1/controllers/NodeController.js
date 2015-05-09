@@ -12,17 +12,16 @@ module.exports.findWebsite = function(req, res, next) {
 }
 
 module.exports.list = function(req, res) {
-  Node.find( { parentWebsite: req.params.website._id }, 'name link nodes' ).populate('nodes').exec(function(err, nodes){
+  Node.find( { parentWebsite: req.params.website._id }, 'name link nodes' ).populate('nodes', 'name link').exec(function(err, nodes){
     if (err) return res.status(404).end();
     res.json({ nodes: nodes });
   });
 }
 
 module.exports.details = function(req, res) {
-  Node.findById( req.params.website._id ).exec(function(err, node){
+  Node.findOne({ _id: req.params.nodeId }, 'link name elements').populate('elements', 'template data').exec(function(err, node){
     if (err) return res.status(404).end();
     res.json({ node: node });
-    res.status(401).end();
   });
 }
 
@@ -35,8 +34,7 @@ module.exports.create = function(req, res) {
   else
     node.parentWebsite = req.params.website._id;
   node.save(function(err, node){
-    if (err) return res.status(401).end();
+    if (err) return res.status(400).end();
     res.json(node);
-    console.log('added');
   });
 }

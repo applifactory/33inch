@@ -14,14 +14,14 @@ module.exports.findWebsite = function(req, res, next) {
 module.exports.list = function(req, res) {
   Node.find( { parentWebsite: req.params.website._id }, 'name link nodes' ).populate('nodes', 'name link').exec(function(err, nodes){
     if (err) return res.status(404).end();
-    res.json({ nodes: nodes });
+    res.json(nodes);
   });
 }
 
 module.exports.details = function(req, res) {
   Node.findOne({ _id: req.params.nodeId }, 'link name elements').populate('elements', 'template data').exec(function(err, node){
     if (err) return res.status(404).end();
-    res.json({ node: node });
+    res.json(node);
   });
 }
 

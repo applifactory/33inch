@@ -1,18 +1,24 @@
 app.controller('WebsiteEditCtrl', function($scope, $stateParams, NodesService){
 
+  $scope.path = null;
+  $scope.currentNode = null;
+  $scope.elements = null;
+
   var unwatchNodes = $scope.$watchCollection('nodes', function(nodes){
     if ( nodes ) {
-      NodesService.findPath($stateParams.path, nodes);
       unwatchNodes();
+      NodesService.findPath($stateParams.path, nodes).then(function(path){
+        $scope.path = path;
+        $scope.currentNode = path[path.length-1];
+        NodesService.getNode($stateParams.link, $scope.currentNode._id).then(function(node){
+          console.log('elements: ', node);
+          $scope.elements = node.elements;
+        });
+      }, function(){
+        console.log('#TODO: redirect to parent');
+      });
     }
-  })
-
-//  console.log($stateParams);
-//  WebsitesService.getWebsite($stateParams.link).then(function(website){
-//    console.log(website);
-//  })
-
-
+  });
 
 //
 //  $scope.elements = [

@@ -6,7 +6,7 @@ app.service('NodesService', function($http, $state, $q, $timeout, SettingsServic
       var _self = this;
       $http.get(SettingsService.apiUrl + 'website/' + link + '/node').success(function(data){
         _self.currentNodes = data.nodes;
-        deferred.resolve(data.nodes);
+        deferred.resolve(data);
       }).error(function(data, status){
         _self.currentNodes = null;
         if ( status == 401 ) {
@@ -29,8 +29,10 @@ app.service('NodesService', function($http, $state, $q, $timeout, SettingsServic
         //  search for home node
         var homeNode = null;
         angular.forEach(nodes, function(node){
-          if ( node.link == '' )
+          if ( node.link == '' ) {
             homeNode = node;
+            parts = ['home'];
+          }
         });
 
         if ( paramsPath == '' ) {
@@ -41,7 +43,6 @@ app.service('NodesService', function($http, $state, $q, $timeout, SettingsServic
           var parts = paramsPath.substr(1).split('/');
           var _nodes = angular.copy(nodes);
           angular.forEach(parts, function(part){
-            console.log('searching for', part);
             var _node = null;
             angular.forEach(_nodes, function(node){
               if ( node.link == part ) {
@@ -69,6 +70,15 @@ app.service('NodesService', function($http, $state, $q, $timeout, SettingsServic
         else
           deferred.resolve(path);
       });
+      return deferred.promise;
+    },
+    getNode: function(link, nodeId) {
+      var deferred = $q.defer();
+      $http.get(SettingsService.apiUrl + 'website/' + link + '/node/' + nodeId).success(function(node){
+        deferred.resolve(node);
+      }).error(function(){
+        deferred.reject();
+      })
       return deferred.promise;
     }
   }

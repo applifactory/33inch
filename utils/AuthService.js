@@ -11,14 +11,28 @@ module.exports.requireUserAuth = function(req, res, next) {
     jwt.verify(token, config.secret, function(err, decoded) {
       if ( decoded ) {
         if ( decoded.roles && decoded.roles.indexOf('user') >= 0 ) {
-          req.params.authUser = decoded;
-          return next();
+          User.findById(decoded.userId, 'name email websites').populate('websites', 'name permalink').exec(function(err, user){
+            if (err || !user) {
+              console.error('requireUserAuth:unauthorized (cant find user)');
+              return res.status(401).end();
+            }
+            console.info('requireUserAuth:authorized');
+            req.params.authUser = user;
+            return next();
+          });
+        } else {
+          console.error('requireUserAuth:unauthorized (token\'s user param missing)');
+          res.status(401).end();
         }
+      } else {
+        console.error('requireUserAuth:unauthorized (invalid token)');
+        res.status(401).end();
       }
-      res.status(401).end();
     });
-  else
+  else {
+    console.error('requireUserAuth:unauthorized (3)');
     res.status(401).end();
+  }
 };
 
 module.exports.requireAdminAuth = function(req, res, next) {
@@ -40,7 +54,6 @@ module.exports.requireAdminAuth = function(req, res, next) {
 module.exports.loginUser = function(login, password, stayLogged, callback) {
   User.findOne({email: login}).select('name email password roles').exec(function(err, user){
     console.log(login, password, stayLogged);
-    console.log('callback', callback);
     if ( !user || !user.comparePassword(password) ) {
       callback(false);
     } else {

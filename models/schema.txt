@@ -1,0 +1,24 @@
+User
+  name
+  email
+  password
+  roles
+  websites
+
+Website
+  name
+  permalink
+  domain
+  owners
+  nodes
+  
+Node
+  name
+  link
+  nodes
+  parentNode
+  parentWebsite
+  
+Element
+  name
+  

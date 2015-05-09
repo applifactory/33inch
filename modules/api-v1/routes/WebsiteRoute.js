@@ -8,4 +8,7 @@ module.exports = function(app) {
     .all(authUtil.requireUserAuth)
     .get(websiteCtrl.index)
     .post(websiteCtrl.create);
+  app.route('/api/v1/website/:link')
+    .all(authUtil.requireUserAuth)
+    .get(websiteCtrl.details);
 }

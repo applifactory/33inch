@@ -1,13 +1,19 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var relationship = require("mongoose-relationship");
+var User = require('./user.js');
 
 //  schema
 var WebsiteSchema = new Schema({
   name: String,
   permalink: { type: String, required: true, index: { unique: true } },
   domain: String,
-  owner: { type: Schema.Types.ObjectId, ref: 'User' }
+  owners: [{ type: Schema.Types.ObjectId, ref: 'User', childPath: 'websites' }],
+  nodes: [{ type: Schema.Types.ObjectId, ref: 'Node' }]
 });
+
+//  relations
+WebsiteSchema.plugin(relationship, { relationshipPathName: 'owners' });
 
 //  check domain uniqness
 WebsiteSchema.pre("save", function(next, done) {

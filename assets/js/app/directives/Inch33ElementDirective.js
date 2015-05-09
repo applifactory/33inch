@@ -72,6 +72,7 @@ app.directive('inch33Element', function($compile, $http, Inch33ElementService, D
                   }
 
                   _el.setAttribute('ng-style', 'ngModel.data["' + element.id + '"].style');
+                  _el.setAttribute('ng-model-options', '{ updateOn: \'default blur\', debounce: {\'default\': 1000, \'blur\': 0} }');
                   _el.setAttribute('contenteditable', '');
 
                   var editor = document.createElement('editor');

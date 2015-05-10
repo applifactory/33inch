@@ -13,8 +13,8 @@
         | Add column item
       .item(ng-if="config.columns")
         | Columns count:
-        span.value {{data.columnCount}}
-        slider(floor="{{config.columns.min}}", ceiling="{{config.columns.max}}", step="1", precision="1", ng-model="data.columnCount")
+        span.value {{ngModel.data.columnCount}}
+        slider(floor="{{config.columns.min}}", ceiling="{{config.columns.max}}", step="1", precision="1", ng-model="ngModel.data.columnCount")
       .item(ng-if="hasElements", ng-click="showView('elements')")
         | Elements
         i.fa.fa-angle-right.right
@@ -36,7 +36,7 @@
         | Elements
       .item(ng-repeat="element in config.elements", ng-if="element.hasOwnProperty('elements')")
         | {{element.name}}
-        div(ng-switcher, ng-model="data[element.id].elements")
+        div(ng-switcher, ng-model="ngModel.data[element.id].elements")
 
     //  appearance
     .view(ng-class="{active: currentView=='appearance'}")
@@ -56,20 +56,21 @@
       .item
         | Color
         .colors
-          .color(ng-class="{active: color==data.style.backgroundColor}", ng-repeat="color in colors" style="background: {{color}}", ng-click="setBackgroundColor(color)")
-          .color.add(ng-click="lastColor = data.style.backgroundColor; showView('new-bg-color')")
+          .color(ng-class="{active: color==ngModel.data.style.backgroundColor}", ng-repeat="color in colors" style="background: {{color}}", ng-click="setBackgroundColor(color)")
+          .color.add(ng-click="lastColor = ngModel.data.style.backgroundColor; showView('new-bg-color')")
             .fa.fa-plus-circle
       .item
         | Image
-        .button Upload
+        .button(ng-if="ngModel.data.style.backgroundImage", ng-click="deleteBackground(ngModel.data.style.backgroundImage)") Delete
+        .button(ng-if="!ngModel.data.style.backgroundImage", upload-button, url="{{uploadUrl}}", param="file", on-upload="bgUploadStart(files)", on-success="bgUploadSuccess(response)", on-error="bgUploadError(response)") Upload
 
     .view(ng-class="{active: currentView=='new-bg-color'}")
       .item.title
-        .back(ng-click="data.style.backgroundColor = lastColor; showView('background')")
+        .back(ng-click="ngModel.data.style.backgroundColor = lastColor; showView('background')")
           i.fa.fa-angle-left
           | back
         | New color
       .item
-        color-picker(ng-model="data.style.backgroundColor")
-        .button(ng-click="addColor(data.style.backgroundColor); showView('background')") Save
-        .button(ng-click="data.style.backgroundColor = lastColor; showView('background')") Cancel
+        color-picker(ng-model="ngModel.data.style.backgroundColor")
+        .button(ng-click="addColor(ngModel.data.style.backgroundColor); showView('background')") Save
+        .button(ng-click="ngModel.data.style.backgroundColor = lastColor; showView('background')") Cancel

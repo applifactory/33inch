@@ -6,7 +6,8 @@ var relationship = require("mongoose-relationship");
 var ElementSchema = new Schema({
   template: String,
   data: { type: Schema.Types.Mixed },
-  parentNode: { type: Schema.Types.ObjectId, ref: 'Node', childPath: 'elements' }
+  parentNode: { type: Schema.Types.ObjectId, ref: 'Node', childPath: 'elements' },
+  images: [{ type: Schema.Types.ObjectId, ref: 'Image' }]
 });
 
 //  relations

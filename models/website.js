@@ -9,7 +9,8 @@ var WebsiteSchema = new Schema({
   permalink: { type: String, required: true, index: { unique: true } },
   domain: String,
   owners: [{ type: Schema.Types.ObjectId, ref: 'User', childPath: 'websites' }],
-  nodes: [{ type: Schema.Types.ObjectId, ref: 'Node' }]
+  nodes: [{ type: Schema.Types.ObjectId, ref: 'Node' }],
+  images: [{ type: Schema.Types.ObjectId, ref: 'Image' }]
 });
 
 //  relations

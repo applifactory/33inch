@@ -1,4 +1,4 @@
-app.directive('dropdown', function($http, $compile, $timeout){
+app.directive('dropdown', function($compile, $timeout, $templateRequest){
   return {
     restrict: 'A',
     scope: false,
@@ -71,7 +71,7 @@ app.directive('dropdown', function($http, $compile, $timeout){
             });
           }
 
-          $http.get(iAttrs.dropdown).success(function(template){
+          $templateRequest(iAttrs.dropdown).then(function(template){
             var el = angular.element('<div class="dropdown"><div class="viewport">' + template + '</div></div>');
             var compiled = $compile(el);
             iElement.append(el);

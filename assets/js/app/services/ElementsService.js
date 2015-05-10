@@ -8,6 +8,16 @@ app.service('ElementsService', function($http, $q, SettingsService) {
         deferred.reject();
       })
       return deferred.promise;
+    },
+    deleteImage: function(link, elementId, image) {
+      console.log('deleteImage');
+      var deferred = $q.defer();
+      $http.delete(SettingsService.apiUrl + 'website/' + link + '/element/' + elementId + '/image/' + image).success(function(node){
+        deferred.resolve();
+      }).error(function(){
+        deferred.reject();
+      })
+      return deferred.promise;
     }
   }
 });

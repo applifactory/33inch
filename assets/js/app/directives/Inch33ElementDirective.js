@@ -1,4 +1,4 @@
-app.directive('inch33Element', function($compile, $http, Inch33ElementService, Diff, ElementsService){
+app.directive('inch33Element', function($compile, $templateRequest, Inch33ElementService, Diff, ElementsService){
   return {
     restrict: 'E',
     replace: true,
@@ -8,7 +8,7 @@ app.directive('inch33Element', function($compile, $http, Inch33ElementService, D
     compile: function(tElement, tAttrs, transclude) {
       return {
         pre: function(scope, iElement, iAttrs, controller) {
-          $http.get('assets/app/website/components/' + scope.ngModel.template + '.html').success(function(html){
+          $templateRequest('assets/app/website/components/' + scope.ngModel.template + '.html').then(function(html){
             scope.config = Inch33ElementService.getConfig(scope.ngModel.template);
 
             var el = angular.element(html);
@@ -101,7 +101,7 @@ app.directive('inch33Element', function($compile, $http, Inch33ElementService, D
                 _el.children[1].remove();
             }
 
-            var dropdown = angular.element('<tools-dropdown ng-model="ngModel.data" config="config"></tools-dropdown>');
+            var dropdown = angular.element('<tools-dropdown ng-model="ngModel" config="config"></tools-dropdown>');
             el.prepend(dropdown);
 
             var compiled = $compile(el);

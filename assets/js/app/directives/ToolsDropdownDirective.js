@@ -1,9 +1,9 @@
-app.directive('toolsDropdown', function($timeout, Inch33ElementService){
+app.directive('toolsDropdown', function($timeout, Inch33ElementService, ElementsService){
   return {
     restrict: 'E',
     templateUrl: '/assets/app/website/tools-dropdown.html',
     scope: {
-      data: '=ngModel',
+      ngModel: '=',
       config: '='
     },
     link: function(scope, element, attr) {
@@ -37,13 +37,13 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService){
         }
         scope.$apply(function(){
           if ( scope.currentView == 'new-bg-color' )
-            scope.data.style.backgroundColor = scope.lastColor;
+            scope.ngModel.data.style.backgroundColor = scope.lastColor;
           scope.showView('main');
           element[0].classList.remove('open');
         });
       });
     },
-    controller: function($scope){
+    controller: function($scope, SettingsService){
 
       $scope.colors = Inch33ElementService.colors;
 
@@ -61,7 +61,7 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService){
       }
 
       $scope.setBackgroundColor = function(color) {
-        $scope.data.style.backgroundColor = color;
+        $scope.ngModel.data.style.backgroundColor = color;
       }
 
       $scope.addColor = function(color) {
@@ -76,9 +76,36 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService){
           var _id = element.selector.replace(/[^a-z0-9]+/gi, ' ').trim().replace(/ /gi, '-');
           item[_id] = {text: element.name};
         });
-        $scope.data.columns.push(item);
+        $scope.ngModel.data.columns.push(item);
       }
 
+      $scope.uploadUrl = SettingsService.apiUrl + 'website/' + $scope.$parent.$parent.link + '/element/' + $scope.ngModel._id + '/image';
+
+      $scope.bgUploadStart = function(files){
+        console.log('bgUploadStart', files);
+      }
+
+      $scope.bgUploadSuccess = function(response){
+        if ( !$scope.ngModel.hasOwnProperty('data') )
+          $scope.ngModel.data = {};
+        if ( !$scope.ngModel.data.hasOwnProperty('style') || !$scope.ngModel.data.style )
+          $scope.ngModel.data.style = {};
+        $scope.ngModel.data.style.backgroundImage = 'url(/fx/l-' + response.data.file + ')';
+      }
+
+      $scope.bgUploadError = function(response) {
+        console.log('bgUploadError', response);
+      }
+
+      $scope.deleteBackground = function(image) {
+        image = image.substr(10).replace(/\)/, '');
+        console.log('deleteBackground', image);
+        ElementsService.deleteImage($scope.$parent.$parent.link, $scope.ngModel._id, image).then(function(){
+          $scope.ngModel.data.style.backgroundImage = '';
+        }, function(){
+          $scope.ngModel.data.style.backgroundImage = '';
+        });
+      }
     }
   }
 })

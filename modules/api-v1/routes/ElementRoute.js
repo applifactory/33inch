@@ -7,9 +7,18 @@ module.exports = function(app) {
   app.route('/api/v1/website/:link/node/:nodeId/element')
     .all(authUtil.requireUserAuth)
     .all(elementCtrl.findWebsite)
-    //.get(elementCtrl.list)
     .post(elementCtrl.create);
   app.route('/api/v1/website/:link/element/:elementId')
+    .all(authUtil.requireUserAuth)
+    .all(elementCtrl.findWebsite)
     .put(elementCtrl.update);
+  app.route('/api/v1/website/:link/element/:elementId/image')
+    .all(authUtil.requireUserAuth)
+    .all(elementCtrl.findWebsite)
+    .post(elementCtrl.uploadImage);
+  app.route('/api/v1/website/:link/element/:elementId/image/:image')
+    .all(authUtil.requireUserAuth)
+    .all(elementCtrl.findWebsite)
+    .delete(elementCtrl.deleteImage);
 
 }

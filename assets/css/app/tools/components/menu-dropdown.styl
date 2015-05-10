@@ -1,0 +1,21 @@
+inch33-element
+  position: relative
+menu-dropdown
+  position: absolute
+  left: 50%
+  transform: translate(-50%, 50%)
+  bottom: 0
+  opacity: 0
+  visibility: hidden
+  transition: all 0.2s ease
+  &::before
+    content: ''
+    position: absolute
+    left: -100px
+    width: 230px
+    top: 0
+    height: 60px
+    background: transparent
+  inch33-element:hover &
+    opacity: 1
+    visibility: visible

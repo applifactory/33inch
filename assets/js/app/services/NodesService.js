@@ -5,7 +5,7 @@ app.service('NodesService', function($http, $state, $q, $timeout, SettingsServic
       var deferred = $q.defer();
       var _self = this;
       $http.get(SettingsService.apiUrl + 'website/' + link + '/node').success(function(data){
-        _self.currentNodes = data.nodes;
+        _self.currentNodes = data;
         deferred.resolve(data);
       }).error(function(data, status){
         _self.currentNodes = null;

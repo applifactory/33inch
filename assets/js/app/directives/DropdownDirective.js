@@ -125,6 +125,19 @@ app.directive('dropdown', function($compile, $timeout, $templateRequest){
               }
             }
           }
+          if (iAttrs.hideOnUnhover) {
+            tElement.parent().parent().parent().bind('mouseout', function(event){
+              var rel = this;
+              var e = event.toElement || event.relatedTarget;
+              while( e && e.parentNode && e.parentNode != window ) {
+                if ( e.parentNode == rel ||  e == rel ) {
+                  return false;
+                }
+                e = e.parentNode;
+              }
+              scope[name].close();
+            });
+          }
         }
       }
     }

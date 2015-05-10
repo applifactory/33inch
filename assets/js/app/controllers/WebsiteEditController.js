@@ -12,7 +12,12 @@ app.controller('WebsiteEditCtrl', function($scope, $stateParams, NodesService){
         $scope.path = path;
         $scope.currentNode = path[path.length-1];
         NodesService.getNode($stateParams.link, $scope.currentNode._id).then(function(node){
-          console.log('elements: ', node);
+          angular.forEach(node.baseElements, function(_element){
+            if ( _element.template.indexOf('menu') >= 0 )
+              node.elements.unshift(_element);
+            else
+              node.elements.push(_element);
+          });
           $scope.elements = node.elements;
         });
       }, function(){

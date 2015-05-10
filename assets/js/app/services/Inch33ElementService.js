@@ -131,6 +131,9 @@ app.service('Inch33ElementService', function(){
             column: true
           }
         ]
+      },
+      'menu-default': {
+
       }
     },
     colors: ['#ffffff', '#F5F5F5', '#1D262D', '#C0A85A', '#3a4553'],

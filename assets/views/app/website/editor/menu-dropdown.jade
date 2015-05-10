@@ -1,0 +1,34 @@
+.view(name="main")
+  .item
+    | Logo
+    .button Upload
+  .item
+    | Color
+    .colors
+      .color(ng-class="{active: color==ngModel.data.textColor}", ng-repeat="color in colors" style="background: {{color}}", ng-click="setColor(color)")
+      .color.add(view="new-color")
+        .fa.fa-plus-circle
+  .item
+    | Background
+    .colors
+      .color(ng-class="{active: color==ngModel.data.style.backgroundColor}", ng-repeat="color in colors" style="background: {{color}}", ng-click="setBackgroundColor(color)")
+      .color.add(view="new-bg-color")
+        .fa.fa-plus-circle
+
+.view(name="new-color")
+  .item.title
+    .back
+    | New color
+  .item
+    color-picker(ng-model="ngModel.data.textColor")
+    .button(ng-click="addColor(ngModel.data.textColor)") Save
+    .button(ng-click="menuDropdown.back()") Cancel
+
+.view(name="new-bg-color")
+  .item.title
+    .back
+    | New color
+  .item
+    color-picker(ng-model="ngModel.data.style.backgroundColor")
+    .button(ng-click="addBackgroundColor(ngModel.data.style.backgroundColor)") Save
+    .button(ng-click="menuDropdown.back()") Cancel

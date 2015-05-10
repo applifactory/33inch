@@ -1,0 +1,22 @@
+.tools
+  position: absolute
+  bottom: 10px
+  left: 50%
+  transform: translateX(-50%)
+  opacity: 0
+  visibility: hidden
+  transition: all 0.3s ease
+  z-index: 5
+  [background-edit]:hover &
+    opacity: 1
+    visibility: visible
+  .btn[upload-button]
+    overflow: hidden
+    position: relative
+    input
+      position: absolute
+      left: 0
+      top: 0
+      right: 0
+      bottom: 0
+      opacity: 0

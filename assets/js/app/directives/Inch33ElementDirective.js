@@ -1,4 +1,4 @@
-app.directive('inch33Element', function($compile, $templateRequest, Inch33ElementService, Diff, ElementsService){
+app.directive('inch33Element', function($compile, $templateRequest, Inch33ElementService, Diff, ElementsService, $window){
   return {
     restrict: 'E',
     replace: true,
@@ -23,6 +23,7 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
             el[0].setAttribute('ng-style', 'ngModel.data.style');
 
             //  elements
+            //delete scope.ngModel.data.columns;
             var agregateColumns = ( scope.config.columns && !scope.ngModel.data.hasOwnProperty('columns') );
             if ( scope.config.elements ) {
               scope.config.elements.forEach(function(element){
@@ -82,6 +83,29 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
                   }
                   _el.parentElement.insertBefore(editor, _el);
                   editor.appendChild(_el);
+                }
+
+                //  background
+                if ( element.type && element.type == 'background' ) {
+                  //  create tool
+                  if ( !scope.ngModel.data.hasOwnProperty('columns') )
+                    scope.ngModel.data.columns = [];
+                  if ( agregateColumns ) {
+                    var _els = el[0].querySelectorAll(element.selector);
+                    angular.forEach(_els, function(__el, i){
+                      if ( scope.ngModel.data.columns.length <= i )
+                        scope.ngModel.data.columns.push({});
+                      if ( !scope.ngModel.data.columns[i].hasOwnProperty(element.id) )
+                        scope.ngModel.data.columns[i][element.id] = {};
+                      if ( !scope.ngModel.data.columns[i][element.id].hasOwnProperty('style') )
+                        scope.ngModel.data.columns[i][element.id].style = {};
+                    });
+                  }
+                  _el.setAttribute('ng-model', 'column["' + element.id + '"].style');
+                  _el.setAttribute('element-id', scope.ngModel._id);
+                  _el.setAttribute('link', scope.$parent.$parent.link);
+                  _el.setAttribute('ng-style', 'column["' + element.id + '"].style');
+                  _el.setAttribute('background-edit', '');
                 }
 
               });

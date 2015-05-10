@@ -97,6 +97,12 @@ app.service('Inch33ElementService', function(){
             type: 'text',
             selector: 'li h3',
             column: true
+          },
+          {
+            name: 'Background',
+            type: 'background',
+            selector: 'ul li',
+            column: true
           }
         ]
       },

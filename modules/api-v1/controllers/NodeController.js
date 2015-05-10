@@ -19,9 +19,16 @@ module.exports.list = function(req, res) {
 }
 
 module.exports.details = function(req, res) {
-  Node.findOne({ _id: req.params.nodeId }, 'link name elements').populate('elements', 'template data').exec(function(err, node){
-    if (err) return res.status(404).end();
-    res.json(node);
+  req.params.website.populate('elements', 'template data', function(err, website){
+    Node.findOne({ _id: req.params.nodeId }, 'link name elements').populate('elements', 'template data').exec(function(err, node){
+      if (err) return res.status(404).end();
+      res.json({
+        _id: node._id,
+        name: node.name,
+        baseElements: website.elements,
+        elements: node.elements
+      });
+    });
   });
 }
 

@@ -19,9 +19,10 @@ module.exports.create = function(req, res) {
   if ( !req.body.template )
     return res.status(400).json({ message: 'Template parameter missing' }).end();
   if ( !req.params.nodeId )
-    return res.status(400).json({ message: 'Parent nodeId parameter missing' }).end();
+    element.parentWebsite = req.params.website._id;
+  else
+    element.parentNode = req.params.nodeId;
   element.template = req.body.template;
-  element.parentNode = req.params.nodeId;
   if ( req.body.data ) {
     element.data = req.body.data;
     element.markModified('data');

@@ -7,11 +7,12 @@ var ElementSchema = new Schema({
   template: String,
   data: { type: Schema.Types.Mixed },
   parentNode: { type: Schema.Types.ObjectId, ref: 'Node', childPath: 'elements' },
+  parentWebsite: { type: Schema.Types.ObjectId, ref: 'Website', childPath: 'elements' },
   images: [{ type: Schema.Types.ObjectId, ref: 'Image' }]
 });
 
 //  relations
-ElementSchema.plugin(relationship, { relationshipPathName: 'parentNode' });
+ElementSchema.plugin(relationship, { relationshipPathName: ['parentNode', 'parentWebsite'] });
 
 //  model
 var Element = mongoose.model('Element', ElementSchema);

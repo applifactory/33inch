@@ -10,7 +10,8 @@ var WebsiteSchema = new Schema({
   domain: String,
   owners: [{ type: Schema.Types.ObjectId, ref: 'User', childPath: 'websites' }],
   nodes: [{ type: Schema.Types.ObjectId, ref: 'Node' }],
-  images: [{ type: Schema.Types.ObjectId, ref: 'Image' }]
+  images: [{ type: Schema.Types.ObjectId, ref: 'Image' }],
+  elements: [{ type: Schema.Types.ObjectId, ref: 'Element' }]
 });
 
 //  relations

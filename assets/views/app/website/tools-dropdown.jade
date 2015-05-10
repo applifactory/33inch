@@ -63,6 +63,19 @@
         | Image
         .button(ng-if="ngModel.data.style.backgroundImage", ng-click="deleteBackground(ngModel.data.style.backgroundImage)") Delete
         .button(ng-if="!ngModel.data.style.backgroundImage", upload-button, url="{{uploadUrl}}", param="file", on-upload="bgUploadStart(files)", on-success="bgUploadSuccess(response)", on-error="bgUploadError(response)") Upload
+      .item(ng-if="ngModel.data.style.backgroundImage")
+        | Background position
+        .bg-position
+          .top(ng-click="backgroundPosition('top')")
+            i.fa.fa-caret-up
+          .left(ng-click="backgroundPosition('left')")
+            i.fa.fa-caret-left
+          .center(ng-click="backgroundPosition('center')")
+            i.fa.fa-arrows
+          .right(ng-click="backgroundPosition('right')")
+            i.fa.fa-caret-right
+          .bottom(ng-click="backgroundPosition('bottom')")
+            i.fa.fa-caret-down
 
     .view(ng-class="{active: currentView=='new-bg-color'}")
       .item.title

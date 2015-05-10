@@ -1,0 +1,27 @@
+.bg-position
+  width: 60px
+  text-align: center
+  margin: 5px auto 0
+  div
+    width: 2px
+    height: 20px
+    width: 33.333%
+    background: lighten(toolBg, 10%)
+    cursor: pointer
+    &.top, &.bottom
+      margin: 0 33.333%
+    &.left, &.center, &.right
+      float: left
+    &.bottom
+      clear: both
+      border-radius: 0 0 5px 5px
+    &.top
+      border-radius: 5px 5px 0 0
+    &.left
+      border-radius: 5px 0 0 5px
+    &.right
+      border-radius: 0 5px 5px 0
+    &:hover
+      background: toolAccent
+    i
+      margin-top: 2px

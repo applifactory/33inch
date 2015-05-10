@@ -7,10 +7,13 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService, Elements
       config: '='
     },
     link: function(scope, element, attr) {
-      scope.$watch('currentView', function(view){
+      scope.updateHeight = function(){
         $timeout(function(){
           element[0].querySelector('.viewport').style.height = ( element[0].querySelector('.view.active').offsetHeight + 10 ) + 'px';
         });
+      }
+      scope.$watch('currentView', function(view){
+        scope.updateHeight();
       });
       angular.element(element[0].querySelector('.btn')).bind('click', function(e){
         element[0].classList.toggle('open');
@@ -102,10 +105,30 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService, Elements
         console.log('deleteBackground', image);
         ElementsService.deleteImage($scope.$parent.$parent.link, $scope.ngModel._id, image).then(function(){
           $scope.ngModel.data.style.backgroundImage = '';
+          $scope.updateHeight();
         }, function(){
           $scope.ngModel.data.style.backgroundImage = '';
+          $scope.updateHeight();
         });
       }
+
+      $scope.backgroundPosition = function(position) {
+        switch(position) {
+          case 'top':
+          case 'left':
+          case 'right':
+          case 'bottom':
+            $scope.ngModel.data.style.backgroundSize = 'auto';
+            $scope.ngModel.data.style.backgroundRepeat = 'repeat';
+            $scope.ngModel.data.style.backgroundPosition = position;
+            break;
+          default:
+            $scope.ngModel.data.style.backgroundSize = 'cover';
+            $scope.ngModel.data.style.backgroundRepeat = 'no-repeat';
+            $scope.ngModel.data.style.backgroundPosition = 'center';
+        }
+      }
+
     }
   }
 })

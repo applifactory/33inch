@@ -1,7 +1,8 @@
 .view(name="main")
   .item
     | Logo
-    .button Upload
+    .button(ng-show="!isUploading", upload-button, url="{{uploadUrl}}", param="file", on-upload="logoUploadStart(files)", on-success="logoUploadSuccess(response)", on-error="logoUploadError(response)") Upload
+    i.fa.fa-circle-o-notch.fa-spin(ng-if="isUploading")
   .item
     | Color
     .colors

@@ -28,9 +28,27 @@ app.directive('menuDropdown', function($timeout, Inch33ElementService, ElementsS
         }
       }
     },
-    controller: function($scope, SettingsService){
+    controller: function($scope, SettingsService, ElementsService){
 
+      //  logo upload
+      $scope.uploadUrl = SettingsService.apiUrl + 'website/' + $scope.$parent.$parent.link + '/element/' + $scope.ngModel._id + '/image';
 
+      $scope.logoUploadStart = function(files) {
+        $scope.isUploading = true;
+      }
+
+      $scope.logoUploadSuccess = function(response) {
+        if ( $scope.ngModel.data.logoImage ) {
+          var image = $scope.ngModel.data.logoImage.replace(/.+\//, '');
+          ElementsService.deleteImage($scope.$parent.$parent.link, $scope.ngModel._id, image);
+        }
+        $scope.ngModel.data.logoImage = '/fx/' + response.data.file;
+        $scope.isUploading = false;
+      }
+
+      $scope.logoUploadError = function(response) {
+        $scope.isUploading = false;
+      }
 
       //  dropdown events
       $scope.$on('dropdown:pop', function(event, name, view){

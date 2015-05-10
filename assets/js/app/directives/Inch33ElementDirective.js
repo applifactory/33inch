@@ -133,6 +133,8 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
               var _menu = el[0].querySelector('ul');
               _menu.setAttribute('menu-nav', '');
               _menu.setAttribute('ng-model', 'ngModel');
+              var _logo = el[0].querySelector('.logo');
+              _logo.innerHTML = '<img ng-src="{{ngModel.data.logoImage}}" alr="Logo"/>';
               el.prepend(dropdown);
             }
 

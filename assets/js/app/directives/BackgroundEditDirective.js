@@ -10,6 +10,8 @@ app.directive("backgroundEdit", function($timeout, $window, $compile, SettingsSe
     compile: function(tElement, tAttrs, transclude) {
       return {
         pre: function(scope, iElement, iAttrs, controller) {
+          if ( !scope.hasOwnProperty('style') || !scope.style )
+            scope.style = {};
           if ( !scope.style.hasOwnProperty('backgroundImage') )
             scope.style.backgroundImage = $window.getComputedStyle(iElement[0]).getPropertyValue('background-image');
           var tools = iElement[0].querySelector('.tools');
@@ -18,7 +20,8 @@ app.directive("backgroundEdit", function($timeout, $window, $compile, SettingsSe
             tools.classList.add('tools');
             iElement[0].appendChild(tools);
             $compile(tools)(scope);
-          }
+          } else
+            console.log('tools exists');
           var button = document.createElement('div');
           button.classList.add('btn');
           button.setAttribute('upload-button', '');
@@ -34,7 +37,7 @@ app.directive("backgroundEdit", function($timeout, $window, $compile, SettingsSe
     },
     controller: function($scope) {
       $scope.uploadStart = function(files){
-        console.log('uploadStart');
+
       }
       $scope.uploadSuccess = function(response){
         if ( $scope.style.backgroundImage )
@@ -43,7 +46,6 @@ app.directive("backgroundEdit", function($timeout, $window, $compile, SettingsSe
       }
       $scope.deleteBackground = function() {
         var image = $scope.style.backgroundImage.substr(10).replace(/\)/, '');
-        console.log('delete', image);
         ElementsService.deleteImage($scope.link, $scope.elementId, image);
       }
     }

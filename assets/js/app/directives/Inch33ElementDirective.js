@@ -124,6 +124,7 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
               _col.setAttribute('ng-repeat', 'column in ngModel.data.columns');
               while ( _el.children.length > 1 )
                 _el.children[1].remove();
+              _el.querySelector('*').setAttribute('column-item-tools', '');
             }
 
             if ( scope.ngModel.template.indexOf('menu') < 0 ) {

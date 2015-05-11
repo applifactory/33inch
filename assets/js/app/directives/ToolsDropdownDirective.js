@@ -129,6 +129,10 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService, Elements
         }
       }
 
+      $scope.backgroundRepeat = function(repeat) {
+        $scope.ngModel.data.style.backgroundRepeat = repeat;
+      }
+
     }
   }
 })

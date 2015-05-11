@@ -76,6 +76,13 @@
             i.fa.fa-caret-right
           .bottom(ng-click="backgroundPosition('bottom')")
             i.fa.fa-caret-down
+      .item(ng-if="ngModel.data.style.backgroundImage")
+        | Background repeat
+        div
+          .button(ng-click="backgroundRepeat('repeat-x')") X
+          .button(ng-click="backgroundRepeat('repeat-y')") Y
+          .button(ng-click="backgroundRepeat('repeat')") XY
+          .button(ng-click="backgroundRepeat('no-repeat')") off
 
     .view(ng-class="{active: currentView=='new-bg-color'}")
       .item.title

@@ -194,7 +194,7 @@ app.service('Inch33ElementService', function(){
         ]
       }
     },
-    colors: ['#ffffff', '#F5F5F5', '#1D262D', '#C0A85A', '#3a4553'],
+    colors: ['#ffffff', '#1D262D', '#C0A85A', '#3a4553'],
     registerColor: function(color) {
       if ( this.colors.indexOf(color) < 0 )
         this.colors.push(color);

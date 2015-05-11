@@ -21,10 +21,11 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
             //  styles
             if ( !scope.ngModel.data.hasOwnProperty('style') )
               scope.ngModel.data.style = scope.config.style ? scope.config.style : {};
+            if ( scope.ngModel.data.style.hasOwnProperty('backgroundColor') )
+              Inch33ElementService.registerColor(scope.ngModel.data.style.backgroundColor);
             el[0].setAttribute('ng-style', 'ngModel.data.style');
 
             //  elements
-            //delete scope.ngModel.data.columns;
             var agregateColumns = ( scope.config.columns && !scope.ngModel.data.hasOwnProperty('columns') );
             if ( scope.config.elements ) {
               scope.config.elements.forEach(function(element){

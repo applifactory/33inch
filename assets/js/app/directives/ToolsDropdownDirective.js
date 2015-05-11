@@ -111,7 +111,6 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService, Elements
 
       $scope.deleteBackground = function(image) {
         image = image.substr(10).replace(/\)/, '');
-        console.log('deleteBackground', image);
         ElementsService.deleteImage($scope.$parent.$parent.link, $scope.ngModel._id, image).then(function(){
           $scope.ngModel.data.style.backgroundImage = '';
           $scope.updateHeight();
@@ -128,12 +127,10 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService, Elements
           case 'right':
           case 'bottom':
             $scope.ngModel.data.style.backgroundSize = 'auto';
-            $scope.ngModel.data.style.backgroundRepeat = 'repeat';
             $scope.ngModel.data.style.backgroundPosition = position;
             break;
           default:
             $scope.ngModel.data.style.backgroundSize = 'cover';
-            $scope.ngModel.data.style.backgroundRepeat = 'no-repeat';
             $scope.ngModel.data.style.backgroundPosition = 'center';
         }
       }

@@ -40,6 +40,7 @@
     "tinycolor": "~1.1.2",
     "rangy-release": "~1.2.3",
     "underscore": "~1.8.3",
-    "angular-upload": "~1.0.11"
+    "angular-upload": "~1.0.11",
+    "Sortable": "~1.2.0"
   }
 }

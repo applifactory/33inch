@@ -17,9 +17,8 @@ app.directive('menuDropdown', function($timeout, Inch33ElementService, ElementsS
           if ( !scope.ngModel.hasOwnProperty('data') )
             scope.ngModel.data = {};
           if ( !scope.ngModel.data.hasOwnProperty('textColor') ) {
-            var _el = iElement[0].parentElement.querySelector('ul li a');
-            if ( !_el )
-              _el = iElement[0].parentElement.querySelector('ul li span');
+            console.log('textColor...');
+            var _el = iElement[0].parentElement.querySelector('ul');
             if ( _el ) {
               scope.ngModel.data.textColor = $window.getComputedStyle(_el).getPropertyValue('color');
             }
@@ -42,7 +41,7 @@ app.directive('menuDropdown', function($timeout, Inch33ElementService, ElementsS
           var image = $scope.ngModel.data.logoImage.replace(/.+\//, '');
           ElementsService.deleteImage($scope.$parent.$parent.link, $scope.ngModel._id, image);
         }
-        $scope.ngModel.data.logoImage = '/fx/' + response.data.file;
+        $scope.ngModel.data.logoImage = '/fx/s-' + response.data.file;
         $scope.isUploading = false;
       }
 

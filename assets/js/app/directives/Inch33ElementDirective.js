@@ -1,4 +1,4 @@
-app.directive('inch33Element', function($compile, $templateRequest, Inch33ElementService, Diff, ElementsService, $window){
+app.directive('inch33Element', function($compile, $templateRequest, Inch33ElementService, Diff, ElementsService, $window, NodesService){
   return {
     restrict: 'E',
     replace: true,
@@ -136,6 +136,7 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
               var _logo = el[0].querySelector('.logo');
               _logo.innerHTML = '<img ng-src="{{ngModel.data.logoImage}}" alr="Logo"/>';
               el.prepend(dropdown);
+              scope.nodes = NodesService.currentNodes;
             }
 
             var compiled = $compile(el);

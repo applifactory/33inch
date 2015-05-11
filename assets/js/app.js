@@ -8,6 +8,8 @@
 //= require vendors/rangy-release/rangy-selectionsaverestore.js
 //= require vendors/underscore/underscore.js
 //= require vendors/angular-upload/angular-upload.js
+//= require vendors/Sortable/Sortable.js
+//= require vendors/Sortable/ng-sortable.js
 
 //= require_tree app/config
 //= require_tree app/directives

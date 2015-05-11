@@ -1,2 +1,4 @@
 .inch33
-  inch33-element(ng-repeat="element in elements", ng-model="element")
+  inch33-element(ng-repeat="element in topElements", ng-model="element", collection="topElements")
+  inch33-element(ng-repeat="element in elements", ng-model="element", collection="elements")
+  inch33-element(ng-repeat="element in bottomElements", ng-model="element", collection="bottomElements")

@@ -84,3 +84,12 @@ module.exports.deleteImage = function(req, res) {
   });
 }
 
+module.exports.updatePositions = function(req, res) {
+  console.log('updatePositions', req.body.ids);
+  var ids = req.body.ids;
+  if ( ids )
+    ids.forEach(function(_id, _index){
+      Element.findByIdAndUpdate(_id, { $set: { sortOrder: _index }}, function (err, element) { });
+    });
+  res.end();
+}

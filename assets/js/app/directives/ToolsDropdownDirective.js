@@ -4,7 +4,8 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService, Elements
     templateUrl: '/assets/app/website/tools-dropdown.html',
     scope: {
       ngModel: '=',
-      config: '='
+      config: '=',
+      collection: '='
     },
     link: function(scope, element, attr) {
       scope.updateHeight = function(){
@@ -46,7 +47,15 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService, Elements
         });
       });
     },
-    controller: function($scope, SettingsService){
+    controller: function($scope, SettingsService, $stateParams){
+
+      $scope.moveUp = function() {
+        ElementsService.moveUp($stateParams.link, $scope.ngModel._id, $scope.collection);
+      }
+
+      $scope.moveDown = function() {
+        ElementsService.moveDown($stateParams.link, $scope.ngModel._id, $scope.collection);
+      }
 
       $scope.colors = Inch33ElementService.colors;
 

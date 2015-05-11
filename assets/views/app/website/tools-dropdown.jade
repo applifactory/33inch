@@ -6,9 +6,9 @@
     //  main
     .view(ng-class="{active: currentView=='main', hidden: currentView!='main'}")
       .item.move
-        i.fa.fa-arrow-circle-down
+        i.fa.fa-arrow-circle-down(ng-click="moveDown()")
         | Move
-        i.fa.fa-arrow-circle-up
+        i.fa.fa-arrow-circle-up(ng-click="moveUp()")
       .item(ng-if="config.columns", ng-click="addColumnItem()")
         | Add column item
       .item(ng-if="config.columns")

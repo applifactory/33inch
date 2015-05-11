@@ -20,7 +20,6 @@ module.exports.updatePositions = function(req, res) {
   res.end();
 }
 
-
 module.exports.list = function(req, res) {
   Node.find( { parentWebsite: req.params.website._id }, 'name link nodes' ).populate('nodes', 'name link').sort('sortOrder').exec(function(err, nodes){
     if (err) return res.status(404).end();
@@ -30,7 +29,7 @@ module.exports.list = function(req, res) {
 
 module.exports.details = function(req, res) {
   req.params.website.populate('elements', 'template data', function(err, website){
-    Node.findOne({ _id: req.params.nodeId }, 'link name elements').populate('elements', 'template data').exec(function(err, node){
+    Node.findOne({ _id: req.params.nodeId }, 'link name elements').populate('elements', 'template data', null, { sort: { sortOrder: 1 } } ).exec(function(err, node){
       if (err) return res.status(404).end();
       res.json({
         _id: node._id,

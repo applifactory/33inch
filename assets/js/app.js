@@ -11,6 +11,8 @@
 //= require vendors/Sortable/Sortable.js
 //= require vendors/Sortable/ng-sortable.js
 
+//= require_tree common/utils
+
 //= require_tree app/config
 //= require_tree app/directives
 //= require_tree app/services

@@ -8,7 +8,8 @@ var ElementSchema = new Schema({
   data: { type: Schema.Types.Mixed },
   parentNode: { type: Schema.Types.ObjectId, ref: 'Node', childPath: 'elements' },
   parentWebsite: { type: Schema.Types.ObjectId, ref: 'Website', childPath: 'elements' },
-  images: [{ type: Schema.Types.ObjectId, ref: 'Image' }]
+  images: [{ type: Schema.Types.ObjectId, ref: 'Image' }],
+  sortOrder: Number
 });
 
 //  relations

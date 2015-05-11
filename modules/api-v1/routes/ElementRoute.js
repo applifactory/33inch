@@ -8,6 +8,10 @@ module.exports = function(app) {
     .all(authUtil.requireUserAuth)
     .all(elementCtrl.findWebsite)
     .post(elementCtrl.create);
+  app.route('/api/v1/website/:link/element/positions')
+    .all(authUtil.requireUserAuth)
+    .all(elementCtrl.findWebsite)
+    .put(elementCtrl.updatePositions);
   app.route('/api/v1/website/:link/node/:nodeId/element')
     .all(authUtil.requireUserAuth)
     .all(elementCtrl.findWebsite)

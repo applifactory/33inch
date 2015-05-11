@@ -3,7 +3,8 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
     restrict: 'E',
     replace: true,
     scope: {
-      ngModel: '='
+      ngModel: '=',
+      collection: '='
     },
     compile: function(tElement, tAttrs, transclude) {
       return {
@@ -126,10 +127,10 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
             }
 
             if ( scope.ngModel.template.indexOf('menu') < 0 ) {
-              var dropdown = angular.element('<tools-dropdown ng-model="ngModel" config="config"></tools-dropdown>');
+              var dropdown = angular.element('<tools-dropdown ng-model="ngModel" config="config" collection="collection"></tools-dropdown>');
               el.prepend(dropdown);
             } else {
-              var dropdown = angular.element('<menu-dropdown ng-model="ngModel" config="config"></menu-dropdown>');
+              var dropdown = angular.element('<menu-dropdown ng-model="ngModel" config="config" collection="collection"></menu-dropdown>');
               var _menu = el[0].querySelector('ul');
               _menu.setAttribute('menu-nav', '');
               _menu.setAttribute('ng-model', 'ngModel');

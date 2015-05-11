@@ -3,7 +3,9 @@ app.controller('WebsiteEditCtrl', function($scope, $stateParams, NodesService){
   $scope.link = $stateParams.link;
   $scope.path = null;
   $scope.currentNode = null;
+  $scope.topElements = null;
   $scope.elements = null;
+  $scope.bottomElements = null;
 
   var unwatchNodes = $scope.$watchCollection('nodes', function(nodes){
     if ( nodes ) {
@@ -12,11 +14,13 @@ app.controller('WebsiteEditCtrl', function($scope, $stateParams, NodesService){
         $scope.path = path;
         $scope.currentNode = path[path.length-1];
         NodesService.getNode($stateParams.link, $scope.currentNode._id).then(function(node){
+          $scope.topElements = [];
+          $scope.bottomElements = [];
           angular.forEach(node.baseElements, function(_element){
             if ( _element.template.indexOf('menu') >= 0 )
-              node.elements.unshift(_element);
+              $scope.topElements.push(_element);
             else
-              node.elements.push(_element);
+              $scope.bottomElements.push(_element);
           });
           $scope.elements = node.elements;
         });

@@ -1,0 +1,102 @@
+footer.default
+  display: block
+  background: black url(http://splitshire.com/wp-content/uploads/2014/02/SplitShire_blur07.jpg)
+  background-size: cover
+  color: white
+  padding: 3em 1em
+  &::after
+    content: ''
+    display: block
+    clear: both
+  .column
+    box-sizing: border-box
+    +size($small)
+      column(1/2, gutter: 10)
+  .container
+    margin: 0 auto
+    +size($medium)
+      width: 750px
+  form
+    background: white
+    border-radius: 10px
+    color: #00A89E
+    padding: 1em 1.5em
+    margin-bottom: 4em
+    &::after
+      content: ''
+      display: block
+      clear: both
+    +size($small)
+      margin-bottom: 0
+    label
+      margin: 10px 0 20px 0
+      display: block
+      p
+        margin: 0
+    input, select, textarea
+      background-color: #FFF
+      border: 1px solid #00A89E
+      border-radius: 0.3em
+      box-shadow: none
+      color: #444
+      line-height: 1.3
+      box-sizing: border-box
+      display: block
+      width: 100%
+      font-size: 1em
+      padding: 0.5em 0.5em
+      margin: 0.15em 0
+      vertical-align: middle
+      &:focus
+        outline: none
+        border-color: lighten(#00A89E, 15%)
+      &.error, .error &
+        color: dangerColor
+        border-color: dangerColor
+    input, select
+      height: 38px
+      &[type=checkbox]
+        display: inline-block
+        width: 20px
+        height: 22px
+        margin: 0px 3px 3px 0
+    button
+      background: #00A89E
+      text-align: center
+      width: 100px
+      border: none
+      border-radius: 5px
+      font-size: 1.25em
+      color: white
+      float: right
+      cursor: pointer
+  p.regular
+    margin-bottom: 0
+  ul
+    padding: 1em 0 1em 2em
+    margin: 0
+    li
+      list-style: none
+      position: relative
+      margin: 1em 0
+      &::before
+        font: normal normal normal 14px/1 FontAwesome
+        text-rendering: auto
+        -webkit-font-smoothing: antialiased
+        -moz-osx-font-smoothing: grayscale
+        transform: translate(0, 0)
+        font-size: 1.25em
+        position: absolute
+        left: -1.6em
+      &.place::before
+        content: "\f041"
+        font-size: 1.65em
+        left: -1.1em
+      &.mail::before
+        content: "\f0e0"
+        font-size: 1.1em
+        left: -1.8em
+      &.phone::before
+        content: "\f095"
+      &.twitter::before
+        content: "\f099"

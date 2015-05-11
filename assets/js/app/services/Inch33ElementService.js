@@ -134,6 +134,38 @@ app.service('Inch33ElementService', function(){
       },
       'menu-default': {
 
+      },
+      'pricing-default': {
+        elements: [
+          {
+            name: 'Title',
+            type: 'text',
+            selector: 'h1',
+            elements: false
+          },
+          {
+            name: 'Claim',
+            type: 'text',
+            selector: '.regular',
+            elements: true
+          },
+          {
+            name: 'Items',
+            type: 'text',
+            selector: '.table .items p'
+          },
+          {
+            name: 'Prices',
+            type: 'text',
+            selector: '.table .prices p'
+          },
+          {
+            name: 'Sub-text',
+            type: 'text',
+            selector: 'p.small',
+            elements: true
+          }
+        ]
       }
     },
     colors: ['#ffffff', '#F5F5F5', '#1D262D', '#C0A85A', '#3a4553'],

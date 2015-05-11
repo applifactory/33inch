@@ -69,6 +69,7 @@ app.directive("editor", function($timeout, $window, Inch33ElementService, $rootS
           else
             scope.data.style.lineHeight = Math.round(parseInt(scope.data.style.lineHeight) / scope.fontSize * 10) / 10;
         }
+        Inch33ElementService.registerColor(scope.data.style.color);
 
         angular.element(element[0].querySelector('[contenteditable]')).bind('focus', function(){
           element.addClass('focus');

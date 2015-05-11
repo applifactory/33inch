@@ -19,6 +19,32 @@ app.service('Inch33ElementService', function(){
           }
         ]
       },
+      'header-slider': {
+        elements: [
+          {
+            name: 'Title',
+            type: 'text',
+            selector: '.hero h1',
+            elements: true
+          },
+          {
+            name: 'Claim',
+            type: 'text',
+            selector: '.hero h2',
+            elements: true
+          }
+        ]
+      },
+      'header-section': {
+        elements: [
+          {
+            name: 'Title',
+            type: 'text',
+            selector: 'h1',
+            elements: true
+          }
+        ]
+      },
       'article-text': {
         style: {
           backgroundColor: '#ffffff'

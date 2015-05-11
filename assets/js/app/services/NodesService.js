@@ -80,6 +80,19 @@ app.service('NodesService', function($http, $state, $q, $timeout, SettingsServic
         deferred.reject();
       })
       return deferred.promise;
+    },
+    updatePositions: function(link, nodes) {
+      var _ids = [];
+      angular.forEach(nodes, function(_node){
+        _ids.push(_node._id);
+      });
+      var deferred = $q.defer();
+      $http.put(SettingsService.apiUrl + 'website/' + link + '/node/positions', {ids: _ids}).success(function(node){
+        deferred.resolve(node);
+      }).error(function(){
+        deferred.reject();
+      })
+      return deferred.promise;
     }
   }
 })

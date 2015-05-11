@@ -11,8 +11,18 @@ module.exports.findWebsite = function(req, res, next) {
   });
 }
 
+module.exports.updatePositions = function(req, res) {
+  var ids = req.body.ids;
+  if ( ids )
+    ids.forEach(function(_id, _index){
+      Node.findByIdAndUpdate(_id, { $set: { sortOrder: _index }}, function (err, node) { });
+    });
+  res.end();
+}
+
+
 module.exports.list = function(req, res) {
-  Node.find( { parentWebsite: req.params.website._id }, 'name link nodes' ).populate('nodes', 'name link').exec(function(err, nodes){
+  Node.find( { parentWebsite: req.params.website._id }, 'name link nodes' ).populate('nodes', 'name link').sort('sortOrder').exec(function(err, nodes){
     if (err) return res.status(404).end();
     res.json(nodes);
   });

@@ -9,7 +9,8 @@ var NodeSchema = new Schema({
   nodes: [{ type: Schema.Types.ObjectId, ref: 'Node' }],
   parentNode: { type: Schema.Types.ObjectId, ref: 'Node', childPath: 'nodes' },
   parentWebsite: { type: Schema.Types.ObjectId, ref: 'Website', childPath: 'nodes' },
-  elements: [{ type: Schema.Types.ObjectId, ref: 'Element' }]
+  elements: [{ type: Schema.Types.ObjectId, ref: 'Element' }],
+  sortOrder: Number
 });
 
 //  relations

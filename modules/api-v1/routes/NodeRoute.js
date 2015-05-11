@@ -10,6 +10,11 @@ module.exports = function(app) {
     .get(nodeCtrl.list)
     .post(nodeCtrl.create);
 
+  app.route('/api/v1/website/:link/node/positions')
+    .all(authUtil.requireUserAuth)
+    .all(nodeCtrl.findWebsite)
+    .put(nodeCtrl.updatePositions);
+
   app.route('/api/v1/website/:link/node/:nodeId')
     .all(authUtil.requireUserAuth)
     .all(nodeCtrl.findWebsite)

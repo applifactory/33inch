@@ -1,5 +1,5 @@
-.sign-in
-  h1 Sign in {{isLoading}}
+.sign-in.ui-kit
+  h1 Sign in
   form(name="signInForm", ng-submit="submitForm()", novalidate, ng-class="{loading: isLoading}")
     .message.danger(ng-show="signInForm.$submitted && ( signInForm.$invalid || errorMessage )")
       span(ng-if="signInForm.$submitted", ng-messages="signInForm.email.$error")
@@ -21,4 +21,4 @@
       | Stay logged in
     .actions
       input.button.success.fill(type="submit", value="Sign in")
-      .button.primary.fill.small Sign up
+      //.button.primary.fill.small Sign up

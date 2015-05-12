@@ -1,4 +1,4 @@
-app.controller('AppIndexCtrl', function($scope, WebsitesService){
+app.controller('AppIndexCtrl', function($scope, WebsitesService, $location){
 
   $scope.websites = [];
   $scope.isLoading = true;
@@ -6,6 +6,8 @@ app.controller('AppIndexCtrl', function($scope, WebsitesService){
   WebsitesService.getAll().then(function(websites){
     $scope.websites = websites;
     $scope.isLoading = false;
+    if ( websites.length )
+      $location.path('/app/' + websites[0].permalink);
   });
 
   $scope.getWebsiteLink = function(website) {

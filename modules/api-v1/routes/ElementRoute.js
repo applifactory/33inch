@@ -19,7 +19,8 @@ module.exports = function(app) {
   app.route('/api/v1/website/:link/element/:elementId')
     .all(authUtil.requireUserAuth)
     .all(elementCtrl.findWebsite)
-    .put(elementCtrl.update);
+    .put(elementCtrl.update)
+    .delete(elementCtrl.delete);
   app.route('/api/v1/website/:link/element/:elementId/image')
     .all(authUtil.requireUserAuth)
     .all(elementCtrl.findWebsite)

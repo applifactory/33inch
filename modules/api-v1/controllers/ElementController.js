@@ -93,3 +93,11 @@ module.exports.updatePositions = function(req, res) {
     });
   res.end();
 }
+
+module.exports.delete = function(req, res) {
+  Element.findById(req.params.elementId, function(err, element){
+    if ( err || !element )  res.status(404).end();
+    element.remove();
+    res.end();
+  });
+}

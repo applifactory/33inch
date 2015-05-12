@@ -192,7 +192,62 @@ app.service('Inch33ElementService', function(){
             elements: true
           }
         ]
-      }
+      },
+      'footer-default': {
+        elements: [
+          {
+            name: 'Name',
+            type: 'text',
+            selector: 'form .name label'
+          },
+          {
+            name: 'Email',
+            type: 'text',
+            selector: 'form .email label'
+          },
+          {
+            name: 'Message',
+            type: 'text',
+            selector: 'form .message label'
+          },
+          {
+            name: 'Title',
+            type: 'text',
+            selector: 'h3',
+            elements: true
+          },
+          {
+            name: 'Claim',
+            type: 'text',
+            selector: 'p.regular',
+            elements: true
+          },
+          {
+            name: 'Place',
+            type: 'text',
+            selector: 'li.place',
+            elements: true
+          },
+          {
+            name: 'Email',
+            type: 'text',
+            selector: 'li.mail',
+            elements: true
+          },
+          {
+            name: 'Phone',
+            type: 'text',
+            selector: 'li.phone',
+            elements: true
+          },
+          {
+            name: 'Twitter',
+            type: 'text',
+            selector: 'li.twitter',
+            elements: true
+          }
+        ]
+      },
     },
     colors: ['#ffffff', '#1D262D', '#C0A85A', '#3a4553'],
     registerColor: function(color) {

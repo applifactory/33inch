@@ -19,7 +19,7 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
               scope.ngModel.data = {};
 
             //  styles
-            if ( !scope.ngModel.data.hasOwnProperty('style') )
+            if ( !scope.ngModel.data.hasOwnProperty('style') || !scope.ngModel.data.style )
               scope.ngModel.data.style = scope.config.style ? scope.config.style : {};
             if ( scope.ngModel.data.style.hasOwnProperty('backgroundColor') )
               Inch33ElementService.registerColor(scope.ngModel.data.style.backgroundColor);

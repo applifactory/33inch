@@ -19,5 +19,6 @@ module.exports = function(app) {
     .all(authUtil.requireUserAuth)
     .all(nodeCtrl.findWebsite)
     .get(nodeCtrl.details)
+    .put(nodeCtrl.update);
 
 }

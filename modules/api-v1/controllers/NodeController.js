@@ -54,3 +54,17 @@ module.exports.create = function(req, res) {
     res.json(node);
   });
 }
+
+module.exports.update = function(req, res) {
+  Node.findOne({ _id: req.params.nodeId }).exec(function(err, node){
+    if (err) return res.status(404).end();
+    if ( req.body.name )
+      node.name = req.body.name;
+    if ( req.body.link )
+      node.link = req.body.link;
+    node.save(function(err){
+      if (err) return res.status(400).end();
+      res.end();
+    });
+  });
+}

@@ -10,7 +10,17 @@
       width: 550px
       max-width: 100%
       z-index: 2
+      padding-top: 2em
       h1
         font-size: 4.5em
       h2
         font-family: 'Raleway', sans-serif
+        position: relative
+        padding-left: 1em
+        &::before
+          content: "\f101"
+          font: normal normal normal 14px/1 FontAwesome
+          font-size: 1em
+          position: absolute
+          left: 0.1em
+          top: 0.25em

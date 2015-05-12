@@ -53,7 +53,8 @@ app.service('Inch33ElementService', function(){
           {
             name: 'Title',
             type: 'text',
-            selector: '.container h1'
+            selector: '.container h1',
+            elements: true
           },
           {
             name: 'Claim',

@@ -12,8 +12,12 @@ editor
     opacity: 0
     visibility: hidden
     transition: all 0.2s ease
+    .btn
+      display: none
   &.focus
     z-index: 2
     .toolbar
       opacity: 1
       visibility: visible
+      .btn
+        display: inline-block

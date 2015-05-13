@@ -114,15 +114,6 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
 
                 //  attachement
                 if ( element.type && element.type == 'attachement' ) {
-//                  var _els = el[0].querySelectorAll(element.selector);
-//                  angular.forEach(_els, function(__el, i){
-//                    if ( scope.ngModel.data.columns.length <= i )
-//                        scope.ngModel.data.columns.push({});
-//                    if ( !scope.ngModel.data.columns[i].hasOwnProperty(element.id) )
-//                        scope.ngModel.data.columns[i][element.id] = {};
-//                    if ( !scope.ngModel.data.columns[i][element.id].hasOwnProperty('attachement') )
-//                      scope.ngModel.data.columns[i][element.id].attachement = '';
-//                  });
                   _el.setAttribute('attachement-edit', 'column[\'' + element.id + '\'].attachement');
                 }
 

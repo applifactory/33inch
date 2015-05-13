@@ -29,5 +29,13 @@ module.exports = function(app) {
     .all(authUtil.requireUserAuth)
     .all(elementCtrl.findWebsite)
     .delete(elementCtrl.deleteImage);
+  app.route('/api/v1/website/:link/element/:elementId/file')
+    .all(authUtil.requireUserAuth)
+    .all(elementCtrl.findWebsite)
+    .post(elementCtrl.uploadFile);
+  app.route('/api/v1/website/:link/element/:elementId/file/:file')
+    .all(authUtil.requireUserAuth)
+    .all(elementCtrl.findWebsite)
+    .delete(elementCtrl.deleteFile);
 
 }

@@ -44,3 +44,29 @@ module.exports.deleteImage = function(file, callback) {
     callback(false);
   }
 }
+
+module.exports.processFile = function(file, callback) {
+  var fileName = file.originalFilename.replace(/(.+)\.([\w\d]+)/gi, '$1');
+  var fileExt = file.originalFilename.replace(/(.+)\.([\w\d]+)/gi, '$2');
+  if ( fileName == fileExt )
+    fileExt = null;
+  fileName += Date.now();
+  fs.readFile(file.path, function (err, data) {
+    if ( err ) callback(false);
+    if ( !fs.existsSync('public/fx/') ) fs.mkdirSync('public/fx/');
+    var newPath = 'public/fx/' + fileName + ( fileExt ? '.' + fileExt : '' );
+    fs.writeFile(newPath, data, function (err) {
+      if ( err ) callback(false);
+      callback(fileName + ( fileExt ? '.' + fileExt : '' ));
+    });
+  });
+}
+
+module.exports.deleteFile = function(file, callback) {
+  if ( fs.existsSync( 'public/fx/' + file ) ) {
+    fs.unlink('public/fx/' + file, function(){});
+    callback(true);
+  } else {
+    callback(false);
+  }
+}

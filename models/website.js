@@ -11,6 +11,7 @@ var WebsiteSchema = new Schema({
   owners: [{ type: Schema.Types.ObjectId, ref: 'User', childPath: 'websites' }],
   nodes: [{ type: Schema.Types.ObjectId, ref: 'Node' }],
   images: [{ type: Schema.Types.ObjectId, ref: 'Image' }],
+  files: [{ type: Schema.Types.ObjectId, ref: 'File' }],
   elements: [{ type: Schema.Types.ObjectId, ref: 'Element' }]
 });
 

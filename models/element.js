@@ -9,6 +9,7 @@ var ElementSchema = new Schema({
   parentNode: { type: Schema.Types.ObjectId, ref: 'Node', childPath: 'elements' },
   parentWebsite: { type: Schema.Types.ObjectId, ref: 'Website', childPath: 'elements' },
   images: [{ type: Schema.Types.ObjectId, ref: 'Image' }],
+  files: [{ type: Schema.Types.ObjectId, ref: 'File' }],
   sortOrder: Number
 });
 

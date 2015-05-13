@@ -19,6 +19,16 @@ app.service('ElementsService', function($http, $q, SettingsService) {
       })
       return deferred.promise;
     },
+    deleteFile: function(link, elementId, file) {
+      console.log('deleteFile');
+      var deferred = $q.defer();
+      $http.delete(SettingsService.apiUrl + 'website/' + link + '/element/' + elementId + '/file/' + file).success(function(node){
+        deferred.resolve();
+      }).error(function(){
+        deferred.reject();
+      })
+      return deferred.promise;
+    },
     moveUp: function(link, elementId, collection) {
       var index = -1;
       angular.forEach(collection, function(_el, _index){

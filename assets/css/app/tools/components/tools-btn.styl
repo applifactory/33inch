@@ -15,6 +15,16 @@
     position: relative
   &.active
     color: toolAccent
+  .fa.fa-spinner
+    display: none
+  &.loading
+    cursor: default
+    .fa
+      display: none
+    .fa.fa-spinner
+      display: inline-block
+    input
+      display: none
 
 .btn-group
   display: inline-block

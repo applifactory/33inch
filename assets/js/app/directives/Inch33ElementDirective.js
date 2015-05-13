@@ -38,6 +38,10 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
                 //  find element
                 var _el = el[0].querySelector(element.selector);
 
+                //  base params
+                _el.setAttribute('element-id', scope.ngModel._id);
+                _el.setAttribute('link', scope.$parent.$parent.link);
+
                 //  set default element values, bind view
                 if ( element.hasOwnProperty('elements') ) {
                   if ( !scope.ngModel.data[element.id].hasOwnProperty('elements') )
@@ -104,10 +108,22 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
                     });
                   }
                   _el.setAttribute('ng-model', 'column["' + element.id + '"].style');
-                  _el.setAttribute('element-id', scope.ngModel._id);
-                  _el.setAttribute('link', scope.$parent.$parent.link);
                   _el.setAttribute('ng-style', 'column["' + element.id + '"].style');
                   _el.setAttribute('background-edit', '');
+                }
+
+                //  attachement
+                if ( element.type && element.type == 'attachement' ) {
+//                  var _els = el[0].querySelectorAll(element.selector);
+//                  angular.forEach(_els, function(__el, i){
+//                    if ( scope.ngModel.data.columns.length <= i )
+//                        scope.ngModel.data.columns.push({});
+//                    if ( !scope.ngModel.data.columns[i].hasOwnProperty(element.id) )
+//                        scope.ngModel.data.columns[i][element.id] = {};
+//                    if ( !scope.ngModel.data.columns[i][element.id].hasOwnProperty('attachement') )
+//                      scope.ngModel.data.columns[i][element.id].attachement = '';
+//                  });
+                  _el.setAttribute('attachement-edit', 'column[\'' + element.id + '\'].attachement');
                 }
 
               });

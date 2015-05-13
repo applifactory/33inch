@@ -128,7 +128,7 @@ module.exports.uploadFile = function(req, res) {
 
 module.exports.deleteFile = function(req, res) {
   File.findOne({
-    filename: req.params.image,
+    filename: req.params.file,
     parentElement: req.params.elementId
   }, function(err, file){
     if ( err || !file ) return res.status(404).end();

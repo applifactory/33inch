@@ -108,6 +108,38 @@ app.service('Inch33ElementService', function(){
           }
         ]
       },
+      'attachements-list':{
+        columns: {
+          min: 3,
+          max: 6,
+          default: 4
+        },
+        elements: [
+          {
+            name: 'Title',
+            type: 'text',
+            selector: '.container h1',
+            elements: true
+          },
+          {
+            name: 'Claim',
+            type: 'text',
+            selector: '.container .regular',
+            elements: false
+          },
+          {
+            name: 'Item title',
+            type: 'text',
+            selector: '.container li a',
+            column: true
+          },
+          {
+            type: 'attachement',
+            selector: '.container li',
+            column: true
+          }
+        ]
+      },
       'showcase-grid': {
         background: false,
         style: {

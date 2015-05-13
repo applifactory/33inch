@@ -1,0 +1,68 @@
+.attachements-list
+  h1, p
+    color: #42BCDC
+  ul
+    list-style: none
+    padding: 0 10%
+    margin-top: 2em
+    &::after
+      content: ''
+      clear: both
+      display: block
+    li
+      box-sizing: border-box
+      border: 1px solid #42BCDC
+      color: #42BCDC
+      padding-bottom: 50%
+      position: relative
+      border-radius: 10px
+      margin-top: 1em
+      margin-bottom: 1em
+      column(1/2, cycle: 2)
+      +size($small)
+        padding-bottom: 20%
+        column(1/4, gutter: 5, cycle: 4, uncycle: 2)
+      a
+        display: block
+        position: absolute
+        text-align: center
+        color: #42BCDC
+        left: 0
+        right: 0
+        top: 0
+        bottom: 0
+        z-index: 1
+        padding-top: 10%
+        font-weight: bold
+        text-decoration: none
+        &::after
+          content: "\f019"
+          display: inline-block
+          font-family: FontAwesome
+          font-size: 50px
+          font-stretch: normal
+          font-style: normal
+          font-variant: normal
+          font-weight: normal
+          position: absolute
+          top: 44%
+          left: 50%
+          transform: translate(-50%, 0)
+          +size($small)
+            font-size: 38px
+            top: 50%
+    +size($small)
+      &.col-3
+        li
+          padding-bottom: 30%
+          column(1/3, gutter: 5, cycle: 3, uncycle: 4)
+      &.col-5
+        li
+          padding-bottom: 15%
+          column(1/5, gutter: 5, cycle: 5, uncycle: 4)
+      &.col-6
+        li
+          padding-bottom: 13%
+          column(1/6, gutter: 3, cycle: 6, uncycle: 4)
+          a::after
+            font-size: 32px

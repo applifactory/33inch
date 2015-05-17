@@ -6,6 +6,7 @@ var mongoose        = require('mongoose'); // for working w/ our database
 var port            = process.env.PORT || 3000; // set the port for pur app
 var fs              = require('fs');
 var config          = require('./config/config.js');
+var websitesService = require('./utils/WebsitesService.js');
 
 //  Startup
 console.log('ENV: ' + ( process.env.ENV || 'development' ) );
@@ -21,11 +22,6 @@ mongoose.connect(config.db);
 app.set('views', __dirname + '/modules');
 app.set('view engine', 'jade');
 
-//  Assets
-app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/assets/img'));
-app.use(express.static(__dirname + '/assets/font'));
-
 //  Request params parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -38,6 +34,15 @@ app.use(function(req, res, next) {
   next();
 });
 
+//  Static exported websites
+//websitesService(app);
+
+//  Assets
+app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/assets/img'));
+app.use(express.static(__dirname + '/assets/font'));
+
+//  Modules with its routes and controllers
 fs.readdirSync('./modules').forEach(function (moduleName) {
   if ( fs.existsSync('./modules/' + moduleName + '/routes') ) {
     fs.readdirSync('./modules/' + moduleName + '/routes').forEach(function (routeName) {

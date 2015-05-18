@@ -8,6 +8,8 @@ module.exports = function(app) {
   app.all('/app/*', index.index)
   app.all('/account', index.index)
   app.all('/account/*', index.index)
+  app.all('/logout', index.index)
+  app.all('/components/list', index.list)
 
     //.all(authUtil.requireUserAuth)
 

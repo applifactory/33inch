@@ -29,6 +29,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       url: '/account',
       templateUrl: 'assets/app/account/sign-in.html',
       controller: 'SignInCtrl'
+    })
+
+    .state('logout', {
+      url: '/logout',
+      template: '',
+      controller: 'SignOutCtrl'
     });
+
+
 
 });

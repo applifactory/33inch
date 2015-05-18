@@ -1,0 +1,23 @@
+extends ../layouts/app.jade
+
+block title
+  title 33inch
+
+block head
+  link(href='http://fonts.googleapis.com/css?family=Dosis:400,700|Abel|Droid+Sans:400,700|Arvo:400,700,400italic,700italic|Poiret+One|Quicksand:400,700|Ubuntu:400,700,400italic,700italic|Bitter:400,700,400italic|Lobster+Two:400,700,400italic,700italic|Montserrat:400,700|Open+Sans:400italic,700italic,700,400|Pacifico|Raleway:400,700|Roboto+Slab:400,700|Roboto:400,400italic,700,700italic&subset=latin,latin-ext', rel='stylesheet', type='text/css')
+
+block content
+  .inch33
+    include ../../../../assets/views/app/website/components/menu-default
+
+    include ../../../../assets/views/app/website/components/article-features
+    include ../../../../assets/views/app/website/components/article-text
+    include ../../../../assets/views/app/website/components/attachements-list
+    include ../../../../assets/views/app/website/components/header-section
+    include ../../../../assets/views/app/website/components/header-slider
+    include ../../../../assets/views/app/website/components/header-straight
+    include ../../../../assets/views/app/website/components/list-grid
+    include ../../../../assets/views/app/website/components/pricing-default
+    include ../../../../assets/views/app/website/components/showcase-grid
+
+    include ../../../../assets/views/app/website/components/footer-default

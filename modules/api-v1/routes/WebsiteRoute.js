@@ -11,4 +11,7 @@ module.exports = function(app) {
   app.route('/api/v1/website/:link')
     .all(authUtil.requireUserAuth)
     .get(websiteCtrl.details);
+  app.route('/api/v1/website/:link/export')
+    .all(authUtil.requireUserAuth)
+    .get(websiteCtrl.export);
 }

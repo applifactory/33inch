@@ -2,6 +2,7 @@ var authUtil = require('../../../utils/AuthService.js');
 var User = require('../../../models/user');
 var Website = require('../../../models/website');
 var Node = require('../../../models/node');
+var WebsiteExport = require('../../../utils/WebsiteExportService');
 
 module.exports.index = function(req, res) {
   res.json(req.params.authUser.websites);
@@ -55,3 +56,17 @@ module.exports.create = function(req, res) {
   } else
     res.status(400);
 }
+
+module.exports.export = function(req, res) {
+  Website
+    .findOne({ permalink: req.params.link })
+    .populate('elements')
+    .populate('nodes')
+    .exec(function(err, website){
+      if (err) return res.status(404).end();
+      WebsiteExport.export(website, function(err, result){
+        if (err) return res.json({message: err}).status(400).end();
+        res.json(result);
+      })
+    });
+};

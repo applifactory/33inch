@@ -46,7 +46,7 @@ module.exports.deleteImage = function(file, callback) {
 }
 
 module.exports.processFile = function(file, callback) {
-  var fileName = file.originalFilename.replace(/(.+)\.([\w\d]+)/gi, '$1');
+  var fileName = file.originalFilename.replace(/(.+)\.([\w\d]+)/gi, '$1').replace(/([\W])/g, '');
   var fileExt = file.originalFilename.replace(/(.+)\.([\w\d]+)/gi, '$2');
   if ( fileName == fileExt )
     fileExt = null;

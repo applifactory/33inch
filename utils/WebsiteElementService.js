@@ -31,9 +31,11 @@ module.exports.compile = function(elementData, html, config, callback) {
       var _class = _baseElement.getAttribute('class').split(' ').join('.');
       var _cssSelector = ( _class ? '.' + _class : '' ) + '.e' + elementData._id + ' ';
 
+
       // styles
       if ( elementData.data.hasOwnProperty('style') && elementData.data.style )
         registerStyle(_cssSelector, elementData.data.style);
+      _baseElement.setAttribute('class', _cssSelector.replace(/\./g, ' ').trim());
 
       //  columns repeater
       var _cols = null;
@@ -79,7 +81,6 @@ module.exports.compile = function(elementData, html, config, callback) {
               }
             } else {
               //  regular text
-              console.log('//  regular text');
               if ( elementData.data && elementData.data[element.id] ) {
                 _el.innerHTML = elementData.data[element.id].text;
               }

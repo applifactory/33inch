@@ -4,7 +4,7 @@ var fs = require('fs');
 var gm = require('gm').subClass({ imageMagick: true });
 
 module.exports.processImage = function(file, callback) {
-  var fileName = file.originalFilename.replace(/(.+)\.([\w\d]+)/gi, '$1');
+  var fileName = file.originalFilename.replace(/(.+)\.([\w\d]+)/gi, '$1').replace(/([\W])/g, '');
   var fileExt = file.originalFilename.replace(/(.+)\.([\w\d]+)/gi, '$2');
   if ( fileName == fileExt )
     fileExt = null;

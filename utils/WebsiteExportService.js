@@ -1,9 +1,10 @@
 'use strict';
 
 var fs = require('fs');
-var jsdom = require('jsdom');
 var async = require('async');
+var jade = require('jade');
 var Node = require('../models/node');
+var WebsiteElement = require('./WebsiteElementService');
 
 var headers = '';
 var footers = '';
@@ -24,10 +25,6 @@ function exportNodes(nodes, callback) {
   console.log('# exportNodes: ', nodes.length);
   async.eachSeries(nodes, function(node, _callback) {
     exportNode(node, function(err){
-      if ( err )
-        console.error('# exportNode::error', err);
-      else
-        console.error('# exportNode::complete: ', node.link);
       _callback(err);
     });
   }, function ( err ) {
@@ -46,53 +43,48 @@ function exportNode(node, callback) {
     if (err) return callback('Node not found');
     var link = ( node.link ? node.link : 'index' ) + '.html';
     console.log('--', link, '--');
-    callback(null, 'ok');
-//    exportElements(node.elements, null, function(err, content){
-//      if ( err ) callback(err);
-//      console.log('#content:', content);
-//      callback(null, 'ok');
-//    });
+    exportElements(node.elements, function(err, content){
+      if ( err ) callback(err);
+      console.log('# exportNode::complete:', content);
+      callback(null, 'ok');
+    });
   });
 }
 
-function exportElements(elements, content, callback) {
-  setTimeout(function(){
-    callback(null, 'exported elements');
-  }, 100);
-//  if ( !content ) content = '';
-//  if ( elements.length ) {
-//    var element = elements.shift();
-//    exportElement(element, function(err, _content){
-//      if ( err )  return callback( err );
-//      content += _content;
-//      exportElements(elements, content, callback);
-//    });
-//  } else {
-//    callback(content);
-//  }
-}
+function exportElements(elements, callback) {
+  var content = '';
+  async.eachSeries(elements, function(element, _callback) {
+    exportElement(element, function(err, _content){
+      content += _content;
+      _callback(err);
+    });
+  }, function ( err ) {
+    if( err ) {
+      console.log('Export element error');
+      return callback('Export node error');
+    }
+    console.log('All elements exported');
+    callback(null, content)
+  });
 
+}
 
 function exportElement(element, callback) {
-  console.log('##', element.template);
-  callback(null, ' #'+element.template+'# ');
+  var _file = __dirname.replace(/^(.+)\/([\w]+)$/gi, '$1') + '/assets/views/app/website/components/' + element.template + '.jade';
+  fs.readFile(_file, 'utf8', function (err, data) {
+    if (err) return callback('Error: ' + err, null);
+    var html = jade.compile(data)();
+
+    WebsiteElement.compile(element, html, config, function(err, content){
+      if ( err )  console.error('WebsiteElement.compile::error', err);
+      else        console.log('WebsiteElement.compile::success', data);
+    });
+
+
+
+    //callback(null, ' #'+element.template+'# ' + html);
+  });
 }
-
-//
-//    jsdom.env(
-//      '<p><a class="the-link" href="https://github.com/tmpvar/jsdom">jsdom!</a></p>',
-//      ["http://code.jquery.com/jquery.js"],
-//      function (errors, window) {
-//        console.log("contents of a.the-link:", window.$("a.the-link").text());
-//      }
-//    );
-
-
-
-function buildElements(websiteId) {
-
-}
-
 
 module.exports.export = function(website, callback) {
 

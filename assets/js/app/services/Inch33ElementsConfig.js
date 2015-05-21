@@ -258,5 +258,31 @@ var Inch33ElementsConfig = {
       "id": "li-twitter",
       "$$hashKey": "object:110"
       }]
+  },
+  "subscribe-form": {
+    "elements": [{
+      "name": "Title",
+      "type": "text",
+      "selector": ".container h1",
+      "elements": true
+      }, {
+      "name": "Claim",
+      "type": "text",
+      "selector": ".container p",
+      "elements": true
+      }, {
+      "name": "Email",
+      "type": "text",
+      "selector": ".container .email label"
+      }, {
+      "name": "Name",
+      "type": "text",
+      "selector": ".container .name label"
+      }, {
+      "name": "Name",
+      "type": "input",
+      "selector": ".container .name",
+      "elements": true
+      }]
   }
 }

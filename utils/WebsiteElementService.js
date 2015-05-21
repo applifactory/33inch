@@ -15,12 +15,12 @@ function registerStyle(selector, style) {
   _style += selector + ' { ' + css + '} ';
 }
 
-module.exports.compile = function(elementData, html, config, callback) {
+module.exports.compile = function(elementData, html, config, nodes, callback) {
 
   console.log('---- ' + elementData.template + ' ----');
 
   var _conf = config.hasOwnProperty(elementData.template) ? config[elementData.template] : null;
-  var _columns = _conf.hasOwnProperty('columns') ? _conf.columns : null;
+  var _columns = _conf && _conf.hasOwnProperty('columns') ? _conf.columns : null;
   var _elements = _conf && _conf.hasOwnProperty('elements') ? _conf.elements : null;
   _style = '';
   _attachements = [];
@@ -50,6 +50,22 @@ module.exports.compile = function(elementData, html, config, callback) {
         });
         _cols.innerHTML = _colsTmpl;
         _cols.setAttribute('class', 'col-' + elementData.data.columnCount);
+      }
+
+      //  menu
+      if ( elementData.template.indexOf('menu') >= 0 ) {
+        var _logo = _baseElement.querySelector('.logo');
+        if ( _logo && elementData.data && elementData.data.logoImage ) {
+          _logo.innerHTML = '<img src="'+elementData.data.logoImage+'" />';
+          _attachements.push(elementData.data.logoImage);
+        }
+        if ( elementData.data.textColor )
+          registerStyle(_cssSelector + 'ul li a', {color: elementData.data.textColor});
+        var _nav = '';
+        nodes.forEach(function(_node) {
+          _nav += '<li><a href="/' + (_node.link ? _node.link + '.html' : '') + '">' + _node.name + '</a></li>';
+        });
+        _baseElement.querySelector('ul').innerHTML = _nav;
       }
 
       //  elements
@@ -126,9 +142,9 @@ module.exports.compile = function(elementData, html, config, callback) {
 
         })
       }
-      console.log('output', _baseElement.outerHTML);
-      console.log('style', _style);
-      console.log('attachements', _attachements);
+      //console.log('output', _baseElement.outerHTML);
+      //console.log('style', _style);
+      //console.log('attachements', _attachements);
 
       callback(null, {
         content: _baseElement.outerHTML,

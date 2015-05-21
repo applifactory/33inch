@@ -10,6 +10,7 @@ var headers = '';
 var footers = '';
 var config = null;
 var styles = '';
+var attachements = [];
 
 function loadConfig(callback) {
   var _file = __dirname.replace(/^(.+)\/([\w]+)$/gi, '$1') + '/assets/js/app/services/Inch33ElementsConfig.js';
@@ -54,8 +55,10 @@ function exportNode(node, callback) {
 function exportElements(elements, callback) {
   var content = '';
   async.eachSeries(elements, function(element, _callback) {
-    exportElement(element, function(err, _content){
-      content += _content;
+    exportElement(element, function(err, result){
+      content += result.content;
+      styles += result.style;
+      Array.prototype.push.apply(attachements, result.attachements);
       _callback(err);
     });
   }, function ( err ) {
@@ -64,7 +67,7 @@ function exportElements(elements, callback) {
       return callback('Export node error');
     }
     console.log('All elements exported');
-    callback(null, content)
+    callback(null, content);
   });
 
 }
@@ -74,15 +77,10 @@ function exportElement(element, callback) {
   fs.readFile(_file, 'utf8', function (err, data) {
     if (err) return callback('Error: ' + err, null);
     var html = jade.compile(data)();
-
-    WebsiteElement.compile(element, html, config, function(err, content){
-      if ( err )  console.error('WebsiteElement.compile::error', err);
-      else        console.log('WebsiteElement.compile::success', data);
+    WebsiteElement.compile(element, html, config, function(err, result){
+      if ( err )  callback(err);
+      else        callback(null, result);
     });
-
-
-
-    //callback(null, ' #'+element.template+'# ' + html);
   });
 }
 

@@ -17,6 +17,8 @@ function registerStyle(selector, style) {
 
 module.exports.compile = function(elementData, html, config, callback) {
 
+  console.log('---- ' + elementData.template + ' ----');
+
   var _conf = config.hasOwnProperty(elementData.template) ? config[elementData.template] : null;
   var _columns = _conf.hasOwnProperty('columns') ? _conf.columns : null;
   var _elements = _conf && _conf.hasOwnProperty('elements') ? _conf.elements : null;
@@ -61,7 +63,7 @@ module.exports.compile = function(elementData, html, config, callback) {
             registerStyle(_cssSelector + element.selector, elementData.data[element.id].style);
 
           //  remove hidden elements
-          if ( elementData.data[element.id].hasOwnProperty('elements') && !elementData.data[element.id].elements ) {
+          if ( elementData.data && elementData.data[element.id] && elementData.data[element.id].hasOwnProperty('elements') && !elementData.data[element.id].elements ) {
             var _els = _baseElement.querySelectorAll(element.selector);
             for ( var __el in _els ) {
               if ( parseInt(__el) == __el )
@@ -74,7 +76,7 @@ module.exports.compile = function(elementData, html, config, callback) {
             if ( element.column ) {
               //  columns text
               if ( _cols ) {
-                var _els = _cols.querySelectorAll(element.selector)
+                var _els = _baseElement.querySelectorAll(element.selector);
                 elementData.data.columns.forEach(function(_colData, i){
                   _els[i].innerHTML = _colData[element.id].text;
                 })
@@ -96,14 +98,30 @@ module.exports.compile = function(elementData, html, config, callback) {
                   registerStyle( _cssSelector + element.selector + ':nth-child(n+' + ( i+1 ) + ')', _colData[element.id].style )
               })
             } else {
-              //  !!! not supported
+              console.error('element.type(background, !column) not supported');
             }
           }
 
-//        //  attachement
-//        if ( element.type && element.type == 'attachement' ) {
-//          _el.setAttribute('attachement-edit', 'column[\'' + element.id + '\'].attachement');
-//        }
+          //  attachement
+          if ( element.type && element.type == 'attachement' ) {
+            if ( element.column ) {
+              if ( _cols ) {
+                var _els = _baseElement.querySelectorAll(element.selector);
+                elementData.data.columns.forEach(function(_colData, i){
+                  if ( _colData[element.id] && _colData[element.id].attachement ) {
+                    var _a = _els[i].querySelector('a');
+                    if ( _a ) {
+                      _a.setAttribute('href', _colData[element.id].attachement);
+                      _a.setAttribute('target', '_blank');
+                      _attachements.push(_colData[element.id].attachement);
+                    }
+                  }
+                });
+              }
+            } else {
+              console.error('element.type(attachement, !column) not supported');
+            }
+          }
 
 
         })
@@ -112,9 +130,13 @@ module.exports.compile = function(elementData, html, config, callback) {
       console.log('style', _style);
       console.log('attachements', _attachements);
 
+      callback(null, {
+        content: _baseElement.outerHTML,
+        style: _style,
+        attachements: _attachements
+      });
     }
   );
 
 
-  //callback(err, content);
 }

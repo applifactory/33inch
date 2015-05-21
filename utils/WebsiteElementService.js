@@ -12,7 +12,7 @@ function registerStyle(selector, style) {
     if( String(style[attr]).indexOf('url(') >= 0 )
       _attachements.push( String(style[attr]).replace(/^url\((.+)\)$/, '$1') );
   }
-  _style += selector + ' { ' + css + '} ';
+  _style += '.inch33 ' + selector + ' { ' + css + '} ';
 }
 
 module.exports.compile = function(elementData, html, config, nodes, callback) {

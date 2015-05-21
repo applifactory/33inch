@@ -11,6 +11,7 @@ var footers = '';
 var config = null;
 var styles = '';
 var attachements = [];
+var exportPath = 'build/unknown';
 
 function loadConfig(callback) {
   var _file = __dirname.replace(/^(.+)\/([\w]+)$/gi, '$1') + '/assets/js/app/services/Inch33ElementsConfig.js';
@@ -41,7 +42,7 @@ function exportNodes(nodes, baseElements, callback) {
       return callback('Export node error');
     }
     console.log('All nodes exported');
-    callback(null, 'All nodes exported')
+    callback(null, 'All nodes exported');
   });
 }
 
@@ -57,10 +58,33 @@ function exportNode(node, topElements, bottomElements, nodes, callback) {
     console.log('--', link, '--');
     exportElements(elements, nodes, function(err, content){
       if ( err ) callback(err);
+      saveNode(link, content);
       console.log('# exportNode::complete:', content);
       callback(null, 'ok');
     });
   });
+}
+
+function saveNode(link, content) {
+
+  var html = '<!DOCTYPE html>' +
+      '<html>' +
+        '<head>' +
+          '<link rel="stylesheet" href="/assets/inch33.min.css">' +
+          '<link rel="stylesheet" href="/style.css">' +
+          '<title>33inch</title>' +
+          '<link href="http://fonts.googleapis.com/css?family=Dosis:400,700|Abel|Droid+Sans:400,700|Arvo:400,700,400italic,700italic|Poiret+One|Quicksand:400,700|Ubuntu:400,700,400italic,700italic|Bitter:400,700,400italic|Lobster+Two:400,700,400italic,700italic|Montserrat:400,700|Open+Sans:400italic,700italic,700,400|Pacifico|Raleway:400,700|Roboto+Slab:400,700|Roboto:400,400italic,700,700italic&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">' +
+        '</head>' +
+      '<body class="inch33">' +
+        content +
+      '</body>' +
+    '</html>';
+
+  fs.writeFileSync(exportPath + '/' + link, html);
+}
+
+function saveCss() {
+  fs.writeFileSync(exportPath + '/style.css', styles);
 }
 
 function exportElements(elements, nodes, callback) {
@@ -97,7 +121,14 @@ function exportElement(element, nodes, callback) {
 
 module.exports.export = function(website, callback) {
 
-  console.log('exporting...');
+  exportPath = 'build/' + website.permalink;
+  if ( !fs.existsSync('build') )
+    fs.mkdirSync('build');
+  if ( !fs.existsSync(exportPath) )
+    fs.mkdirSync(exportPath);
+  if ( !fs.existsSync(exportPath + '/fx') )
+    fs.mkdirSync(exportPath + '/fx');
+
   loadConfig(function(err, _config){
     if ( err )  callback(err);
     config = _config;
@@ -109,6 +140,7 @@ module.exports.export = function(website, callback) {
             callback( err );
             console.log('## exportNodes error', err);
           } else {
+            saveCss();
             callback( null );
             console.log('## exportNodes success');
           }

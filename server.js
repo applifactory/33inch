@@ -35,7 +35,7 @@ app.use(function(req, res, next) {
 });
 
 //  Static exported websites
-//websitesService(app);
+websitesService(app);
 
 //  Assets
 app.use(express.static(__dirname + '/public'));

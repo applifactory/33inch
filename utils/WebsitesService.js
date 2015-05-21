@@ -2,19 +2,20 @@
 
 var config = require('../config/config.js');
 var Website = require('../models/website.js');
+var fs = require('fs');
 
 //  serve website
-function serveWebsite(req, res, website) {
+function serveWebsite(req, res, next, website) {
 
+  var websitePath = 'build/' + website.permalink;
+  if ( !fs.existsSync(websitePath) )
+    return next();
 
-  //var uid = req.params.uid,
-  //path = req.params[0] ? req.params[0] : 'index.html';
-  //res.sendfile(path, {root: './public'});
-
-  console.log(req.params);
-
-  console.log('serveWebsite ', website.name);
-  return res.send('hello from ', website.name).end();
+  if ( req.params[0] == '/' || req.params[0].indexOf('.html') > 0 || req.params[0] == '/style.css' ) {
+    var file = req.params[0] == '/' ? '/index.html' : req.params[0];
+    return res.sendfile(file, {root: websitePath});
+  }
+  next();
 }
 
 //  middleman for subdomain/vhost routes
@@ -32,13 +33,13 @@ module.exports = function(app) {
       var subdomain = req.hostname.replace('.' + config.domain, '');
       Website.findOne({ permalink: subdomain }, function(err, website){
         if ( err || !website )  return next();
-        serveWebsite(req, res, website);
+        serveWebsite(req, res, next, website);
       });
     } else {
       //  check domain
       Website.findOne({ domain: req.hostname }, function(err, website){
         if ( err || !website )  return next();
-        serveWebsite(req, res, website);
+        serveWebsite(req, res, next, website);
       });
     }
 

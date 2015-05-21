@@ -70,3 +70,15 @@ module.exports.export = function(req, res) {
       })
     });
 };
+
+module.exports.update = function(req, res) {
+  Website.findOne({ permalink: req.params.link }).exec(function(err, website){
+    if (err) return res.status(404).end();
+    if ( req.body.domain )
+      website.domain = req.body.domain;
+    website.save(function(err){
+      if (err) return res.status(400).end();
+      res.end();
+    });
+  });
+}

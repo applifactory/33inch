@@ -56,7 +56,7 @@ module.exports.compile = function(elementData, html, config, nodes, callback) {
       if ( elementData.template.indexOf('menu') >= 0 ) {
         var _logo = _baseElement.querySelector('.logo');
         if ( _logo && elementData.data && elementData.data.logoImage ) {
-          _logo.innerHTML = '<img src="'+elementData.data.logoImage+'" />';
+          _logo.innerHTML = '<a href="/"><img src="'+elementData.data.logoImage+'" /></a>';
           _attachements.push(elementData.data.logoImage);
         }
         if ( elementData.data.textColor )

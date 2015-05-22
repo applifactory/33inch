@@ -13,7 +13,7 @@ module.exports.index = function(req, res) {
 
 module.exports.details = function(req, res) {
   Website
-    .findOne({ permalink: req.params.link }, 'name permalink')
+    .findOne({ permalink: req.params.link }, 'name permalink email')
     .exec(function(err, website){
       if (err || !website) return res.status(404).end();
       res.json(website);

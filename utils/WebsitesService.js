@@ -13,7 +13,7 @@ function serveWebsite(req, res, next, website) {
 
   if ( req.params[0] == '/' || req.params[0].indexOf('.html') > 0 || req.params[0] == '/style.css' ) {
     var file = req.params[0] == '/' ? '/index.html' : req.params[0];
-    return res.sendfile(file, {root: websitePath});
+    return res.sendFile(file, {root: websitePath});
   }
   next();
 }

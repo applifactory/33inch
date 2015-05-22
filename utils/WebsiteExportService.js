@@ -71,8 +71,9 @@ function saveNode(link, content) {
       '<html>' +
         '<head>' +
           '<link rel="stylesheet" href="/assets/inch33.min.css">' +
-          '<link rel="stylesheet" href="/style.css">' +
+          '<script src="/assets/inch33.js"></script>' +
           '<title>33inch</title>' +
+          '<link rel="stylesheet" href="/style.css">' +
           '<link href="http://fonts.googleapis.com/css?family=Dosis:400,700|Abel|Droid+Sans:400,700|Arvo:400,700,400italic,700italic|Poiret+One|Quicksand:400,700|Ubuntu:400,700,400italic,700italic|Bitter:400,700,400italic|Lobster+Two:400,700,400italic,700italic|Montserrat:400,700|Open+Sans:400italic,700italic,700,400|Pacifico|Raleway:400,700|Roboto+Slab:400,700|Roboto:400,400italic,700,700italic&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">' +
         '</head>' +
       '<body class="inch33">' +

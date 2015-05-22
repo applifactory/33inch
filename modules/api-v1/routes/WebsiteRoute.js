@@ -15,4 +15,6 @@ module.exports = function(app) {
   app.route('/api/v1/website/:link/export')
     .all(authUtil.requireUserAuth)
     .get(websiteCtrl.export);
+  app.route('/api/v1/mail').
+    post(websiteCtrl.sendMail);
 }

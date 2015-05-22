@@ -8,6 +8,7 @@ var WebsiteSchema = new Schema({
   name: String,
   permalink: { type: String, required: true, index: { unique: true } },
   domain: String,
+  email: String,
   owners: [{ type: Schema.Types.ObjectId, ref: 'User', childPath: 'websites' }],
   nodes: [{ type: Schema.Types.ObjectId, ref: 'Node' }],
   images: [{ type: Schema.Types.ObjectId, ref: 'Image' }],
@@ -21,6 +22,8 @@ WebsiteSchema.plugin(relationship, { relationshipPathName: 'owners' });
 //  check domain uniqness
 WebsiteSchema.pre("save", function(next, done) {
   var self = this;
+  if ( !self.isModified('domain') )
+    return next();
   if ( self.domain ) {
     mongoose.models["Website"].findOne({ domain: self.domain }, function(err, website) {
       if( err ) {
@@ -47,6 +50,11 @@ Website.schema.path('permalink').validate(function (value) {
 Website.schema.path('domain').validate(function (value) {
   return /^((?:(?:(?:\w[\.\-\+]?)*)\w)+)((?:(?:(?:\w[\.\-\+]?){0,62})\w)+)\.(\w{2,6})$/.test(value);
 }, 'Invalid domain format');
+
+//  validate email
+Website.schema.path('email').validate(function (value) {
+  return /^([\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+\.)*[\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+@((((([a-z0-9]{1}[a-z0-9\-]{0,62}[a-z0-9]{1})|[a-z])\.)+[a-z]{2,6})|(\d{1,3}\.){3}\d{1,3}(\:\d{1,5})?)$/i.test(value);
+}, 'Invalid email format');
 
 module.exports = Website;
 

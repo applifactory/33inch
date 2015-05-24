@@ -25,7 +25,7 @@ module.exports = function(app) {
   app.route('*').all(function(req, res, next) {
 
     //  quick check
-    if ( config.domain == req.hostname )
+    if ( config.domain == req.hostname.replace(/^www./, '') )
       return next();
 
     if ( req.hostname.indexOf(config.domain) > 0 ) {
@@ -37,7 +37,7 @@ module.exports = function(app) {
       });
     } else {
       //  check domain
-      Website.findOne({ domain: req.hostname }, function(err, website){
+      Website.findOne({ domain: req.hostname.replace(/^www./, '') }, function(err, website){
         if ( err || !website )  return next();
         serveWebsite(req, res, next, website);
       });

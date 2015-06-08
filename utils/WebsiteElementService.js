@@ -15,7 +15,9 @@ function registerStyle(selector, style) {
   _style += '.inch33 ' + selector + ' { ' + css + '} ';
 }
 
-module.exports.compile = function(elementData, html, config, nodes, callback) {
+var WebsiteElementService = function(){};
+
+WebsiteElementService.prototype.compile = function(elementData, html, config, nodes, callback) {
 
   console.log('---- ' + elementData.template + ' ----');
 
@@ -153,6 +155,6 @@ module.exports.compile = function(elementData, html, config, nodes, callback) {
       });
     }
   );
-
-
 }
+
+module.exports = WebsiteElementService;

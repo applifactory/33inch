@@ -4,7 +4,7 @@ var fs = require('fs');
 var async = require('async');
 var jade = require('jade');
 var Node = require('../models/node');
-var WebsiteElement = require('./WebsiteElementService');
+var WebsiteElementService = require('./WebsiteElementService');
 
 var headers = '';
 var footers = '';
@@ -12,6 +12,8 @@ var config = null;
 var styles = '';
 var attachements = [];
 var exportPath = 'build/unknown';
+
+
 
 function loadConfig(callback) {
   var _file = __dirname.replace(/^(.+)\/([\w]+)$/gi, '$1') + '/assets/js/app/services/Inch33ElementsConfig.js';
@@ -113,14 +115,17 @@ function exportElement(element, nodes, callback) {
   fs.readFile(_file, 'utf8', function (err, data) {
     if (err) return callback('Error: ' + err, null);
     var html = jade.compile(data)();
-    WebsiteElement.compile(element, html, config, nodes, function(err, result){
+    var websiteElement = new WebsiteElementService();
+    websiteElement.compile(element, html, config, nodes, function(err, result){
       if ( err )  callback(err);
       else        callback(null, result);
     });
   });
 }
 
-module.exports.export = function(website, callback) {
+var WebsiteExportService = function(){}
+
+WebsiteExportService.prototype.export = function(website, callback) {
 
   exportPath = 'build/' + website.permalink;
   if ( !fs.existsSync('build') )
@@ -152,5 +157,4 @@ module.exports.export = function(website, callback) {
 
 }
 
-
-
+module.exports = WebsiteExportService;

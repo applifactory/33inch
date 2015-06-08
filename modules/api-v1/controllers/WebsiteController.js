@@ -67,10 +67,11 @@ module.exports.export = function(req, res) {
     .populate('nodes')
     .exec(function(err, website){
       if (err) return res.status(404).end();
-      WebsiteExport.export(website, function(err, result){
+      var websiteExport = new WebsiteExport();
+      websiteExport.export(website, function(err, result){
         if (err) return res.json({message: err}).status(400).end();
-        res.json(result);
-      })
+        res.json({message: 'Export success'});
+      });
     });
 };
 

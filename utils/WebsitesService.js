@@ -11,7 +11,7 @@ function serveWebsite(req, res, next, website) {
   if ( !fs.existsSync(websitePath) )
     return next();
 
-  if ( req.params[0] == '/' || req.params[0].indexOf('.html') > 0 || req.params[0] == '/style.css' ) {
+  if ( req.params[0] == '/' || req.params[0].indexOf('.html') > 0 || req.params[0].indexOf('/assets') == 0 ) {
     var file = req.params[0] == '/' ? '/index.html' : req.params[0];
     return res.sendFile(file, {root: websitePath});
   }

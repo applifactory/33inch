@@ -12,14 +12,13 @@ function registerStyle(selector, style) {
     if( String(style[attr]).indexOf('url(') >= 0 )
       _attachements.push( String(style[attr]).replace(/^url\((.+)\)$/, '$1') );
   }
+  css = css.replace(/\/fx\//gi, '/assets/');
   _style += '.inch33 ' + selector + ' { ' + css + '} ';
 }
 
 var WebsiteElementService = function(){};
 
 WebsiteElementService.prototype.compile = function(elementData, html, config, nodes, callback) {
-
-  console.log('---- ' + elementData.template + ' ----');
 
   var _conf = config.hasOwnProperty(elementData.template) ? config[elementData.template] : null;
   var _columns = _conf && _conf.hasOwnProperty('columns') ? _conf.columns : null;
@@ -58,7 +57,7 @@ WebsiteElementService.prototype.compile = function(elementData, html, config, no
       if ( elementData.template.indexOf('menu') >= 0 ) {
         var _logo = _baseElement.querySelector('.logo');
         if ( _logo && elementData.data && elementData.data.logoImage ) {
-          _logo.innerHTML = '<a href="/"><img src="'+elementData.data.logoImage+'" /></a>';
+          _logo.innerHTML = '<a href="/"><img src="'+elementData.data.logoImage.replace('/fx/', '/assets/')+'" /></a>';
           _attachements.push(elementData.data.logoImage);
         }
         if ( elementData.data.textColor )
@@ -129,7 +128,7 @@ WebsiteElementService.prototype.compile = function(elementData, html, config, no
                   if ( _colData[element.id] && _colData[element.id].attachement ) {
                     var _a = _els[i].querySelector('a');
                     if ( _a ) {
-                      _a.setAttribute('href', _colData[element.id].attachement);
+                      _a.setAttribute('href', _colData[element.id].attachement.replace('/fx/', '/assets/'));
                       _a.setAttribute('target', '_blank');
                       _attachements.push(_colData[element.id].attachement);
                     }

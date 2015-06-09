@@ -56,12 +56,12 @@ gulp.task('nodemon', function() {
   nodemon({
     script: 'server.js',
     //ext: 'js css html'
-    ignore: ['public/**', 'assets/**']
+    ignore: ['public/**', 'assets/**', 'build/**']
   })
-    .on('start', ['watch'])
+    //.on('start', ['watch'])
     .on('restart', function() {
       console.log('Server restarted!');
     });
 });
 
-gulp.task('default', ['nodemon']);
+gulp.task('default', ['nodemon', 'watch']);

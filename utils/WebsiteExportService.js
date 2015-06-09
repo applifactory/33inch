@@ -1,6 +1,6 @@
 'use strict';
 
-var fs = require('fs');
+var fs = require('fs-extra');
 var async = require('async');
 var jade = require('jade');
 var Node = require('../models/node');
@@ -10,10 +10,11 @@ var headers = '';
 var footers = '';
 var config = null;
 var styles = '';
-var attachements = [];
+var attachements = [
+  '/assets/inch33.min.css',
+  '/assets/inch33.js'
+];
 var exportPath = 'build/unknown';
-
-
 
 function loadConfig(callback) {
   var _file = __dirname.replace(/^(.+)\/([\w]+)$/gi, '$1') + '/assets/js/app/services/Inch33ElementsConfig.js';
@@ -49,7 +50,6 @@ function exportNodes(nodes, baseElements, callback) {
 }
 
 function exportNode(node, topElements, bottomElements, nodes, callback) {
-  console.log('# exportNode: ', node.link);
   Node.findOne({ _id: node._id }, 'link name elements').populate('elements', 'template data', null, { sort: { sortOrder: 1 } } ).exec(function(err, node){
     if (err) return callback('Node not found');
     var link = ( node.link ? node.link : 'index' ) + '.html';
@@ -61,33 +61,31 @@ function exportNode(node, topElements, bottomElements, nodes, callback) {
     exportElements(elements, nodes, function(err, content){
       if ( err ) callback(err);
       saveNode(link, content);
-      console.log('# exportNode::complete:', content);
+      console.log('# exportNode::complete:', link);
       callback(null, 'ok');
     });
   });
 }
 
 function saveNode(link, content) {
-
   var html = '<!DOCTYPE html>' +
       '<html>' +
         '<head>' +
-          '<link rel="stylesheet" href="/assets/inch33.min.css">' +
-          '<script src="/assets/inch33.js"></script>' +
           '<title>33inch</title>' +
-          '<link rel="stylesheet" href="/style.css">' +
+          '<link rel="stylesheet" href="/assets/inch33.min.css">' +
+          '<link rel="stylesheet" href="/assets/style.css">' +
+          '<script src="/assets/inch33.js"></script>' +
           '<link href="http://fonts.googleapis.com/css?family=Dosis:400,700|Abel|Droid+Sans:400,700|Arvo:400,700,400italic,700italic|Poiret+One|Quicksand:400,700|Ubuntu:400,700,400italic,700italic|Bitter:400,700,400italic|Lobster+Two:400,700,400italic,700italic|Montserrat:400,700|Open+Sans:400italic,700italic,700,400|Pacifico|Raleway:400,700|Roboto+Slab:400,700|Roboto:400,400italic,700,700italic&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">' +
         '</head>' +
       '<body class="inch33">' +
         content +
       '</body>' +
     '</html>';
-
   fs.writeFileSync(exportPath + '/' + link, html);
 }
 
 function saveCss() {
-  fs.writeFileSync(exportPath + '/style.css', styles);
+  fs.writeFileSync(exportPath + '/assets/style.css', styles);
 }
 
 function exportElements(elements, nodes, callback) {
@@ -123,6 +121,25 @@ function exportElement(element, nodes, callback) {
   });
 }
 
+function copyAssets(callback) {
+  attachements = attachements.filter(function(elem, pos) {
+    return attachements.indexOf(elem) == pos;
+  });
+  console.log(attachements);
+  async.each(attachements, function(file, _callback) {
+    fs.copy('public' + file, exportPath + file.replace('/fx/', '/assets/'), function (err) {
+      _callback(err);
+    });
+  }, function(err){
+    if (err) {
+      callback('Copy attachements error');
+      console.log('Copy attachements error', err);
+    } else {
+      callback();
+    }
+  });
+}
+
 var WebsiteExportService = function(){}
 
 WebsiteExportService.prototype.export = function(website, callback) {
@@ -132,8 +149,8 @@ WebsiteExportService.prototype.export = function(website, callback) {
     fs.mkdirSync('build');
   if ( !fs.existsSync(exportPath) )
     fs.mkdirSync(exportPath);
-  if ( !fs.existsSync(exportPath + '/fx') )
-    fs.mkdirSync(exportPath + '/fx');
+  if ( !fs.existsSync(exportPath + '/assets') )
+    fs.mkdirSync(exportPath + '/assets');
 
   loadConfig(function(err, _config){
     if ( err )  callback(err);
@@ -147,8 +164,7 @@ WebsiteExportService.prototype.export = function(website, callback) {
             console.log('## exportNodes error', err);
           } else {
             saveCss();
-            callback( null );
-            console.log('## exportNodes success');
+            copyAssets( callback );
           }
         });
       });

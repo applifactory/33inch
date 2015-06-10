@@ -91,9 +91,8 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
                   editor.appendChild(_el);
                 }
 
-                //  background
-                if ( element.type && element.type == 'background' ) {
-                  //  create tool
+                //  background or image
+                if ( element.type && ( element.type == 'background' || element.type == 'image' ) ) {
                   if ( !scope.ngModel.data.hasOwnProperty('columns') )
                     scope.ngModel.data.columns = [];
                   if ( agregateColumns ) {
@@ -107,9 +106,17 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
                         scope.ngModel.data.columns[i][element.id].style = {};
                     });
                   }
-                  _el.setAttribute('ng-model', 'column["' + element.id + '"].style');
-                  _el.setAttribute('ng-style', 'column["' + element.id + '"].style');
-                  _el.setAttribute('background-edit', '');
+                  if ( element.type == 'background' ) {
+                    _el.setAttribute('ng-style', 'column["' + element.id + '"].style');
+                    _el.setAttribute('ng-model', 'column["' + element.id + '"].style');
+                    _el.setAttribute('background-edit', '');
+                  }
+                  if ( element.type == 'image' ) {
+                    _el.setAttribute('ng-style', 'ngModel.data["' + element.id + '"].style');
+                    _el.setAttribute('ng-src', '{{column["' + element.id + '"].image}}');
+                    _el.setAttribute('ng-model', 'column["' + element.id + '"].image');
+                    _el.setAttribute('image-edit', '');
+                  }
                 }
 
                 //  attachement

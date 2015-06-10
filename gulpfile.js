@@ -56,7 +56,7 @@ gulp.task('nodemon', function() {
   nodemon({
     script: 'server.js',
     //ext: 'js css html'
-    ignore: ['public/**', 'assets/**', 'build/**']
+    ignore: ['public/**', 'assets/**', 'build/**', 'node_modules/**']
   })
     //.on('start', ['watch'])
     .on('restart', function() {

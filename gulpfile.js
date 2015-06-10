@@ -53,15 +53,9 @@ gulp.task('watch', function() {
 gulp.task('build', ['css', 'js', 'jade']);
 
 gulp.task('nodemon', function() {
-  nodemon({
-    script: 'server.js',
-    //ext: 'js css html'
-    ignore: ['public/**', 'assets/**', 'build/**', 'node_modules/**']
-  })
-    //.on('start', ['watch'])
-    .on('restart', function() {
-      console.log('Server restarted!');
-    });
+  nodemon().on('restart', function() {
+    console.log('Server restarted!');
+  });
 });
 
 gulp.task('default', ['nodemon', 'watch']);

@@ -41,10 +41,10 @@ app.directive("imageEdit", function($timeout, $window, $compile, SettingsService
       $scope.uploadSuccess = function(response){
         if ( $scope.image )
           $scope.deleteImage();
-        $scope.image = '/fx/l-' + response.data.file;
+        $scope.image = '/fx/c-' + response.data.file;
       }
       $scope.deleteImage = function() {
-        var image = $scope.image.substr(4);
+        var image = $scope.image.substr(6);
         ElementsService.deleteImage($scope.link, $scope.elementId, image);
       }
     }

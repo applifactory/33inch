@@ -21,9 +21,12 @@ module.exports.processImage = function(file, callback) {
           if ( err ) callback(false);
           gm(newPath).resize(400, 400, '>').write('public/fx/s-' + fileName + ( fileExt ? '.' + fileExt : '' ), function(err){
             if ( err ) callback(false);
-            gm(newPath).resize(80, 80, '^').write('public/fx/xs-' + fileName + ( fileExt ? '.' + fileExt : '' ), function(err){
+            gm(newPath).gravity('Center').resize(600, 600, "^").crop(600, 600).write('public/fx/sqare-' + fileName + ( fileExt ? '.' + fileExt : '' ), function(err){
               if ( err ) callback(false);
-              callback(fileName + ( fileExt ? '.' + fileExt : '' ));
+              gm(newPath).gravity('Center').resize(720, 480, "^").crop(720, 480).write('public/fx/c-' + fileName + ( fileExt ? '.' + fileExt : '' ), function(err){
+                if ( err ) callback(false);
+                callback(fileName + ( fileExt ? '.' + fileExt : '' ));
+              });
             });
           });
         });
@@ -39,6 +42,8 @@ module.exports.deleteImage = function(file, callback) {
     fs.unlink('public/fx/m-' + file, function(){});
     fs.unlink('public/fx/s-' + file, function(){});
     fs.unlink('public/fx/xs-' + file, function(){});
+    fs.unlink('public/fx/sqare-' + file, function(){});
+    fs.unlink('public/fx/c-' + file, function(){});
     callback(true);
   } else {
     callback(false);

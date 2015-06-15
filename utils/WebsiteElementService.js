@@ -119,6 +119,23 @@ WebsiteElementService.prototype.compile = function(elementData, html, config, no
             }
           }
 
+          if ( element.type && element.type == 'image' ) {
+            if ( elementData.data[element.id] && elementData.data[element.id].style )
+              registerStyle( _cssSelector + element.selector, elementData.data[element.id].style )
+            if ( element.column ) {
+              //  columns image
+              var _els = _baseElement.querySelectorAll(element.selector);
+              elementData.data.columns.forEach(function(_colData, i){
+                if ( _colData[element.id] && _colData[element.id].image ) {
+                  _els[i].setAttribute('src', _colData[element.id].image.replace('/fx/', '/assets/') );
+                  _attachements.push( _colData[element.id].image );
+                }
+              })
+            } else {
+              console.error('element.type(image, !column) not supported');
+            }
+          }
+
           //  attachement
           if ( element.type && element.type == 'attachement' ) {
             if ( element.column ) {

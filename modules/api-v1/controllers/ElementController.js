@@ -53,14 +53,11 @@ module.exports.uploadImage = function(req, res) {
   console.log('upload');
   Element.findById(req.params.elementId, function (err, element) {
     if ( err ) return res.status(404).end();
-    console.log('got element');
     var form = new multiparty.Form();
     form.parse(req, function(err, fields, files) {
       if ( err ) return res.status(400).end();
-      console.log('got file');
       var file = files.file[0];
       ImageUtil.processImage(file, function(fileName){
-        console.log('processed');
         var image = new Image();
         image.filename = fileName;
         image.parentElement = req.params.elementId;

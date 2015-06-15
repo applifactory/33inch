@@ -16,9 +16,13 @@
       p
         margin-top: 0
     +size($small)
-      &.col-2
+      li
+        column(1/2, cycle: 2, gutter: 5)
+        margin-top: 0.5em
+        margin-bottom: 0.5em
+      &.col-1
         li
-          column(1/2, cycle: 2, gutter: 5)
+          column(1/1, cycle: 1, gutter: 5)
           margin-top: 0.5em
           margin-bottom: 0.5em
       &.col-3

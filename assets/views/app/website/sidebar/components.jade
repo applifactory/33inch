@@ -1,0 +1,4 @@
+ul.components
+  li(ng-repeat="component in components", ng-click="addComponent(component.id)")
+    img(ng-src="/components/{{component.id}}.png")
+    .description {{component.name}}

@@ -94,7 +94,7 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService, Elements
       $scope.uploadUrl = SettingsService.apiUrl + 'website/' + $scope.$parent.$parent.link + '/element/' + $scope.ngModel._id + '/image';
 
       $scope.bgUploadStart = function(files){
-        console.log('bgUploadStart', files);
+
       }
 
       $scope.bgUploadSuccess = function(response){
@@ -137,6 +137,18 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService, Elements
 
       $scope.backgroundRepeat = function(repeat) {
         $scope.ngModel.data.style.backgroundRepeat = repeat;
+      }
+
+      $scope.deleteElement = function(id) {
+        var index = -1;
+        angular.forEach( $scope.collection, function(element, i){
+          if ( element._id == id )
+            index = i;
+        });
+        if ( index >= 0 ) {
+          ElementsService.deleteElement($stateParams.link, id);
+          $scope.collection.splice(index, 1);
+        }
       }
 
     }

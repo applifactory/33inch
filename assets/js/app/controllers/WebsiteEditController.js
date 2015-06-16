@@ -1,4 +1,4 @@
-app.controller('WebsiteEditCtrl', function($scope, $stateParams, NodesService){
+app.controller('WebsiteEditCtrl', function($scope, $stateParams, NodesService, ElementsService, $rootScope){
 
   $scope.link = $stateParams.link;
   $scope.path = null;
@@ -6,6 +6,44 @@ app.controller('WebsiteEditCtrl', function($scope, $stateParams, NodesService){
   $scope.topElements = null;
   $scope.elements = null;
   $scope.bottomElements = null;
+
+  var getElementPosition = function(id) {
+    var position = 0;
+    angular.forEach($scope.elements, function(element, i){
+      if ( element._id == id )
+        position = i;
+    });
+    return position;
+  }
+
+  $rootScope.$on('Sidebar:Components:Add', function(event, id){
+    var position = -1;
+    angular.forEach(document.querySelectorAll('inch33-element'), function(item){
+      if ( position < 0 && item.offsetTop > window.scrollY ) {
+        position = getElementPosition( angular.element(item).scope().element._id );
+      }
+    });
+    if ( !position && window.scrollY > window.innerHeight / 2 )
+      position = $scope.elements.length;
+
+    if ( id.indexOf('menu') >= 0 || id.indexOf('footer') >= 0 ) {
+      ElementsService.createBaseElement(id, $stateParams.link).then(function(node){
+        if ( id.indexOf('menu') >= 0 ) {
+          $scope.topElements.push(node);
+          ElementsService.updatePositions($stateParams.link, $scope.topElements);
+        }
+        if ( id.indexOf('footer') >= 0 ) {
+          $scope.bottomElements.push(node);
+          ElementsService.updatePositions($stateParams.link, $scope.bottomElements);
+        }
+      });
+    } else {
+      ElementsService.createElement(id, $stateParams.link, $scope.currentNode._id).then(function(node){
+        $scope.elements.splice(position, 0, node);
+        ElementsService.updatePositions($stateParams.link, $scope.elements);
+      });
+    }
+  })
 
   var unwatchNodes = $scope.$watchCollection('nodes', function(nodes){
     if ( nodes ) {

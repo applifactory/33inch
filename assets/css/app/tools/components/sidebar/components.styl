@@ -1,0 +1,45 @@
+.sidebar
+  ul.components
+    li
+      position: relative
+      cursor: pointer
+      padding: 0
+      margin: 0
+      min-height: 50px
+      margin: 2px 0
+      &:hover
+        .description
+          opacity: 1
+        img
+          opacity: 0.3
+        &::after
+          opacity: 1
+      .description, img
+        transition: all 0.3s ease
+      .description
+        color: white
+        position: absolute
+        top: 10px
+        left: 10px
+        right: 10px
+        opacity: 0
+      img
+        width: 100%
+        opacity: 1
+        display: block
+      &::after
+        opacity: 0
+        content: "\f055"
+        display: inline-block
+        font: normal normal normal 14px/1 FontAwesome
+        font-size: inherit
+        text-rendering: auto
+        -webkit-font-smoothing: antialiased
+        -moz-osx-font-smoothing: grayscale
+        transform: translate(-50%, -50%)
+        position: absolute
+        top: 50%
+        left: 50%
+        font-size: 2em
+        color: toolAccent
+        transition: all 0.3s ease

@@ -24,7 +24,7 @@
       .item(ng-if="!config.hasOwnProperty('background') || config.background", ng-click="showView('background')")
         | Background
         i.fa.fa-angle-right.right
-      .item(ng-click)
+      .item(ng-click="deleteElement(ngModel._id)")
         | Delete
 
     //  elements

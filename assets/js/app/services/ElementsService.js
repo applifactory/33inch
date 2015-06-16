@@ -1,5 +1,32 @@
 app.service('ElementsService', function($http, $q, SettingsService) {
   return {
+    createElement: function(template, link, nodeId) {
+      var deferred = $q.defer();
+      $http.post(SettingsService.apiUrl + 'website/' + link + '/node/' + nodeId + '/element', {template: template}).success(function(node){
+        deferred.resolve(node);
+      }).error(function(){
+        deferred.reject();
+      })
+      return deferred.promise;
+    },
+    createBaseElement: function(template, link) {
+      var deferred = $q.defer();
+      $http.post(SettingsService.apiUrl + 'website/' + link + '/element', {template: template}).success(function(node){
+        deferred.resolve(node);
+      }).error(function(){
+        deferred.reject();
+      })
+      return deferred.promise;
+    },
+    deleteElement: function(link, elementId) {
+      var deferred = $q.defer();
+      $http.delete(SettingsService.apiUrl + 'website/' + link + '/element/' + elementId).success(function(){
+        deferred.resolve();
+      }).error(function(){
+        deferred.reject();
+      })
+      return deferred.promise;
+    },
     updateData: function(link, elementId, data) {
       var deferred = $q.defer();
       $http.put(SettingsService.apiUrl + 'website/' + link + '/element/' + elementId, {data: data}).success(function(node){
@@ -10,7 +37,6 @@ app.service('ElementsService', function($http, $q, SettingsService) {
       return deferred.promise;
     },
     deleteImage: function(link, elementId, image) {
-      console.log('deleteImage');
       var deferred = $q.defer();
       $http.delete(SettingsService.apiUrl + 'website/' + link + '/element/' + elementId + '/image/' + image).success(function(node){
         deferred.resolve();
@@ -20,7 +46,6 @@ app.service('ElementsService', function($http, $q, SettingsService) {
       return deferred.promise;
     },
     deleteFile: function(link, elementId, file) {
-      console.log('deleteFile');
       var deferred = $q.defer();
       $http.delete(SettingsService.apiUrl + 'website/' + link + '/element/' + elementId + '/file/' + file).success(function(node){
         deferred.resolve();

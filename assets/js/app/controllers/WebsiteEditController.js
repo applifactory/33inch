@@ -16,7 +16,7 @@ app.controller('WebsiteEditCtrl', function($scope, $stateParams, NodesService, E
     return position;
   }
 
-  $rootScope.$on('Sidebar:Components:Add', function(event, id){
+  var unwatchAdd = $rootScope.$on('Sidebar:Components:Add', function(event, id){
     var position = -1;
     angular.forEach(document.querySelectorAll('inch33-element'), function(item){
       if ( position < 0 && item.offsetTop > window.scrollY ) {
@@ -66,6 +66,11 @@ app.controller('WebsiteEditCtrl', function($scope, $stateParams, NodesService, E
         console.error('#TODO: redirect to parent');
       });
     }
+  });
+
+  $scope.$on('$destroy', function() {
+    unwatchAdd();
+    unwatchNodes();
   });
 
 });

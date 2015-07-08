@@ -22,10 +22,10 @@ app.directive('sidebarComponents', function(){
           name: 'Section header'
         }, {
           id: 'header-slider',
-          name: 'Teaser'
+          name: 'Teaser left'
         }, {
           id: 'header-straight',
-          name: 'Teaser left'
+          name: 'Teaser'
         }, {
           id: 'list-grid',
           name: 'Paragraphs in columns'

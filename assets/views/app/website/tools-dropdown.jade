@@ -11,7 +11,7 @@
         i.fa.fa-arrow-circle-up(ng-click="moveUp()")
       .item(ng-if="config.columns", ng-click="addColumnItem()")
         | Add repeater item
-      .item(ng-if="config.columns")
+      .item(ng-if="config.columns && config.columns.max != config.columns.min")
         | Columns count:
         span.value {{ngModel.data.columnCount}}
         slider(floor="{{config.columns.min}}", ceiling="{{config.columns.max}}", step="1", precision="1", ng-model="ngModel.data.columnCount")

@@ -127,9 +127,16 @@ function copyAssets(callback) {
   });
   console.log(attachements);
   async.each(attachements, function(file, _callback) {
-    fs.copy('public' + file, exportPath + file.replace('/fx/', '/assets/'), function (err) {
-      _callback(err);
-    });
+    if ( file.indexOf('http://') < 0 ) {
+      fs.copy('public' + file, exportPath + file.replace('/fx/', '/assets/'), function (err) {
+        _callback(err);
+      });
+    } else {
+      var _file = file.replace(/[\S]+\//, '');
+      fs.copy('assets/img/placeholder/' + file.replace(/[\S]+\//, ''), exportPath + '/assets/' + _file, function (err) {
+        _callback(err);
+      });
+    }
   }, function(err){
     if (err) {
       callback('Copy attachements error');

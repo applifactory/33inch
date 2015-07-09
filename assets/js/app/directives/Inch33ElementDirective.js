@@ -137,8 +137,10 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
               //  column count
               if ( !scope.ngModel.data.hasOwnProperty('columnCount') )
                 scope.ngModel.data.columnCount = scope.config.columns.default;
-              var _el = el[0].querySelector('.columns');
-              _el.setAttribute('class', 'col-{{ngModel.data.columnCount}}');
+              var _el = el[0].querySelector('.columns, .slides');
+              _el.setAttribute('ng-model', 'ngModel.data.columns');
+              if ( scope.config.columns.min != scope.config.columns.max )
+                _el.setAttribute('class', 'col-{{ngModel.data.columnCount}}');
               //  column repeater
               var _col = _el.querySelector('*');
               _col.setAttribute('ng-repeat', 'column in ngModel.data.columns');

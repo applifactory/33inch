@@ -9,6 +9,9 @@ app.directive('sidebarComponents', function(){
           id: 'menu-default',
           name: 'Default menu'
         }, {
+          id: 'slider-straight',
+          name: 'Slider'
+        }, {
           id: 'article-features',
           name: 'List with images'
         }, {

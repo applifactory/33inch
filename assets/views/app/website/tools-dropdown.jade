@@ -10,7 +10,7 @@
         | Move
         i.fa.fa-arrow-circle-up(ng-click="moveUp()")
       .item(ng-if="config.columns", ng-click="addColumnItem()")
-        | Add column item
+        | Add repeater item
       .item(ng-if="config.columns")
         | Columns count:
         span.value {{ngModel.data.columnCount}}

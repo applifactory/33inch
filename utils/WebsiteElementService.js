@@ -8,11 +8,13 @@ var _attachements = [];
 function registerStyle(selector, style) {
   var css = '';
   for( var attr in style ) {
-    css += attr.replace(/\W+/g, '-').replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase() + ': ' + style[attr] + '; '
-    if( String(style[attr]).indexOf('url(') >= 0 )
+    css += ( attr.replace(/\W+/g, '-').replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase() + ': ' + style[attr] + '; ' ).replace(/^url([\S]+)\//, 'url(/assets/')
+    if( String(style[attr]).indexOf('url(') >= 0 ) {
       _attachements.push( String(style[attr]).replace(/^url\((.+)\)$/, '$1') );
+    }
   }
   css = css.replace(/\/fx\//gi, '/assets/');
+  css = css.replace(/url([\S]+)\/([\S]+\))/gi, 'url(/assets/$2');
   _style += '.inch33 ' + selector + ' { ' + css + '} ';
 }
 
@@ -43,14 +45,15 @@ WebsiteElementService.prototype.compile = function(elementData, html, config, no
       //  columns repeater
       var _cols = null;
       if ( _columns ) {
-        _cols = _baseElement.querySelector('.columns');
-        var _colTmpl = _baseElement.querySelector('.columns > *').outerHTML;
+        _cols = _baseElement.querySelector('.columns, .slides');
+        var _colTmpl = _baseElement.querySelector('.columns > *, .slides > *').outerHTML;
         var _colsTmpl = '';
         elementData.data.columns.forEach(function(){
           _colsTmpl += _colTmpl;
         });
         _cols.innerHTML = _colsTmpl;
-        _cols.setAttribute('class', 'col-' + elementData.data.columnCount);
+        if ( _cols.className == 'columns' )
+          _cols.setAttribute('class', 'col-' + elementData.data.columnCount);
       }
 
       //  menu

@@ -152,6 +152,32 @@ var Inch33ElementsConfig = {
       "column": true
     }]
   },
+  "slider-straight": {
+    "background": false,
+    "columns": {
+      "min": 1,
+      "max": 1,
+      "default": 1
+    },
+    "elements": [{
+      "name": "Title",
+      "type": "text",
+      "selector": ".hero h1",
+      "elements": true,
+      "column": true
+    }, {
+      "name": "Claim",
+      "type": "text",
+      "selector": ".hero h2",
+      "elements": true,
+      "column": true
+    }, {
+      "name": "Background",
+      "type": "background",
+      "selector": ".slides .slide",
+      "column": true
+    }]
+  },
   "list-grid": {
     "style": {
       "backgroundColor": "#C0A85A"

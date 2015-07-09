@@ -15,6 +15,8 @@
       .color(ng-class="{active: color==ngModel.data.style.backgroundColor}", ng-repeat="color in colors" style="background: {{color}}", ng-click="setBackgroundColor(color)")
       .color.add(view="new-bg-color")
         .fa.fa-plus-circle
+  .item(ng-click="deleteElement(ngModel._id)")
+    | Delete
 
 .view(name="new-color")
   .item.title

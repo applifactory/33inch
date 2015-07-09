@@ -1,0 +1,73 @@
+.inch33
+  header.slider-straight
+    min-height: 100vh
+    position: relative
+    background: #1d262d
+    .slide
+      background: url(/placeholder/img-1.jpg) no-repeat center
+      background-size: cover
+      &:nth-child(2)
+        background-image: url(/placeholder/img-2.jpg)
+      &:nth-child(3)
+        background-image: url(/placeholder/img-3.jpg)
+      &:nth-child(4)
+        background-image: url(/placeholder/img-4.jpg)
+      &:nth-child(5)
+        background-image: url(/placeholder/img-5.jpg)
+      &:nth-child(6)
+        background-image: url(/placeholder/img-6.jpg)
+      &:nth-child(7)
+        background-image: url(/placeholder/img-7.jpg)
+      &:nth-child(8)
+        background-image: url(/placeholder/img-8.jpg)
+      &:nth-child(9)
+        background-image: url(/placeholder/img-9.jpg)
+      &:nth-child(10)
+        background-image: url(/placeholder/img-10.jpg)
+      position: absolute
+      top: 0
+      right: 0
+      left: 0
+      bottom: 0
+      z-index: 1
+      opacity: 0
+      transition: all 0.75s ease 0.2s
+      visibility: hidden
+      &.active
+        z-index: 1
+        opacity: 1
+        transition: all 0.75s ease 0
+        visibility: visible
+    .hero
+      position: absolute
+      top: 50%
+      left: 50%
+      margin-top: -2em
+      transform: translate(-50%, -50%)
+      color: #1d262d
+      width: 550px
+      max-width: 100%
+      text-align: center
+      padding: 1em
+      h1
+        font-size: 4.5em
+      h2
+        font-family: 'Raleway', sans-serif
+  ul.nav
+    position: absolute
+    left: 50%
+    bottom: 2em
+    z-index: 3
+    list-style: none
+    margin: 0
+    padding: 0
+    transform: translate(-50%, 0)
+    li
+      display: inline-block
+      width: 16px
+      height: 16px
+      border: solid 2px #1d262d
+      margin: 0 2px
+      cursor: pointer
+      &:hover, &.active
+        background: #1d262d

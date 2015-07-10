@@ -121,7 +121,10 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
 
                 //  attachement
                 if ( element.type && element.type == 'attachement' ) {
-                  _el.setAttribute('attachement-edit', 'column[\'' + element.id + '\'].attachement');
+                  if ( element.column )
+                    _el.setAttribute('attachement-edit', 'column[\'' + element.id + '\'].attachement');
+                  else
+                    _el.setAttribute('ng-model', 'ngModel.data["' + element.id + '"].attachement');
                 }
 
               });

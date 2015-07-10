@@ -1,0 +1,78 @@
+.inch33
+  header.slider-left
+    height: 600px
+    position: relative
+    overflow: hidden
+    .slide
+      background: url(/placeholder/img-21.jpg) no-repeat center
+      background-size: cover
+      &:nth-child(2)
+        background-image: url(/placeholder/img-14.jpg)
+      &:nth-child(3)
+        background-image: url(/placeholder/img-9.jpg)
+      &:nth-child(4)
+        background-image: url(/placeholder/img-17.jpg)
+      &:nth-child(5)
+        background-image: url(/placeholder/img-5.jpg)
+      &:nth-child(6)
+        background-image: url(/placeholder/img-6.jpg)
+      &:nth-child(7)
+        background-image: url(/placeholder/img-7.jpg)
+      &:nth-child(8)
+        background-image: url(/placeholder/img-8.jpg)
+      &:nth-child(9)
+        background-image: url(/placeholder/img-9.jpg)
+      &:nth-child(10)
+        background-image: url(/placeholder/img-10.jpg)
+      position: absolute
+      top: 0
+      right: 0
+      left: 0
+      bottom: 0
+      z-index: 1
+      opacity: 0
+      transition: all 0.75s ease 0.2s
+      visibility: hidden
+      &.active
+        z-index: 1
+        opacity: 1
+        transition: all 0.75s ease 0
+        visibility: visible
+    .hero
+      color: white
+      width: 650px
+      max-width: 100%
+      z-index: 2
+      padding: 2em 0
+      h1
+        font-size: 4.5em
+      h2
+        font-family: 'Raleway', sans-serif
+        position: relative
+        padding-left: 1em
+        &::before
+          content: "\f101"
+          font: normal normal normal 14px/1 FontAwesome
+          font-size: 1em
+          position: absolute
+          left: 0.1em
+          top: 0.25em
+  ul.nav
+    position: absolute
+    left: 50%
+    bottom: 2em
+    z-index: 3
+    list-style: none
+    margin: 0
+    padding: 0
+    transform: translate(-50%, 0)
+    li
+      display: inline-block
+      width: 16px
+      height: 16px
+      border: solid 2px white
+      margin: 0 2px
+      cursor: pointer
+      &:hover, &.active
+        background: white
+

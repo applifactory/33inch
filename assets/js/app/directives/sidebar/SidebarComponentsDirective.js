@@ -12,6 +12,9 @@ app.directive('sidebarComponents', function(){
           id: 'slider-straight',
           name: 'Slider'
         }, {
+          id: 'slider-left',
+          name: 'Slider left'
+        }, {
           id: 'article-features',
           name: 'List with images'
         }, {

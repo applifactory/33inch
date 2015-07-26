@@ -35,6 +35,19 @@ app.directive("contenteditable", function($timeout, $window) {
         scope.$apply(read);
       });
 
+      var addBr = function() {
+        var selection = window.getSelection(),
+        range = selection.getRangeAt(0),
+        br = document.createElement('br');
+        range.deleteContents();
+        range.insertNode(br);
+        range.setStartAfter(br);
+        range.setEndAfter(br);
+        range.collapse(false);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+
       element.bind('keydown', function(e) {
         if( ( e.keyCode || e.witch ) == 13 ) {
             e.preventDefault();
@@ -42,17 +55,11 @@ app.directive("contenteditable", function($timeout, $window) {
               insertHtml('<br />');
             }
             else {
-              var selection = window.getSelection(),
-              range = selection.getRangeAt(0),
-              br = document.createElement('br');
-              range.deleteContents();
-              range.insertNode(br);
-              range.setStartAfter(br);
-              range.setEndAfter(br);
-              range.collapse(false);
-              selection.removeAllRanges();
-              selection.addRange(range);
+              addBr()
             }
+        }
+        if ( !element.html().match(/(<br>|<br\/>|<br \/>)$/g) ) {
+          addBr()
         }
       });
 

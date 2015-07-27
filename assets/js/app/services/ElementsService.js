@@ -27,9 +27,9 @@ app.service('ElementsService', function($http, $q, SettingsService) {
       })
       return deferred.promise;
     },
-    updateData: function(link, elementId, data) {
+    update: function(link, elementId, element) {
       var deferred = $q.defer();
-      $http.put(SettingsService.apiUrl + 'website/' + link + '/element/' + elementId, {data: data}).success(function(node){
+      $http.put(SettingsService.apiUrl + 'website/' + link + '/element/' + elementId, element).success(function(node){
         deferred.resolve(node);
       }).error(function(){
         deferred.reject();

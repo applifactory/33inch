@@ -179,7 +179,7 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
               var _oldData = oldData ? JSON.parse(angular.toJson(oldData)) : {};
               var _changes = Diff.getChanges(_oldData, _data);
               if ( Object.keys(_changes).length )
-                ElementsService.updateData(scope.$parent.$parent.link, scope.ngModel._id, _changes);
+                ElementsService.update(scope.$parent.$parent.link, scope.ngModel._id, {data: _changes});
             }
           }, true);
         }

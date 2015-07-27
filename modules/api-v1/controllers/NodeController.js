@@ -2,6 +2,7 @@ var authUtil = require('../../../utils/AuthService.js');
 var User = require('../../../models/user');
 var Website = require('../../../models/website');
 var Node = require('../../../models/node');
+var Element = require('../../../models/element');
 
 module.exports.findWebsite = function(req, res, next) {
   Website.findOne({ permalink: req.params.link }).exec(function(err, website){
@@ -16,21 +17,69 @@ module.exports.updatePositions = function(req, res) {
   if ( ids )
     ids.forEach(function(_id, _index){
       Node.findByIdAndUpdate(_id, { $set: { sortOrder: _index }}, function (err, node) { });
+      Element.findByIdAndUpdate(_id, { $set: { menuOrder: _index }}, function (err, node) { });
     });
   res.end();
 }
 
 module.exports.list = function(req, res) {
-  Node.find( { parentWebsite: req.params.website._id }, 'name link nodes' ).populate('nodes', 'name link').sort('sortOrder').exec(function(err, nodes){
-    if (err) return res.status(404).end();
-    res.json(nodes);
-  });
+
+  Node
+    .find( { parentWebsite: req.params.website._id }, 'name link nodes elements sortOrder' )
+    .populate('nodes', 'name link').sort('sortOrder')
+    .populate({
+      path: 'elements',
+      select: 'menuLink menuTitle menuOrder',
+      match: { menuLink: { $ne: null }},
+      options: { sort: 'menuOrder' }
+    })
+    .exec(function(err, nodes){
+
+      var elements = [];
+      nodes.forEach(function(node, index){
+        node = node.toObject();
+        node.elements.forEach(function(element){
+          elements.push({
+            _id: element._id,
+            name: element.menuTitle,
+            link: node.link,
+            softLink: element.menuLink,
+            sortOrder: element.menuOrder
+          });
+        })
+        delete node.elements;
+        delete node.nodes;
+        nodes[index] = node;
+      })
+      nodes = nodes.concat(elements);
+
+      Element.find({
+        parentWebsite: req.params.website._id,
+        menuLink: { $ne: null }
+      }, 'menuLink menuTitle menuOrder', function(err, elements){
+        elements.forEach(function(element){
+          nodes.push({
+            _id: element._id,
+            name: element.menuTitle,
+            softLink: element.menuLink,
+            sortOrder: element.menuOrder
+          })
+        })
+
+        nodes.sort(function(a,b) {
+          return a.sortOrder > b.sortOrder ? 1 : -1
+        });
+
+        if (err) return res.status(404).end();
+        res.json(nodes);
+      })
+    });
 }
 
 module.exports.details = function(req, res) {
   req.params.website.populate('elements', 'template data', function(err, website){
-    Node.findOne({ _id: req.params.nodeId }, 'link name elements').populate('elements', 'template data', null, { sort: { sortOrder: 1 } } ).exec(function(err, node){
-      if (err) return res.status(404).end();
+    Node.findOne({ _id: req.params.nodeId }, 'link name elements').populate('elements', 'template data menuTitle menuLink', null, { sort: { sortOrder: 1 } } ).exec(function(err, node){
+      if (err || !node) return res.status(404).end();
       res.json({
         _id: node._id,
         name: node.name,

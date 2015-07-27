@@ -29,7 +29,7 @@ app.service('NodesService', function($http, $state, $q, $timeout, SettingsServic
         //  search for home node
         var homeNode = null;
         angular.forEach(nodes, function(node){
-          if ( node.link == '' ) {
+          if ( node.link == '' && !node.softLink ) {
             homeNode = node;
             parts = ['home'];
           }
@@ -45,14 +45,14 @@ app.service('NodesService', function($http, $state, $q, $timeout, SettingsServic
           angular.forEach(parts, function(part){
             var _node = null;
             angular.forEach(_nodes, function(node){
-              if ( node.link == part ) {
+              if ( node.link == part && !node.softLink ) {
                 _node = node;
               }
             });
             if ( !_node ) {
               //  didn't find base node, searching for home sub-node
               angular.forEach(homeNode.nodes, function(node){
-                if ( node.link == part ) {
+                if ( node.link == part && !node.softLink ) {
                   path.push(homeNode);
                   path.push(node);
                   _node = node;

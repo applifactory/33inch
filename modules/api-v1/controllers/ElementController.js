@@ -37,11 +37,19 @@ module.exports.create = function(req, res) {
 module.exports.update = function(req, res) {
   Element.findById(req.params.elementId, function (err, element) {
     if (err || !element) return res.status(404).end();
-    if ( !element.data )
-      element.data = req.body.data;
-    else
-      element.data = merge(element.data, req.body.data);
-    element.markModified('data');
+    if ( req.body.data ) {
+      if ( !element.data )
+        element.data = req.body.data;
+      else
+        element.data = merge(element.data, req.body.data);
+      element.markModified('data');
+    }
+    if ( req.body.hasOwnProperty('menuTitle') ) {
+      element.menuTitle = req.body.menuTitle;
+      element.menuLink = element.menuTitle ? element.menuTitle.replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '').toLowerCase() : null;
+      if ( !element.menuLink )
+        element.menuOrder = 1000;
+    }
     element.save(function(err){
       if(err) return res.status(400).end();
       res.end();

@@ -47,7 +47,7 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService, Elements
         });
       });
     },
-    controller: function($scope, SettingsService, $stateParams){
+    controller: function($scope, SettingsService, $stateParams, $rootScope){
 
       $scope.moveUp = function() {
         ElementsService.moveUp($stateParams.link, $scope.ngModel._id, $scope.collection);
@@ -149,6 +149,24 @@ app.directive('toolsDropdown', function($timeout, Inch33ElementService, Elements
           ElementsService.deleteElement($stateParams.link, id);
           $scope.collection.splice(index, 1);
         }
+      }
+
+      //  link
+      $scope.menuTitle = null;
+      var unwatch = $scope.$watch('ngModel', function(ngModel) {
+        unwatch();
+        $scope.menuTitle = ngModel.menuTitle;
+      });
+      $scope.saveMenuLink = function(){
+        $scope.ngModel.menuTitle = $scope.menuTitle;
+        $scope.showView('main');
+        ElementsService.update($stateParams.link, $scope.ngModel._id, {menuTitle: $scope.menuTitle}).then(function(){
+          $rootScope.$emit('Nodes:reload');
+        });
+      }
+      $scope.cancelMenuLink = function(){
+        $scope.menuTitle = $scope.ngModel.menuTitle;
+        $scope.showView('main');
       }
 
     }

@@ -107,7 +107,8 @@ WebsiteElementService.prototype.compile = function(elementData, html, config, no
               if ( _cols ) {
                 var _els = _baseElement.querySelectorAll(element.selector);
                 elementData.data.columns.forEach(function(_colData, i){
-                  _els[i].innerHTML = _colData[element.id].text;
+                  if ( _els[i] )
+                    _els[i].innerHTML = _colData[element.id].text;
                 })
               }
             } else {

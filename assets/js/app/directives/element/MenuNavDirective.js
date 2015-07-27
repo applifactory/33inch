@@ -9,7 +9,7 @@ app.directive('menuNav', function($timeout, Inch33ElementService, ElementsServic
           '<span ng-click="goTo(node)" style="color: {{ngModel.data.textColor}}">{{node.name}}</span>' +
           '<div class="tools" ng-if="!node.softLink">' +
             '<i class="fa fa-pencil" ng-click="editNode(node)"></i>' +
-            '<i class="fa fa-ban" click-confirm="deleteNode(node)" confirm="Are you sure you want to delete <strong>{{node.name}}</strong>?"></i>' +
+            '<i ng-if="node.link" class="fa fa-ban" click-confirm="deleteNode(node)" confirm="Are you sure you want to delete <strong>{{node.name}}</strong>?"></i>' +
           '</div>' +
         '</li>' +
       '</ul>',

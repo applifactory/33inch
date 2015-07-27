@@ -1,4 +1,5 @@
 var authUtil = require('../../../utils/AuthService.js');
+var normalize = require('../../../utils/NormalizeString.js');
 var User = require('../../../models/user');
 var Website = require('../../../models/website');
 var Node = require('../../../models/node');
@@ -104,7 +105,7 @@ module.exports.details = function(req, res) {
 module.exports.create = function(req, res) {
   var node = new Node();
   node.name = req.body.name;
-  node.link = req.body.link;
+  node.link = normalize(req.body.name).replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '').toLowerCase();
   if ( req.body.parentNode )
     node.parentNode = req.body.parentNode;
   else
@@ -116,12 +117,13 @@ module.exports.create = function(req, res) {
 }
 
 module.exports.update = function(req, res) {
+  console.log('update', req.params, req.body);
   Node.findOne({ _id: req.params.nodeId }).exec(function(err, node){
     if (err) return res.status(404).end();
-    if ( req.body.name )
+    if ( req.body.name ) {
       node.name = req.body.name;
-    if ( req.body.link )
-      node.link = req.body.link;
+      node.link = normalize(req.body.name).replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '').toLowerCase();
+    }
     node.save(function(err){
       if (err) return res.status(400).end();
       res.end();

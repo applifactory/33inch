@@ -93,6 +93,33 @@ app.service('NodesService', function($http, $state, $q, $timeout, SettingsServic
         deferred.reject();
       })
       return deferred.promise;
+    },
+    create: function(link, node) {
+      var deferred = $q.defer();
+      $http.post(SettingsService.apiUrl + 'website/' + link + '/node', node).success(function(node){
+        deferred.resolve(node);
+      }).error(function(){
+        deferred.reject();
+      })
+      return deferred.promise;
+    },
+    update: function(link, node) {
+      var deferred = $q.defer();
+      $http.put(SettingsService.apiUrl + 'website/' + link + '/node/' + node._id, node).success(function(node){
+        deferred.resolve(node);
+      }).error(function(){
+        deferred.reject();
+      })
+      return deferred.promise;
+    },
+    delete: function(link, node) {
+      var deferred = $q.defer();
+      $http.delete(SettingsService.apiUrl + 'website/' + link + '/node/' + node._id).success(function(){
+        deferred.resolve();
+      }).error(function(){
+        deferred.reject();
+      })
+      return deferred.promise;
     }
   }
 })

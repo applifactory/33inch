@@ -1,4 +1,6 @@
 .view(name="main")
+  .item(ng-click="addNode()")
+    | Add item
   .item
     | Logo
     .button(ng-show="!isUploading", upload-button, url="{{uploadUrl}}", param="file", on-upload="logoUploadStart(files)", on-success="logoUploadSuccess(response)", on-error="logoUploadError(response)") Upload

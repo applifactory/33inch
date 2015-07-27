@@ -128,3 +128,12 @@ module.exports.update = function(req, res) {
     });
   });
 }
+
+module.exports.delete = function(req, res) {
+  Node.findOne({ _id: req.params.nodeId }).exec(function(err, node){
+    if (err) return res.status(404).end();
+    node.remove(function(){
+      res.end();
+    });
+  });
+}

@@ -111,6 +111,11 @@ app.directive('menuDropdown', function($timeout, Inch33ElementService, ElementsS
         }
       }
 
+      //  new item
+      $scope.addNode = function() {
+        $scope.$parent.editNode();
+      }
+
     }
   }
 })

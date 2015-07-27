@@ -125,7 +125,7 @@ module.exports.update = function(req, res) {
       if ( node.link != '' )
         node.link = normalize(req.body.name).replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '').toLowerCase();
     }
-    if ( req.body.link )
+    if ( req.body.hasOwnProperty('link') )
       node.link = req.body.link;
     node.save(function(err){
       if (err) return res.status(400).end();

@@ -42,6 +42,11 @@ WebsiteElementService.prototype.compile = function(elementData, html, config, no
         registerStyle(_cssSelector, elementData.data.style);
       _baseElement.setAttribute('class', _cssSelector.replace(/\./g, ' ').trim());
 
+      // soft link
+      if ( elementData.menuLink ) {
+        _baseElement.setAttribute('id', elementData.menuLink);
+      }
+
       //  columns repeater
       var _cols = null;
       if ( _columns ) {
@@ -67,7 +72,11 @@ WebsiteElementService.prototype.compile = function(elementData, html, config, no
           registerStyle(_cssSelector + 'ul li a', {color: elementData.data.textColor});
         var _nav = '';
         nodes.forEach(function(_node) {
-          _nav += '<li><a href="/' + (_node.link ? _node.link + '.html' : '') + '">' + _node.name + '</a></li>';
+          var link =
+              ( _node.hasOwnProperty('link') ? '/' : '' ) +
+              ( _node.link ? _node.link + '.html' : '' ) +
+              ( _node.softLink ? '#' + _node.softLink : '' );
+          _nav += '<li><a href="' + link + '">' + _node.name + '</a></li>';
         });
         _baseElement.querySelector('ul').innerHTML = _nav;
       }

@@ -22,10 +22,9 @@ module.exports.updatePositions = function(req, res) {
   res.end();
 }
 
-module.exports.list = function(req, res) {
-
+module.exports.getMenu = function(websiteId, callback) {
   Node
-    .find( { parentWebsite: req.params.website._id }, 'name link nodes elements sortOrder' )
+    .find( { parentWebsite: websiteId }, 'name link nodes elements sortOrder' )
     .populate('nodes', 'name link').sort('sortOrder')
     .populate({
       path: 'elements',
@@ -34,7 +33,9 @@ module.exports.list = function(req, res) {
       options: { sort: 'menuOrder' }
     })
     .exec(function(err, nodes){
-
+      if (err) {
+        return callback(err);
+      }
       var elements = [];
       nodes.forEach(function(node, index){
         node = node.toObject();
@@ -54,7 +55,7 @@ module.exports.list = function(req, res) {
       nodes = nodes.concat(elements);
 
       Element.find({
-        parentWebsite: req.params.website._id,
+        parentWebsite: websiteId,
         menuLink: { $ne: null }
       }, 'menuLink menuTitle menuOrder', function(err, elements){
         elements.forEach(function(element){
@@ -70,10 +71,20 @@ module.exports.list = function(req, res) {
           return a.sortOrder > b.sortOrder ? 1 : -1
         });
 
-        if (err) return res.status(404).end();
-        res.json(nodes);
+        callback(false, nodes);
+
       })
     });
+}
+
+module.exports.list = function(req, res) {
+
+  module.exports.getMenu(req.params.website._id, function(err, nodes){
+    if (err) return res.status(404).end();
+    res.json(nodes);
+  });
+
+
 }
 
 module.exports.details = function(req, res) {

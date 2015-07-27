@@ -106,7 +106,7 @@ module.exports.create = function(req, res) {
   var node = new Node();
   node.name = req.body.name;
   node.link = normalize(req.body.name).replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '').toLowerCase();
-  if ( req.body.link )
+  if ( req.body.hasOwnProperty('link') )
     node.link = req.body.link;
   if ( req.body.parentNode )
     node.parentNode = req.body.parentNode;

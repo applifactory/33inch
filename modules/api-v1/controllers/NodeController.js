@@ -122,8 +122,11 @@ module.exports.update = function(req, res) {
     if (err) return res.status(404).end();
     if ( req.body.name ) {
       node.name = req.body.name;
-      node.link = normalize(req.body.name).replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '').toLowerCase();
+      if ( node.link != '' )
+        node.link = normalize(req.body.name).replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '').toLowerCase();
     }
+    if ( req.body.link )
+      node.link = req.body.link;
     node.save(function(err){
       if (err) return res.status(400).end();
       res.end();

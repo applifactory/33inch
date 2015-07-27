@@ -14,7 +14,7 @@ module.exports = function(app) {
     .put(websiteCtrl.update);
   app.route('/api/v1/website/:link/export')
     .all(authUtil.requireUserAuth)
-    .get(websiteCtrl.export);
+    .put(websiteCtrl.export);
   app.route('/api/v1/mail').
     post(websiteCtrl.sendMail);
 }

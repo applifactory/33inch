@@ -130,7 +130,7 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
               });
             } else {
               // no elements, undefined
-              if ( scope.ngModel.template == 'blikeo-social-buttons' ) {
+              if ( ['blikeo-social-buttons', 'efectivo-social-buttons'].indexOf( scope.ngModel.template ) >= 0 ) {
                 iElement.css('position', 'static');
               }
             }

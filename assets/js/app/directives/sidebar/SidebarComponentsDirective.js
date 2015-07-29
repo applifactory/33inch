@@ -36,6 +36,9 @@ app.directive('sidebarComponents', function(){
           id: 'list-grid',
           name: 'Paragraphs in columns'
         }, {
+          id: 'pricing-default',
+          name: 'Pricing list'
+        }, {
           id: 'showcase-grid',
           name: 'Showcase images grid'
         }, {

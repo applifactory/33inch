@@ -6,6 +6,8 @@ var WebsiteExport = require('../../../utils/WebsiteExportService');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var config = require('../../../config/config.js');
+var Mailgun = require('mailgun-js');
+var nl2br  = require('nl2br');
 
 module.exports.index = function(req, res) {
   res.json(req.params.authUser.websites);
@@ -121,23 +123,27 @@ module.exports.sendMail = function(req, res) {
       var title = 'Message from ' + (website.domain ? website.domain : website.permalink);
       var message = '';
       for ( var attr in req.body ) {
-        message += ( attr == 'email' ? 'Sender' : attr ) + ': ' + req.body[attr] + "\n";
+        message += '<strong>' + ( attr == 'email' ? 'Sender' : attr ) + '</strong>: <br />' + nl2br(req.body[attr]) + "<br /><br />";
       }
-      var transporter = nodemailer.createTransport({ service: 'gmail', auth: { user: 'mateusz.witalinski@gmail.com', pass: 'Mateush16' } });
-      transporter.sendMail({
-        from: 'mateusz.witalinski@33inch.com',
-        replyTo: req.body['email'],
+
+      var mailgun = new Mailgun( config.mailgun );
+
+      var data = {
+        from: req.body['email'],
         to: website.email,
         subject: title,
-        text: message
-      }, function(err, info){
+        html: message
+      }
+
+      mailgun.messages().send(data, function (err, body) {
         if ( err )  {
           console.error('Send mail error', err);
           res.status(400).json(err).end();
         } else {
-          console.log('Success', info);
+          console.log('Success', body);
           res.end();
         }
       });
+
     });
 }

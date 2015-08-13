@@ -141,7 +141,7 @@ module.exports.sendMail = function(req, res) {
           res.status(400).json(err).end();
         } else {
           console.log('Success', body);
-          res.end();
+          res.json(body);
         }
       });
 

@@ -17,7 +17,7 @@ app.settings.env = process.env.ENV || 'development';
 app.use(morgan('dev'));
 
 //  Rollbar error handler
-app.use(rollbar.errorHandler('73bf51c39ac6480dac24fe654b025311', {environment: process.env.EN}));
+app.use(rollbar.errorHandler('73bf51c39ac6480dac24fe654b025311', { environment: process.env.EN }));
 
 //  Database
 mongoose.connect(config.db);

@@ -34,6 +34,18 @@ app.service('WebsitesService', function($http, $state, $q, SettingsService, Auth
         deferred.reject(status);
       })
       return deferred.promise;
+    },
+    exportWebsite: function(link, domain) {
+      var deferred = $q.defer();
+      var data = {};
+      if ( domain )
+        data.domain = domain;
+      $http.put(SettingsService.apiUrl + 'website/' + link + '/export', data).success(function(){
+        deferred.resolve();
+      }).error(function(data, status){
+        deferred.reject(data);
+      })
+      return deferred.promise;
     }
   }
 })

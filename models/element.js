@@ -10,7 +10,10 @@ var ElementSchema = new Schema({
   parentWebsite: { type: Schema.Types.ObjectId, ref: 'Website', childPath: 'elements' },
   images: [{ type: Schema.Types.ObjectId, ref: 'Image' }],
   files: [{ type: Schema.Types.ObjectId, ref: 'File' }],
-  sortOrder: Number
+  sortOrder: Number,
+  menuLink: String,
+  menuTitle: String,
+  menuOrder: { type: Number, default: 1000 }
 });
 
 //  relations

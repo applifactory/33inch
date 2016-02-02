@@ -121,14 +121,17 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
 
                 //  attachement
                 if ( element.type && element.type == 'attachement' ) {
-                  _el.setAttribute('attachement-edit', 'column[\'' + element.id + '\'].attachement');
+                  if ( element.column )
+                    _el.setAttribute('attachement-edit', 'column[\'' + element.id + '\'].attachement');
+                  else
+                    _el.setAttribute('ng-model', 'ngModel.data["' + element.id + '"].attachement');
                 }
 
               });
             } else {
               // no elements, undefined
-              if ( scope.ngModel.template == 'blikeo-social-buttons' ) {
-                console.log(scope.ngModel, iElement.css('position', 'static'));
+              if ( ['blikeo-social-buttons', 'efectivo-social-buttons'].indexOf( scope.ngModel.template ) >= 0 ) {
+                iElement.css('position', 'static');
               }
             }
 
@@ -137,8 +140,10 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
               //  column count
               if ( !scope.ngModel.data.hasOwnProperty('columnCount') )
                 scope.ngModel.data.columnCount = scope.config.columns.default;
-              var _el = el[0].querySelector('.columns');
-              _el.setAttribute('class', 'col-{{ngModel.data.columnCount}}');
+              var _el = el[0].querySelector('.columns, .slides');
+              _el.setAttribute('ng-model', 'ngModel.data.columns');
+              if ( scope.config.columns.min != scope.config.columns.max )
+                _el.setAttribute('class', 'col-{{ngModel.data.columnCount}}');
               //  column repeater
               var _col = _el.querySelector('*');
               _col.setAttribute('ng-repeat', 'column in ngModel.data.columns');
@@ -174,7 +179,7 @@ app.directive('inch33Element', function($compile, $templateRequest, Inch33Elemen
               var _oldData = oldData ? JSON.parse(angular.toJson(oldData)) : {};
               var _changes = Diff.getChanges(_oldData, _data);
               if ( Object.keys(_changes).length )
-                ElementsService.updateData(scope.$parent.$parent.link, scope.ngModel._id, _changes);
+                ElementsService.update(scope.$parent.$parent.link, scope.ngModel._id, {data: _changes});
             }
           }, true);
         }

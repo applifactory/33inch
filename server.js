@@ -2,6 +2,7 @@ var express         = require('express'); // call express
 var app             = express(); // define our app using express
 var bodyParser      = require('body-parser');
 var morgan          = require('morgan');
+var rollbar         = require('rollbar');
 var mongoose        = require('mongoose'); // for working w/ our database
 var port            = process.env.PORT || 3000; // set the port for pur app
 var fs              = require('fs');
@@ -14,6 +15,9 @@ app.settings.env = process.env.ENV || 'development';
 
 //  Logger
 app.use(morgan('dev'));
+
+//  Rollbar error handler
+app.use(rollbar.errorHandler('73bf51c39ac6480dac24fe654b025311', { environment: process.env.EN }));
 
 //  Database
 mongoose.connect(config.db);

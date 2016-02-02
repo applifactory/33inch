@@ -1,4 +1,6 @@
 .view(name="main")
+  .item(ng-click="addNode()")
+    | Add item
   .item
     | Logo
     .button(ng-show="!isUploading", upload-button, url="{{uploadUrl}}", param="file", on-upload="logoUploadStart(files)", on-success="logoUploadSuccess(response)", on-error="logoUploadError(response)") Upload
@@ -15,6 +17,8 @@
       .color(ng-class="{active: color==ngModel.data.style.backgroundColor}", ng-repeat="color in colors" style="background: {{color}}", ng-click="setBackgroundColor(color)")
       .color.add(view="new-bg-color")
         .fa.fa-plus-circle
+  .item(ng-click="deleteElement(ngModel._id)")
+    | Delete
 
 .view(name="new-color")
   .item.title

@@ -5,6 +5,7 @@ var async = require('async');
 var jade = require('jade');
 var Node = require('../models/node');
 var WebsiteElementService = require('./WebsiteElementService');
+var nodeCtrl = require('../modules/api-v1/controllers/NodeController.js');
 
 var headers = '';
 var footers = '';
@@ -36,9 +37,13 @@ function exportNodes(nodes, baseElements, callback) {
       bottomElements.push(el);
   });
   async.eachSeries(nodes, function(node, _callback) {
-    exportNode(node, topElements, bottomElements, nodes, function(err){
-      _callback(err);
-    });
+    if ( !node.hasOwnProperty('softLink') ) {
+      exportNode(node, topElements, bottomElements, nodes, function(err){
+        _callback(err);
+      });
+    } else {
+      _callback(false);
+    }
   }, function ( err ) {
     if( err ) {
       console.log('Export node error');
@@ -50,7 +55,7 @@ function exportNodes(nodes, baseElements, callback) {
 }
 
 function exportNode(node, topElements, bottomElements, nodes, callback) {
-  Node.findOne({ _id: node._id }, 'link name elements').populate('elements', 'template data', null, { sort: { sortOrder: 1 } } ).exec(function(err, node){
+  Node.findOne({ _id: node._id }, 'link name elements').populate('elements', 'template data menuLink', null, { sort: { sortOrder: 1 } } ).exec(function(err, node){
     if (err) return callback('Node not found');
     var link = ( node.link ? node.link : 'index' ) + '.html';
     var elements = [];
@@ -127,9 +132,16 @@ function copyAssets(callback) {
   });
   console.log(attachements);
   async.each(attachements, function(file, _callback) {
-    fs.copy('public' + file, exportPath + file.replace('/fx/', '/assets/'), function (err) {
-      _callback(err);
-    });
+    if ( file.indexOf('http://') < 0 ) {
+      fs.copy('public' + file, exportPath + file.replace('/fx/', '/assets/'), function (err) {
+        _callback(err);
+      });
+    } else {
+      var _file = file.replace(/[\S]+\//, '');
+      fs.copy('assets/img/placeholder/' + file.replace(/[\S]+\//, ''), exportPath + '/assets/' + _file, function (err) {
+        _callback(err);
+      });
+    }
   }, function(err){
     if (err) {
       callback('Copy attachements error');
@@ -155,8 +167,8 @@ WebsiteExportService.prototype.export = function(website, callback) {
   loadConfig(function(err, _config){
     if ( err )  callback(err);
     config = _config;
-    website.populate('elements', 'template data', function(err, website){
-      Node.find( { parentWebsite: website._id }, 'name link nodes' ).populate('nodes', 'name link').sort('sortOrder').exec(function(err, nodes){
+    website.populate('elements', 'template data menuLink', function(err, website){
+      nodeCtrl.getMenu(website._id, function(err, nodes){
         if (err || !nodes) return callback('Nodes not found');
         exportNodes(nodes, website.elements, function(err, result){
           if ( err ) {

@@ -9,6 +9,12 @@ app.directive('sidebarComponents', function(){
           id: 'menu-default',
           name: 'Default menu'
         }, {
+          id: 'slider-straight',
+          name: 'Slider'
+        }, {
+          id: 'slider-left',
+          name: 'Slider left'
+        }, {
           id: 'article-features',
           name: 'List with images'
         }, {
@@ -29,6 +35,9 @@ app.directive('sidebarComponents', function(){
         }, {
           id: 'list-grid',
           name: 'Paragraphs in columns'
+        }, {
+          id: 'pricing-default',
+          name: 'Pricing list'
         }, {
           id: 'showcase-grid',
           name: 'Showcase images grid'

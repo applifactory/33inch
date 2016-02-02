@@ -31,8 +31,7 @@ var Inch33ElementsConfig = {
       "type": "text",
       "selector": "h1",
       "elements": true,
-      "id": "h1",
-      "$$hashKey": "object:66"
+      "id": "h1"
     }]
   },
   "article-text": {
@@ -106,28 +105,24 @@ var Inch33ElementsConfig = {
       "type": "text",
       "selector": ".container h1",
       "elements": true,
-      "id": "container-h1",
-      "$$hashKey": "object:81"
+      "id": "container-h1"
     }, {
       "name": "Claim",
       "type": "text",
       "selector": ".container .regular",
       "elements": false,
-      "id": "container-regular",
-      "$$hashKey": "object:82"
+      "id": "container-regular"
     }, {
       "name": "Item title",
       "type": "text",
       "selector": ".container li a",
       "column": true,
-      "id": "container-li-a",
-      "$$hashKey": "object:83"
+      "id": "container-li-a"
     }, {
       "type": "attachement",
       "selector": ".container li",
       "column": true,
-      "id": "container-li",
-      "$$hashKey": "object:84"
+      "id": "container-li"
     }]
   },
   "showcase-grid": {
@@ -149,6 +144,58 @@ var Inch33ElementsConfig = {
       "name": "Background",
       "type": "background",
       "selector": "ul li",
+      "column": true
+    }]
+  },
+  "slider-straight": {
+    "background": false,
+    "columns": {
+      "min": 1,
+      "max": 1,
+      "default": 1
+    },
+    "elements": [{
+      "name": "Title",
+      "type": "text",
+      "selector": ".hero h1",
+      "elements": true,
+      "column": true
+    }, {
+      "name": "Claim",
+      "type": "text",
+      "selector": ".hero h2",
+      "elements": true,
+      "column": true
+    }, {
+      "name": "Background",
+      "type": "background",
+      "selector": ".slides .slide",
+      "column": true
+    }]
+  },
+  "slider-left": {
+    "background": false,
+    "columns": {
+      "min": 1,
+      "max": 1,
+      "default": 1
+    },
+    "elements": [{
+      "name": "Title",
+      "type": "text",
+      "selector": ".hero h1",
+      "elements": true,
+      "column": true
+    }, {
+      "name": "Claim",
+      "type": "text",
+      "selector": ".hero h2",
+      "elements": true,
+      "column": true
+    }, {
+      "name": "Background",
+      "type": "background",
+      "selector": ".slides .slide",
       "column": true
     }]
   },
@@ -207,62 +254,53 @@ var Inch33ElementsConfig = {
       "name": "Name",
       "type": "text",
       "selector": "form .name label",
-      "id": "form-name-label",
-      "$$hashKey": "object:102"
+      "id": "form-name-label"
     }, {
       "name": "Email",
       "type": "text",
       "selector": "form .email label",
-      "id": "form-email-label",
-      "$$hashKey": "object:103"
+      "id": "form-email-label"
     }, {
       "name": "Message",
       "type": "text",
       "selector": "form .message label",
-      "id": "form-message-label",
-      "$$hashKey": "object:104"
+      "id": "form-message-label"
     }, {
       "name": "Title",
       "type": "text",
       "selector": "h3",
       "elements": true,
-      "id": "h3",
-      "$$hashKey": "object:105"
+      "id": "h3"
     }, {
       "name": "Claim",
       "type": "text",
       "selector": "p.regular",
       "elements": true,
-      "id": "p-regular",
-      "$$hashKey": "object:106"
+      "id": "p-regular"
     }, {
       "name": "Place",
       "type": "text",
       "selector": "li.place",
       "elements": true,
-      "id": "li-place",
-      "$$hashKey": "object:107"
+      "id": "li-place"
     }, {
       "name": "Email",
       "type": "text",
       "selector": "li.mail",
       "elements": true,
-      "id": "li-mail",
-      "$$hashKey": "object:108"
+      "id": "li-mail"
     }, {
       "name": "Phone",
       "type": "text",
       "selector": "li.phone",
       "elements": true,
-      "id": "li-phone",
-      "$$hashKey": "object:109"
+      "id": "li-phone"
     }, {
       "name": "Twitter",
       "type": "text",
       "selector": "li.twitter",
       "elements": true,
-      "id": "li-twitter",
-      "$$hashKey": "object:110"
+      "id": "li-twitter"
     }]
   },
   "subscribe-form": {

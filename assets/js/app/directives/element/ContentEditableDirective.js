@@ -4,6 +4,13 @@ app.directive("contenteditable", function($timeout, $window) {
     require: "ngModel",
     link: function(scope, element, attrs, ngModel) {
 
+      var removeDivs = function() {
+        var divs = element[0].querySelectorAll('div');
+        angular.forEach(divs, function(div){
+          div.remove();
+        });
+      }
+
       function read() {
         ngModel.$setViewValue(element.html());
       }
@@ -15,11 +22,12 @@ app.directive("contenteditable", function($timeout, $window) {
           repeat = false;
           angular.forEach(element[0].querySelectorAll('*'), function(item){
             if ( ['div', 'span', 'br', 'i', 'b', 'strong'].indexOf(item.tagName.toLowerCase()) < 0 ) {
-              item.insertAdjacentHTML('afterend', '<div>' + item.innerHTML + '</div>');
+              item.insertAdjacentHTML('afterend', '<br /><br />' + item.innerHTML);
               item.remove();
               repeat = true;
             }
             item.removeAttribute('style');
+            removeDivs();
           });
         }
         rangy.restoreSelection(savedSelection);
@@ -40,8 +48,7 @@ app.directive("contenteditable", function($timeout, $window) {
             e.preventDefault();
             if( navigator.userAgent.indexOf("msie") > 0 ) {
               insertHtml('<br />');
-            }
-            else {
+            } else {
               var selection = window.getSelection(),
               range = selection.getRangeAt(0),
               br = document.createElement('br');
@@ -53,6 +60,11 @@ app.directive("contenteditable", function($timeout, $window) {
               selection.removeAllRanges();
               selection.addRange(range);
             }
+        }
+        removeDivs();
+        if ( !element.html().match(/(<br>|<br\/>|<br \/>)$/g) ) {
+          var br = document.createElement('br');
+          element[0].appendChild(br);
         }
       });
 

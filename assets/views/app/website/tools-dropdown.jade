@@ -10,8 +10,8 @@
         | Move
         i.fa.fa-arrow-circle-up(ng-click="moveUp()")
       .item(ng-if="config.columns", ng-click="addColumnItem()")
-        | Add column item
-      .item(ng-if="config.columns")
+        | Add repeater item
+      .item(ng-if="config.columns && config.columns.max != config.columns.min")
         | Columns count:
         span.value {{ngModel.data.columnCount}}
         slider(floor="{{config.columns.min}}", ceiling="{{config.columns.max}}", step="1", precision="1", ng-model="ngModel.data.columnCount")
@@ -20,6 +20,9 @@
         i.fa.fa-angle-right.right
       .item(ng-if="hasAppearance", ng-click="showView('appearance')")
         | Appearance
+        i.fa.fa-angle-right.right
+      .item(ng-click="showView('link')")
+        | Menu link
         i.fa.fa-angle-right.right
       .item(ng-if="!config.hasOwnProperty('background') || config.background", ng-click="showView('background')")
         | Background
@@ -45,6 +48,21 @@
           i.fa.fa-angle-left
           | back
         | Appearance
+
+    //  link
+    .view(ng-class="{active: currentView=='link'}")
+      .item.title
+        .back(ng-click="showView('main')")
+          i.fa.fa-angle-left
+          | back
+        | Menu link
+      .item
+        input(ng-model="menuTitle")
+        div
+          .button(ng-click="cancelMenuLink()") Cancel
+          .button(ng-click="saveMenuLink()") Save
+
+
 
     //  background
     .view(ng-class="{active: currentView=='background', hidden: currentView=='new-bg-color'}")

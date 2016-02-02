@@ -1,4 +1,4 @@
-app.directive('menuDropdown', function($timeout, Inch33ElementService, ElementsService, $window){
+app.directive('menuDropdown', function($timeout, Inch33ElementService, ElementsService, $window, $stateParams){
   return {
     restrict: 'E',
     template:
@@ -96,6 +96,24 @@ app.directive('menuDropdown', function($timeout, Inch33ElementService, ElementsS
         $scope.LastColor = $scope.ngModel.data.textColor = color;
         Inch33ElementService.registerColor(color);
         $scope.menuDropdown.back();
+      }
+
+      $scope.deleteElement = function(id) {
+        console.log('deleteElement', $scope.$parent)
+        var index = -1;
+        angular.forEach( $scope.$parent.collection, function(element, i){
+          if ( element._id == id )
+            index = i;
+        });
+        if ( index >= 0 ) {
+          ElementsService.deleteElement($stateParams.link, id);
+          $scope.$parent.collection.splice(index, 1);
+        }
+      }
+
+      //  new item
+      $scope.addNode = function() {
+        $scope.$parent.editNode();
       }
 
     }

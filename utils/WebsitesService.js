@@ -25,7 +25,7 @@ module.exports = function(app) {
   app.route('*').all(function(req, res, next) {
 
     //  mateusz.im static website routing
-    if ( req.hostname.indexOf('mateusz.im') ) {
+    if ( req.hostname.indexOf('mateusz.im') >= 0 ) {
       serveWebsite(req, res, next, { permalink: 'mateusz.im' });
     }
 

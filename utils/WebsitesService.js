@@ -24,6 +24,11 @@ module.exports = function(app) {
   //  check domain/subdomain route
   app.route('*').all(function(req, res, next) {
 
+    //  mateusz.im static website routing
+    if ( req.hostname.indexOf('mateusz.im') ) {
+      serveWebsite(req, res, next, { permalink: 'mateusz.im' });
+    }
+
     //  quick check
     if ( config.domain == req.hostname.replace(/^www./, '') )
       return next();

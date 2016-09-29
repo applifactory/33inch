@@ -1,0 +1,29 @@
+$smallScreen = 768px
+$mediumScreen = 992px
+$largeScreen = 1200px
+
+size($size)
+  @media screen and (min-width: $size)
+    {block}
+
+retina()
+  @media (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi)
+    {block}
+
+//
+// body.r-debug
+//   &::after
+//     content: 'XS'
+//     position: fixed
+//     color: red
+//     background: black
+//     left: 0
+//     bottom: 0
+//     padding: 10px
+//     z-index: 10000
+//     +size($smallScreen)
+//       content: 'S'
+//     +size($mediumScreen)
+//       content: 'M'
+//     +size($largeScreen)
+//       content: 'L'

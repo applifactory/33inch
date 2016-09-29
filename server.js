@@ -58,6 +58,17 @@ fs.readdirSync('./modules').forEach(function (moduleName) {
   }
 });
 
-app.listen(config.port);
-console.log('Magic happens on port ' + config.port);
+//  SSL support
+if ( app.settings.env == 'staging' ) {
+  require('letsencrypt-express').create({
+    server: 'staging',
+    email: 'mateusz.witalinski@gmail.com',
+    agreeTos: true,
+    approveDomains: [ '33inch.com' ],
+    app: app
+  }).listen(config.port, 443);
+} else {
+  app.listen(config.port);
+}
 
+console.log('Magic happens on port ' + config.port);

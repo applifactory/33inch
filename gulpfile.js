@@ -10,9 +10,15 @@ var jade         = require('gulp-jade');
 var jeet         = require('jeet');
 var autoprefixer = require('gulp-autoprefixer');
 
+function handleError (error) {
+  console.error(error.toString())
+  this.emit('end')
+}
+
 gulp.task('css', function(done) {
   return gulp.src('assets/css/*.css.styl')
     .pipe( stylus({ errors: true, use: [jeet()] }) )
+    .on('error', handleError)
     .pipe( autoprefixer({ cascade: false }) )
     .pipe( minifyCSS() )
     .pipe( rename(function(path){
@@ -27,6 +33,7 @@ gulp.task('css', function(done) {
 gulp.task('js', function(done) {
   gulp.src('assets/js/*.js')
     .pipe(include())
+    .on('error', handleError)
     .pipe(gulp.dest('public/assets'))
     .pipe(livereload())
     .on('end', done);
@@ -35,6 +42,7 @@ gulp.task('js', function(done) {
 gulp.task('jade', function(done) {
   gulp.src('assets/views/**/*.jade')
     .pipe(jade())
+    .on('error', handleError)
     .pipe(rename(function (path) {
       path.extname = '.html';
     }))
@@ -58,4 +66,4 @@ gulp.task('nodemon', function() {
   });
 });
 
-gulp.task('default', ['nodemon', 'watch']);
+gulp.task('default', ['build', 'nodemon', 'watch']);

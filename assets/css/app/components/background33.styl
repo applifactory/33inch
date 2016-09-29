@@ -1,0 +1,54 @@
+background33
+  display: block
+  position: absolute
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  background: red
+  z-index: -1
+  background: $darkBg
+  &::after
+    content: ''
+    display: block
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    background: url(/dot-bg.png) center
+    background-size: 25px 25px
+    z-index: 0
+    opacity: 0.65
+  div
+    position: absolute
+  & > div
+    background: lighten($darkBg, 5%)
+    top: 0
+    right: 0
+    bottom: 0
+    width: 40%
+    & > div
+      background: darken($darkBg, 8%)
+      right: 0
+      bottom: 0
+      left: 0
+      height: 30%
+      & > div
+        background: darken($darkBg, 20%)
+        top: 0
+        bottom: 0
+        left: 0
+        width: 35%
+        & > div
+          background: darken($darkBg, 10%)
+          top: 0
+          right: 0
+          left: 0
+          height: 43%
+          & > div
+            background: darken($darkBg, 30%)
+            top: 0
+            right: 0
+            bottom: 0
+            width: 33%

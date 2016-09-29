@@ -15,7 +15,7 @@
 //= require_tree common/utils
 
 //= require_tree app/config
+//= require_tree app/components
 //= require_tree app/directives
 //= require_tree app/services
 //= require_tree app/controllers
-

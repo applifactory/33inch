@@ -24,6 +24,12 @@ module.exports = function(app) {
   //  check domain/subdomain route
   app.route('*').all(function(req, res, next) {
 
+    //  mateusz.im static website routing
+    if ( req.hostname.indexOf('mateusz.im') >= 0 ) {
+      var file = req.params[0] == '/' ? '/index.html' : req.params[0];
+      return res.sendFile(file, {root: 'build/mateusz.im'});
+    }
+
     //  quick check
     if ( config.domain == req.hostname.replace(/^www./, '') )
       return next();

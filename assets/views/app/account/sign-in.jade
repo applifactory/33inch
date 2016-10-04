@@ -2,29 +2,29 @@ background33
 .sign-in.ui-kit
   h1.logo 33inch
   h2 Sign in
-  form(name="signInForm", ng-submit="submitForm()", novalidate, ng-class="{loading: isLoading}")
+  form(name="signInForm" ng-submit="submitForm()" novalidate ng-class="{loading: isLoading}")
     .message.danger(ng-show="signInForm.$submitted && ( signInForm.$invalid || errorMessage )")
-      span(ng-if="signInForm.$submitted", ng-messages="signInForm.email.$error")
+      span(ng-if="signInForm.$submitted" ng-messages="signInForm.email.$error")
         span(ng-message="required") Enter your email
         span(ng-message="email") Wrong email format
-      span(ng-if="signInForm.$submitted && !signInForm.email.$invalid", ng-messages="signInForm.password.$error")
+      span(ng-if="signInForm.$submitted && !signInForm.email.$invalid" ng-messages="signInForm.password.$error")
         span(ng-message="required") Enter your pasword
       span(ng-if="signInForm.$submitted && !signInForm.email.$invalid && !signInForm.password.$invalid && errorMessage")
         | {{errorMessage}}
 
     label(ng-class="{error: signInForm.$submitted && signInForm.email.$invalid}")
       | Email
-      input(type="email", name="email", ng-model="credentials.email", required)
+      input(type="email" name="email" ng-model="credentials.email" ng-disabled="isLoading" required)
     label(ng-class="{error: signInForm.$submitted && signInForm.password.$invalid}")
       | Password
-      input(type="password", name="password", ng-model="credentials.password", required)
+      input(type="password" name="password" ng-model="credentials.password" ng-disabled="isLoading" required)
     label.checkbox
-      input(type="checkbox", ng-model="credentials.stayLogged")
+      input(type="checkbox" ng-model="credentials.stayLogged" ng-disabled="isLoading")
       | Stay logged in
     .actions
-      input.button.success.block.fills(type="submit", value="Sign in")
+      input.button.success.block.fills(type="submit" value="Sign in" ng-disabled="isLoading")
       br
       
-      .button.primary.small Create account
-      .button.small Forgot password?
+      .button.primary.small(ui-sref="sign-up" ng-disabled="isLoading") Create account
+      .button.small(ng-disabled="isLoading") Forgot password?
       

@@ -11,7 +11,7 @@ app.service('NodesService', function($http, $state, $q, $timeout, SettingsServic
         _self.currentNodes = null;
         if ( status == 401 ) {
           AuthService.signOut().then(function(){
-            $state.go('account');
+            $state.go('sign-in');
           });
         }
         if ( status == 404 || status == 400 ) {

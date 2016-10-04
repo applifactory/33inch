@@ -8,7 +8,7 @@ app.service('WebsitesService', function($http, $state, $q, SettingsService, Auth
       }).error(function(data, status){
         if ( status == 401 ) {
           AuthService.signOut().then(function(){
-            $state.go('account');
+            $state.go('sign-in');
           });
         }
         deferred.reject(status);
@@ -25,7 +25,7 @@ app.service('WebsitesService', function($http, $state, $q, SettingsService, Auth
         _self.currentWebsite = null;
         if ( status == 401 ) {
           AuthService.signOut().then(function(){
-            $state.go('account');
+            $state.go('sign-in');
           });
         }
         if ( status == 404 || status == 400 ) {

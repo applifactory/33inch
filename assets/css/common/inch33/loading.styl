@@ -1,14 +1,13 @@
 form.loading
   position: relative
   overflow: hidden
-  &::before
-    content: ''
-    background: rgba(255, 255, 255, 0.75)
-    position: absolute
-    top: 0
-    right: 0
-    bottom: 0
-    left: 0
+  label
+    opacity: 0.3
+    input
+      &[disabled]
+        opacity: 1
+    &.checkbox
+      cursor: default
   &::after
     content: ''
     clear: both

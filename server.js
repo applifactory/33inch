@@ -8,16 +8,17 @@ var port            = process.env.PORT || 3000; // set the port for pur app
 var fs              = require('fs');
 var config          = require('./config/config.js');
 var websitesService = require('./utils/WebsitesService.js');
+var https           = require('https');
 
 //  Startup
-console.log('ENV: ' + ( process.env.ENV || 'development' ) );
 app.settings.env = process.env.ENV || 'development';
+console.log('ENV: ' + app.settings.env );
 
 //  Logger
 app.use(morgan('dev'));
 
 //  Rollbar error handler
-app.use(rollbar.errorHandler('73bf51c39ac6480dac24fe654b025311', { environment: process.env.EN }));
+app.use(rollbar.errorHandler('73bf51c39ac6480dac24fe654b025311', { environment: app.settings.env }));
 
 //  Database
 mongoose.connect(config.db);
@@ -58,6 +59,18 @@ fs.readdirSync('./modules').forEach(function (moduleName) {
   }
 });
 
+//  SSL support for production only
+if ( app.settings.env == 'production' ) {
+  var server = https.createServer(
+    {
+      key: fs.readFileSync('./tls/key.pem'),
+      cert: fs.readFileSync('./tls/cert.pem')
+    },
+    app
+  )
+  server.listen(443);
+}
+
+//  Run server
 app.listen(config.port);
 console.log('Magic happens on port ' + config.port);
-

@@ -18,7 +18,9 @@ console.log('ENV: ' + app.settings.env );
 app.use(morgan('dev'));
 
 //  Rollbar error handler
-app.use(rollbar.errorHandler('73bf51c39ac6480dac24fe654b025311', { environment: app.settings.env }));
+if ( ['production', 'staging'].includes(app.settings.env) ) {
+  app.use(rollbar.errorHandler('73bf51c39ac6480dac24fe654b025311', { environment: app.settings.env }));
+}
 
 //  Database
 mongoose.connect(config.db);

@@ -18,7 +18,7 @@ console.log('ENV: ' + app.settings.env );
 app.use(morgan('dev'));
 
 //  Rollbar error handler
-if ( ['production', 'staging'].includes(app.settings.env) ) {
+if ( ['production', 'staging'].indexOf(app.settings.env) >= 0 ) {
   app.use(rollbar.errorHandler('73bf51c39ac6480dac24fe654b025311', { environment: app.settings.env }));
 }
 

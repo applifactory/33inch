@@ -14,6 +14,19 @@ app.service('AuthService', function($http, $q, SettingsService, $window, $timeou
       });
       return deferred.promise;
     },
+    signUp: function(email, password) {
+      var deferred = $q.defer();
+      $http.post(SettingsService.apiUrl + 'user', {
+        email: email,
+        password: password
+      }).success(function(result){
+        deferred.resolve(result.token);
+        $window.localStorage.authToken = result.token;
+      }).error(function(error){
+        deferred.reject(error.message);
+      });
+      return deferred.promise;
+    },
     signOut: function() {
       var deferred = $q.defer();
       $window.localStorage.removeItem('authToken');

@@ -1,7 +1,7 @@
 app.controller('SignInCtrl', function($scope, AuthService, $state){
 
   $scope.credentials = {
-    email: '',
+    email: sessionStorage.signInFormEmail || '',
     password: '',
     stayLogged: false
   };
@@ -23,6 +23,7 @@ app.controller('SignInCtrl', function($scope, AuthService, $state){
 
   $scope.$on('$destroy', function() {
     watchCredentials();
+    sessionStorage.signInFormEmail = $scope.credentials.email || '';
   });
 
   //  do login

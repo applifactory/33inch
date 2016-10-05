@@ -1,1 +1,26 @@
-h1 app/account/sign-up
+background33
+.sign-up.ui-kit
+  h1.logo33inch 33inch
+  h2 Sign up
+  form(name="signUpForm" ng-submit="submitForm()" novalidate ng-class="{loading: isLoading}")
+    .message.danger(ng-show="signUpForm.$submitted && ( signUpForm.$invalid || errorMessage )")
+      span(ng-if="signUpForm.$submitted" ng-messages="signUpForm.email.$error")
+        span(ng-message="required") Enter your email
+        span(ng-message="email") Wrong email format
+      span(ng-if="signUpForm.$submitted && !signUpForm.email.$invalid" ng-messages="signUpForm.password.$error")
+        span(ng-message="required") Enter your pasword
+        span(ng-message="minlength") Password must be at least 6 chars long
+      span(ng-if="signUpForm.$submitted && !signUpForm.email.$invalid && !signUpForm.password.$invalid && errorMessage")
+        | {{errorMessage}}
+
+    label(ng-class="{error: signUpForm.$submitted && signUpForm.email.$invalid}")
+      | Email
+      input(type="email" name="email" ng-model="credentials.email" ng-disabled="isLoading" required)
+    label(ng-class="{error: signUpForm.$submitted && signUpForm.password.$invalid}")
+      | Password
+      input(type="password" name="password" ng-model="credentials.password" ng-disabled="isLoading" ng-minlength="6" required)
+    .actions
+      input.button.success.block.fills(type="submit" value="Create account" ng-disabled="isLoading")
+      br
+      
+      .button.small(ui-sref="sign-in" ng-disabled="isLoading") Already have an account?

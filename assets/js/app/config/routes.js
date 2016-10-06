@@ -4,19 +4,38 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
   $urlRouterProvider.otherwise("/app");
 
+  var userResolver = function(AuthService, $state) {
+    return AuthService.me().then(function(me){
+      return me.user;
+    }, function(){
+      $state.go('sign-in');
+    });
+  }
+
   $stateProvider
 
     .state('app', {
       url: '/app',
       templateUrl: 'assets/app/index.html',
-      controller: 'AppIndexCtrl'
+      controller: 'AppIndexCtrl',
+      resolve: {
+        user: userResolver
+      }
     })
+    //
+      .state('app.details', {
+        url: '/details',
+        template: 'details'
+      })
 
     .state('edit', {
       url: '/app/:link',
       abstract: true,
       templateUrl: 'assets/app/website/editor-container.html',
-      controller: 'WebsiteEditorContainerCtrl'
+      controller: 'WebsiteEditorContainerCtrl',
+      resolve: {
+        user: userResolver
+      }
     })
       .state('edit.node', {
         url: '*path',

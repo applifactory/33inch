@@ -1,0 +1,23 @@
+header
+  height: 90px
+  background: $darkBg linear-gradient(-180deg, lighten($darkBg, 10%) 0%, darken($darkBg, 10%) 100%);
+  h1.logo33inch
+    margin: 18px 30px 22px
+    float: left
+  ul
+    list-style: none
+    margin: 24px 30px
+    padding: 0
+    float: right
+    li
+      display: inline-block
+      a
+        color: $toolAccent
+        text-decoration: none
+        padding: 10px
+        display: inline-block
+        &:hover
+          color: lighten($toolAccent, 40%)
+      &.active
+        a
+          color: white

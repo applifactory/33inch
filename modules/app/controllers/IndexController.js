@@ -8,10 +8,6 @@ module.exports.index = function(req, res) {
   res.render(_views+'index');
 };
 
-module.exports.account = function(req, res) {
-  res.render(_views+'account');
-};
-
 module.exports.list = function(req, res) {
   res.render(_views+'list');
 };

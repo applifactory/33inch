@@ -1,15 +1,28 @@
-//
-  h1 Websites
-  table
-    thead
-      tr
-        th Website name
-        th Website link
-        th Actions
-    tbody
-      tr(ng-repeat="website in websites")
-        td {{website.name}}
-        td
-          a(href="http://{{getWebsiteLink(website)}}", target="_blank") {{getWebsiteLink(website)}}
-        td
-          a(href="/app/{{website.permalink}}") Edit
+header
+  h1.logo33inch 33inch
+  ul
+    li(ui-sref-active-eq="active")
+      a(ui-sref="app") Websites
+    li(ui-sref-active="active")
+      a(ui-sref="app.details") Account
+    li(ui-sref-active="active")
+      a.profile(ui-sref="app.profile") Mateusz
+  
+ui-view  
+  .container
+    h1 Websites
+    table
+      thead
+        tr
+          th Website name
+          th Website link
+          th Actions
+      tbody
+        tr(ng-repeat="website in websites")
+          td {{website.name}}
+          td
+            a(href="http://{{getWebsiteLink(website)}}", target="_blank") {{getWebsiteLink(website)}}
+          td
+            a(href="/app/{{website.permalink}}") Edit
+
+h2 footer

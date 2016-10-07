@@ -12,7 +12,7 @@ slider, [slider]
       width: 100%;
       height: 100%;
       border-radius: $height;
-      background: lighten(toolBg, 20%)
+      background: lighten($toolBg, 20%)
       overflow: hidden
       .selection
         width: 0%;
@@ -23,13 +23,13 @@ slider, [slider]
       width: 15px
       height: 15px
       top: -5px
-      background-color: toolText
+      background-color: $toolText
       z-index: 2
       border-radius: 100%
       &:hover
-        background-color: lighten(toolAccent, 40%)
+        background-color: lighten($toolAccent, 40%)
       &.active
-        background-color: toolAccent
+        background-color: $toolAccent
         & ~ .bubble.limit
           display: inline-block
     &.bubble
@@ -39,12 +39,12 @@ slider, [slider]
       padding: 1px 3px 1px 3px
       font-size: 0.7em
       font-family: sans-serif
-      color: toolText
+      color: $toolText
       &.active
 
-        color: toolAccent
+        color: $toolAccent
       &.limit
-        color: darken(toolText, 20%)
+        color: darken($toolText, 20%)
         top: -8px
         display: inline-block
         &.low

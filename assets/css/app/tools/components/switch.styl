@@ -1,7 +1,7 @@
 switchSize = 18px
 
 .switch
-  background: lighten(toolBg, 20%)
+  background: lighten($toolBg, 20%)
   position: relative
   cursor: pointer
   width: switchSize*2
@@ -11,7 +11,7 @@ switchSize = 18px
   .switch-button
     height: switchSize
     width: switchSize
-    background: toolText
+    background: $toolText
     display: block
     border-radius: 25px
     position: absolute
@@ -19,7 +19,7 @@ switchSize = 18px
   &.switch-left .switch-button
     left: 0
   &.switch-right
-    background: toolAccent
+    background: $toolAccent
     .switch-button
       left: 20px
       background: white

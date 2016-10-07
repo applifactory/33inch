@@ -2,7 +2,7 @@ tools-dropdown
   position: absolute
   left: 50%
   top: 35px
-  color: toolText
+  color: $toolText
   z-index: 1001
   opacity: 0
   transition: all 0.2s ease
@@ -12,7 +12,7 @@ tools-dropdown
     margin-left: -18px
   &.open
     .btn
-      background: lighten(toolBg, 5%)
+      background: lighten($toolBg, 5%)
     .dropdown
       opacity: 1
       visibility: visible
@@ -21,7 +21,7 @@ tools-dropdown, .btn
     cursor: default
     text-align: left
     position: absolute
-    background: toolBg
+    background: $toolBg
     border-radius: 8px
     padding: 5px 0
     font-size: 14px
@@ -59,7 +59,7 @@ tools-dropdown, .btn
       position: absolute
       pointer-events: none
       border-color: rgba(0, 0, 0, 0)
-      border-bottom-color: toolBg
+      border-bottom-color: $toolBg
       border-width: 12px
       margin-left: -12px
       margin-bottom: -1px
@@ -67,14 +67,14 @@ tools-dropdown, .btn
     .item
       svg
         path
-          fill: toolText
+          fill: $toolText
       &.active, &:hover
         svg
           path
-            fill: toolAccent
+            fill: $toolAccent
       &[font-family]
         &:hover
-          background: lighten(toolBg, 10%)
+          background: lighten($toolBg, 10%)
         svg
           width: 100%
           height: 13px
@@ -89,17 +89,17 @@ tools-dropdown, .btn
     .right
       float: right
     .item
-      color: toolText
+      color: $toolText
       padding: 3px 6px
       margin: 0
-      border-bottom: solid 1px lighten(toolBg, 10%)
+      border-bottom: solid 1px lighten($toolBg, 10%)
       &:last-child
         border-bottom: none
       &[ng-click], &[view]
         cursor: pointer
         &:hover
-          background: lighten(toolBg, 10%)
-          color: toolAccent
+          background: lighten($toolBg, 10%)
+          color: $toolAccent
       &.title
         text-align: center
         font-weight: bold
@@ -110,7 +110,7 @@ tools-dropdown, .btn
           font-weight: normal
           cursor: pointer
           &:hover
-            color: toolAccent
+            color: $toolAccent
           .fa
             margin-right: 3px
       &.move
@@ -120,11 +120,11 @@ tools-dropdown, .btn
           font-size: 16px
           cursor: pointer
           &:hover
-            color: toolAccent
+            color: $toolAccent
       .value
         font-weight: bold
         margin-left: 5px
-        color: toolAccent
+        color: $toolAccent
       [ng-switcher]
         display: inline-block
         float: right
@@ -137,18 +137,18 @@ tools-dropdown, .btn
           float: left
           width: 24px
           height: 24px
-          border: solid 1px lighten(toolBg, 10%)
+          border: solid 1px lighten($toolBg, 10%)
           margin: 2px 3px 3px 2px
           position: relative
           text-align: center
           line-height: 27px
           cursor: pointer
           &:hover
-            border-color: toolAccent
+            border-color: $toolAccent
           &.add
             &:hover
-              background: lighten(toolBg, 10%)
-              color: toolAccent
+              background: lighten($toolBg, 10%)
+              color: $toolAccent
           &.active
             border: black 1px solid
             box-shadow: 0 0 0 1px white

@@ -29,6 +29,10 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         url: '/details',
         template: 'details'
       })
+      .state('app.profile', {
+        url: '/profile',
+        template: 'profile'
+      })
 
     .state('edit', {
       url: '/app/:link',

@@ -1,5 +1,5 @@
 .btn
-  background: toolBg
+  background: $toolBg
   border-radius: 5px
   padding: 0.25em
   padding: 6px 0 5px
@@ -8,13 +8,13 @@
   text-align: center
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5)
   display: inline-block
-  color: toolText
+  color: $toolText
   &:hover
-    background: lighten(toolBg, 10%)
+    background: lighten($toolBg, 10%)
   &[dropdown]
     position: relative
   &.active
-    color: toolAccent
+    color: $toolAccent
   .fa.fa-spinner
     display: none
   &.loading

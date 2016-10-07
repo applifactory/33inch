@@ -22,23 +22,10 @@ ui-view
             i.fa.fa-eye-slash
           .address {{getWebsiteLink(website)}}
           .date {{"2016-10-07T12:32:13"|date:'d.MM.yyyy'}}
-      li(ng-repeat="website in websites")
+      li.add-website
         a(ui-sref="app")
           .tile
-          .name {{website.name}}
-          .public
-            i.fa.fa-eye
-            i.fa.fa-eye-slash
-          .address {{getWebsiteLink(website)}}
-          .date {{"2016-10-07T12:32:13"|date:'d.MM.yyyy'}}
-      li(ng-repeat="website in websites" ng-class="{active: $index==0}")
-        a(ui-sref="app")
-          .tile
-          .name {{website.name}}
-          .public
-            i.fa.fa-eye
-            i.fa.fa-eye-slash
-          .address {{getWebsiteLink(website)}}
-          .date {{"2016-10-07T12:32:13"|date:'d.MM.yyyy'}}
+            i.fa.fa-plus-circle
+          .placeholder New website
 
 h2 footer

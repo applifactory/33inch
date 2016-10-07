@@ -17,8 +17,10 @@
         display: block
         height: 250px
         box-sizing: border-box
+        transition: border 0.2s ease
         &:hover
           border-color: $borderActiveColor
+          box-shadow: 0 0 1px $borderActiveColor
         .tile
           height: 195px
           background: url(../website-placeholder.jpg)
@@ -57,6 +59,22 @@
               display: inline-block
             .fa-eye-slash
               display: none
+      &.add-website
+        a
+          text-align: center
+          .tile
+            position: relative
+            .fa
+              position: absolute
+              left: 50%
+              top: 50%
+              font-size: 30px
+              color: $textActiveColor
+              margin: -5px 0 0 -10px
+          .placeholder
+            font-size: 18px
+            text-align: center
+            margin-top: 12px
 
   +size($smallScreen)
     ul

@@ -19,10 +19,12 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: 'assets/app/index.html',
       controller: 'AppIndexCtrl',
       resolve: {
-        user: userResolver
+        user: userResolver,
+        bodyClass: function($rootScope) {
+          $rootScope.bodyClass = 'app';
+        }
       }
     })
-    //
       .state('app.details', {
         url: '/details',
         template: 'details'
@@ -34,7 +36,10 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: 'assets/app/website/editor-container.html',
       controller: 'WebsiteEditorContainerCtrl',
       resolve: {
-        user: userResolver
+        user: userResolver,
+        bodyClass: function($rootScope) {
+          $rootScope.bodyClass = 'editor';
+        }
       }
     })
       .state('edit.node', {
@@ -47,12 +52,22 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('sign-in', {
       url: '/sign-in',
       templateUrl: 'assets/app/account/sign-in.html',
-      controller: 'SignInCtrl'
+      controller: 'SignInCtrl',
+      resolve: {
+        bodyClass: function($rootScope) {
+          $rootScope.bodyClass = 'app';
+        }
+      }
     })
     .state('sign-up', {
       url: '/sign-up',
       templateUrl: 'assets/app/account/sign-up.html',
-      controller: 'SignUpCtrl'
+      controller: 'SignUpCtrl',
+      resolve: {
+        bodyClass: function($rootScope) {
+          $rootScope.bodyClass = 'app';
+        }
+      }
     })
     .state('logout', {
       url: '/logout',

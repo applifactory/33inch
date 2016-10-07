@@ -1,7 +1,5 @@
 doctype html
 html
-  block variables
-    - var bodyClass = 'app'
   head
     - if ( settings.env == 'production' || settings.env == 'staging' )
       script(type='text/javascript').
@@ -18,7 +16,7 @@ html
     block title
       title 33 Inch
     block head
-  body(class="#{bodyClass}")
+  body
     block content
     - if ( settings.env == 'development' )
       script(src="//localhost:35729/livereload.js")

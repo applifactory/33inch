@@ -1,28 +1,44 @@
 header
-  h1.logo33inch 33inch
-  ul
-    li(ui-sref-active-eq="active")
-      a(ui-sref="app") Websites
-    li(ui-sref-active="active")
-      a(ui-sref="app.details") Account
-    li(ui-sref-active="active")
-      a.profile(ui-sref="app.profile") Mateusz
+  .container
+    h1.logo33inch 33inch
+    ul
+      li(ui-sref-active-eq="active")
+        a(ui-sref="app") Websites
+      li(ui-sref-active="active")
+        a(ui-sref="app.details") Account
+      li(ui-sref-active="active")
+        a.profile(ui-sref="app.profile") Mateusz
   
 ui-view  
-  .container
+  .websites-list
     h1 Websites
-    table
-      thead
-        tr
-          th Website name
-          th Website link
-          th Actions
-      tbody
-        tr(ng-repeat="website in websites")
-          td {{website.name}}
-          td
-            a(href="http://{{getWebsiteLink(website)}}", target="_blank") {{getWebsiteLink(website)}}
-          td
-            a(href="/app/{{website.permalink}}") Edit
+    ul
+      li(ng-repeat="website in websites" ng-class="{active: $index==0}")
+        a(ui-sref="app")
+          .tile
+          .name {{website.name}}
+          .public
+            i.fa.fa-eye
+            i.fa.fa-eye-slash
+          .address {{getWebsiteLink(website)}}
+          .date {{"2016-10-07T12:32:13"|date:'d.MM.yyyy'}}
+      li(ng-repeat="website in websites")
+        a(ui-sref="app")
+          .tile
+          .name {{website.name}}
+          .public
+            i.fa.fa-eye
+            i.fa.fa-eye-slash
+          .address {{getWebsiteLink(website)}}
+          .date {{"2016-10-07T12:32:13"|date:'d.MM.yyyy'}}
+      li(ng-repeat="website in websites" ng-class="{active: $index==0}")
+        a(ui-sref="app")
+          .tile
+          .name {{website.name}}
+          .public
+            i.fa.fa-eye
+            i.fa.fa-eye-slash
+          .address {{getWebsiteLink(website)}}
+          .date {{"2016-10-07T12:32:13"|date:'d.MM.yyyy'}}
 
 h2 footer

@@ -1,0 +1,90 @@
+.websites-list
+  @extend .app .container
+  ul
+    margin: 0
+    padding: 0
+    list-style: none
+    li
+      width: 302px
+      margin: 1em auto
+      a
+        border: solid 1px $borderColor
+        border-radius: 6px
+        overflow: hidden
+        color: $textInactiveColor
+        text-decoration: none
+        background: white
+        display: block
+        height: 250px
+        box-sizing: border-box
+        &:hover
+          border-color: $borderActiveColor
+        .tile
+          height: 195px
+          background: url(../website-placeholder.jpg)
+          margin-bottom: 1px
+          border-bottom: solid 1px $borderColor
+        .name, .public, .address, .date
+          float: left
+          box-sizing: border-box
+          padding: 0 8px
+        .name, .public
+          height: 30px
+          line-height: 30px
+        .name
+          font-size: 18px
+          width: 262px
+        .public
+          width: 38px
+          text-align: center
+          font-size: 21px
+          .fa-eye
+            display: none
+        .address, .date
+          font-size: 11px
+        .address
+          width: 220px
+        .date
+          width: 80px
+          text-align: right
+      &.active
+        a
+          color: $textActiveColor
+          .name
+            color: $textColor
+          .public
+            .fa-eye
+              display: inline-block
+            .fa-eye-slash
+              display: none
+
+  +size($smallScreen)
+    ul
+      overflow: hidden
+      li
+        float: left
+        margin: 1em 16px
+        &:nth-child(2n-1)
+          margin-left: 57px
+        &:nth-child(2n)
+          margin-right: 57px
+
+  +size($mediumScreen)
+    ul
+      li
+        margin: 1em 16px
+        &:nth-child(2n-1)
+          margin-left: 16px
+        &:nth-child(2n)
+          margin-right: 16px
+        &:nth-child(3n-2)
+          margin-left: 0
+        &:nth-child(3n)
+          margin-right: 0
+  +size($largeScreen)
+    ul
+      li
+        &:nth-child(n)
+          margin: 1em 0
+        &:nth-child(4n-3), &:nth-child(4n-2), &:nth-child(4n-1)
+          margin-right: 24px

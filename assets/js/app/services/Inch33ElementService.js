@@ -9,5 +9,5 @@ app.service('Inch33ElementService', function(){
     getConfig: function(type) {
       return this.config.hasOwnProperty(type) ? this.config[type] : {};
     }
-  }
+  };
 });

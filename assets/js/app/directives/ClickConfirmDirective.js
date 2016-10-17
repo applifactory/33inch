@@ -9,7 +9,7 @@ app.directive('clickConfirm', function(ngDialog){
       elem.bind('click', function(){
         scope.$apply(function(){
           scope.open();
-        })
+        });
       });
     },
     controller: function($scope) {
@@ -19,11 +19,11 @@ app.directive('clickConfirm', function(ngDialog){
       $scope.yesCallback = function() {
         dialog.close();
         $scope.callback();
-      }
+      };
 
       $scope.noCallback = function() {
         dialog.close();
-      }
+      };
 
       $scope.open = function() {
         dialog = ngDialog.open({
@@ -38,8 +38,8 @@ app.directive('clickConfirm', function(ngDialog){
           plain: true,
           scope: $scope
         });
-      }
+      };
 
     }
-  }
-})
+  };
+});

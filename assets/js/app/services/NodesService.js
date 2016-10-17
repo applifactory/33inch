@@ -18,29 +18,30 @@ app.service('NodesService', function($http, $state, $q, $timeout, SettingsServic
           $state.go('app');
         }
         deferred.reject(status);
-      })
+      });
       return deferred.promise;
     },
     findPath: function(paramsPath, nodes) {
       var deferred = $q.defer();
       $timeout(function(){
-        var path = [];
+        var path = [],
+            homeNode = null,
+            parts;
 
         //  search for home node
-        var homeNode = null;
         angular.forEach(nodes, function(node){
-          if ( node.link == '' && !node.softLink ) {
+          if ( node.link === '' && !node.softLink ) {
             homeNode = node;
             parts = ['home'];
           }
         });
 
-        if ( paramsPath == '' ) {
+        if ( paramsPath === '' ) {
           //  empty path means we're home
           path.push(homeNode);
         } else {
           //  building path of nodes
-          var parts = paramsPath.substr(1).split('/');
+          parts = paramsPath.substr(1).split('/');
           var _nodes = angular.copy(nodes);
           angular.forEach(parts, function(part){
             var _node = null;
@@ -65,10 +66,11 @@ app.service('NodesService', function($http, $state, $q, $timeout, SettingsServic
             }
           });
         }
-        if ( parts.length > path.length )
+        if ( parts.length > path.length ) {
           deferred.reject();
-        else
+        } else {
           deferred.resolve(path);
+        }
       });
       return deferred.promise;
     },
@@ -78,7 +80,7 @@ app.service('NodesService', function($http, $state, $q, $timeout, SettingsServic
         deferred.resolve(node);
       }).error(function(){
         deferred.reject();
-      })
+      });
       return deferred.promise;
     },
     updatePositions: function(link, nodes) {
@@ -91,7 +93,7 @@ app.service('NodesService', function($http, $state, $q, $timeout, SettingsServic
         deferred.resolve(node);
       }).error(function(){
         deferred.reject();
-      })
+      });
       return deferred.promise;
     },
     create: function(link, node) {
@@ -100,7 +102,7 @@ app.service('NodesService', function($http, $state, $q, $timeout, SettingsServic
         deferred.resolve(node);
       }).error(function(){
         deferred.reject();
-      })
+      });
       return deferred.promise;
     },
     update: function(link, node) {
@@ -109,7 +111,7 @@ app.service('NodesService', function($http, $state, $q, $timeout, SettingsServic
         deferred.resolve(node);
       }).error(function(){
         deferred.reject();
-      })
+      });
       return deferred.promise;
     },
     delete: function(link, node) {
@@ -118,8 +120,8 @@ app.service('NodesService', function($http, $state, $q, $timeout, SettingsServic
         deferred.resolve();
       }).error(function(){
         deferred.reject();
-      })
+      });
       return deferred.promise;
     }
-  }
-})
+  };
+});

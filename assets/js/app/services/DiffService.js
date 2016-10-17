@@ -1,9 +1,10 @@
 app.service('Diff', function(){
   return {
     getChanges: function(template, override) {
-      var self = this;
-      var ret = {};
-      for (var name in template) {
+      var self = this,
+          ret = {},
+          name;
+      for (name in template) {
         if (name in override) {
           if (_.isObject(override[name]) && !_.isArray(override[name])) {
             var diff = self.getChanges(template[name], override[name]);
@@ -15,7 +16,7 @@ app.service('Diff', function(){
           }
         }
       }
-      for (var name in override) {
+      for (name in override) {
         if ( !template.hasOwnProperty(name) )
           ret[name] = override[name];
       }
@@ -24,5 +25,5 @@ app.service('Diff', function(){
     applyChanges: function(a, b) {
       console.error('Diff.applyChanges: not implemented');
     }
-  }
-})
+  };
+});

@@ -41,7 +41,7 @@ app.service('AuthService', function($http, $q, SettingsService, $window, $timeou
         $http.get(SettingsService.apiUrl + 'auth').success(function(result){
           deferred.resolve(result);
         }).error(function(error){
-          $window.localStorage.removeItem('authToken')
+          $window.localStorage.removeItem('authToken');
           deferred.reject();
         });
       } else
@@ -50,5 +50,5 @@ app.service('AuthService', function($http, $q, SettingsService, $window, $timeou
         });
       return deferred.promise;
     }
-  }
+  };
 });

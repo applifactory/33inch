@@ -6,7 +6,7 @@ app.service('ElementsService', function($http, $q, SettingsService) {
         deferred.resolve(node);
       }).error(function(){
         deferred.reject();
-      })
+      });
       return deferred.promise;
     },
     createBaseElement: function(template, link) {
@@ -15,7 +15,7 @@ app.service('ElementsService', function($http, $q, SettingsService) {
         deferred.resolve(node);
       }).error(function(){
         deferred.reject();
-      })
+      });
       return deferred.promise;
     },
     deleteElement: function(link, elementId) {
@@ -24,7 +24,7 @@ app.service('ElementsService', function($http, $q, SettingsService) {
         deferred.resolve();
       }).error(function(){
         deferred.reject();
-      })
+      });
       return deferred.promise;
     },
     update: function(link, elementId, element) {
@@ -33,7 +33,7 @@ app.service('ElementsService', function($http, $q, SettingsService) {
         deferred.resolve(node);
       }).error(function(){
         deferred.reject();
-      })
+      });
       return deferred.promise;
     },
     deleteImage: function(link, elementId, image) {
@@ -42,7 +42,7 @@ app.service('ElementsService', function($http, $q, SettingsService) {
         deferred.resolve();
       }).error(function(){
         deferred.reject();
-      })
+      });
       return deferred.promise;
     },
     deleteFile: function(link, elementId, file) {
@@ -51,7 +51,7 @@ app.service('ElementsService', function($http, $q, SettingsService) {
         deferred.resolve();
       }).error(function(){
         deferred.reject();
-      })
+      });
       return deferred.promise;
     },
     moveUp: function(link, elementId, collection) {
@@ -86,8 +86,8 @@ app.service('ElementsService', function($http, $q, SettingsService) {
         deferred.resolve();
       }).error(function(){
         deferred.reject();
-      })
+      });
       return deferred.promise;
     }
-  }
+  };
 });

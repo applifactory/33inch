@@ -5,16 +5,16 @@ header
       li(ui-sref-active-eq="active")
         a(ui-sref="app") Websites
       li(ui-sref-active="active")
-        a(ui-sref="app.details") Account
+        a(ui-sref="app.account") Account
       li(ui-sref-active="active")
         a.profile(ui-sref="app.profile") Mateusz
   
 ui-view  
   .websites-list
-    h1 Websites
+    h1 My websites
     ul
       li(ng-repeat="website in websites" ng-class="{active: $index==0}")
-        a(ui-sref="app")
+        a(ui-sref="app.details.visibility({link: website.permalink})")
           .tile
           .name {{website.name}}
           .public

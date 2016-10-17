@@ -12,12 +12,12 @@ app.service('WebsitesService', function($http, $state, $q, SettingsService, Auth
           });
         }
         deferred.reject(status);
-      })
+      });
       return deferred.promise;
     },
-    getWebsite: function(link) {
+    get: function(link) {
       var deferred = $q.defer();
-      var _self = this
+      var _self = this;
       $http.get(SettingsService.apiUrl + 'website/' + link).success(function(data){
         _self.currentWebsite = data;
         deferred.resolve(data);
@@ -32,10 +32,10 @@ app.service('WebsitesService', function($http, $state, $q, SettingsService, Auth
           $state.go('app');
         }
         deferred.reject(status);
-      })
+      });
       return deferred.promise;
     },
-    exportWebsite: function(link, domain) {
+    export: function(link, domain) {
       var deferred = $q.defer();
       var data = {};
       if ( domain )
@@ -44,8 +44,8 @@ app.service('WebsitesService', function($http, $state, $q, SettingsService, Auth
         deferred.resolve();
       }).error(function(data, status){
         deferred.reject(data);
-      })
+      });
       return deferred.promise;
     }
-  }
-})
+  };
+});

@@ -10,7 +10,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     }, function(){
       $state.go('sign-in');
     });
-  }
+  };
 
   $stateProvider
 
@@ -26,8 +26,32 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       }
     })
       .state('app.details', {
-        url: '/details',
-        template: 'details'
+        url: '/details/:link',
+        templateUrl: 'assets/app/details/index.html',
+        abstract: true,
+        resolve: {
+          website: function(WebsitesService, $stateParams) {
+            return WebsitesService.get($stateParams.link);
+          }
+        },
+        controller: 'WebsiteDetailsController'
+      })
+        .state('app.details.visibility', {
+          url: '/visibility',
+          templateUrl: 'assets/app/details/visibility.html',
+          controller: 'WebsiteDetailsVisibilityController'
+        })
+        .state('app.details.collaborate', {
+          url: '/collaborate',
+          templateUrl: 'assets/app/details/collaborate.html'
+        })
+        .state('app.details.settings', {
+          url: '/settings',
+          templateUrl: 'assets/app/details/settings.html'
+        })
+      .state('app.account', {
+        url: '/account',
+        template: 'account'
       })
       .state('app.profile', {
         url: '/profile',

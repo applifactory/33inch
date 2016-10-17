@@ -8,12 +8,23 @@
   position: relative
   label:not(.checkbox)
     text-align: left
-  label.checkbox
-    color: defaultColor
-    font-size: 0.9em
+  label
+    color: white
+    &.checkbox
+      color: defaultColor
+      font-size: 0.9em
+    input
+      background: darken($inputBackground, 15%)
+  .error
+    input
+      background: lighten(dangerColor, 85%)
   .actions
     text-align: center
     margin: 2em 0
+    padding: 0
+    border: none
+    .button
+      color: white
     .button.success
       margin-bottom: 1em
     .button.primary

@@ -1,0 +1,8 @@
+.website-details
+  h1 {{website.name}}
+  
+  .tabs
+    a.tab-nav(ui-sref=".visibility" ui-sref-active="active") Visibility
+    a.tab-nav(ui-sref=".collaborate" ui-sref-active="active") Collaborate
+    a.tab-nav(ui-sref=".settings" ui-sref-active="active") Settings
+    ui-view.tab-content

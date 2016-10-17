@@ -1,0 +1,46 @@
+.tabs
+  .tab-nav
+    position: relative
+    z-index: 1
+    display: block
+    text-decoration: none
+    color: $tabNavColor
+    background: white
+    border: solid 1px $tabBorderColorActive
+    text-align: center;
+    font-size: 22px
+    margin-bottom: -1px
+    padding: 0.25em
+    &:first-child
+      border-radius: 6px 6px 0 0
+    &.active, &:hover
+      color: $tabNavColorActive
+    &.active
+      background: $tabBg
+    +size($smallScreen)
+      background: transparent
+      border: solid 1px $tabBorderColor
+      float: left
+      padding: 0.5em 2em
+      margin-bottom: -1px
+      &.active
+        border: solid 1px $tabBorderColorActive
+        border-bottom-color: white
+      &:nth-child(n)
+        border-radius: 6px 6px 0 0
+      &:nth-child(n+2)
+        margin-left: -1px
+
+  .tab-content
+    position: relative
+    z-index: 0
+    background: white
+    border-radius: 0 0 6px 6px
+    background: $tabBg
+    display: block
+    overflow: hidden
+    border: solid 1px $tabBorderColorActive
+    padding: 1em
+    +size($smallScreen)
+      clear: both
+      border-radius: 0 6px 6px 6px

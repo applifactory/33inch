@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   db: 'mongodb://localhost/33inch_live',
   port: 80,

@@ -10,6 +10,9 @@
   "author": "Mateusz Witalinski",
   "repository": "ssh://sls@slsapp.com:1234/applifactory/33inch.git",
   "license": "ISC",
+  "engines": {
+    "node": "~0.10.25"
+  },
   "dependencies": {
     "async": "^0.9.0",
     "bcrypt-nodejs": "0.0.3",

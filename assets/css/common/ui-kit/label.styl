@@ -3,6 +3,11 @@ label
   margin: 1em 0
   font-size: 1em
   color: $textInactiveColor
+  &::after
+    content: ''
+    display: block
+    clear: both
+    height: 0.00000001em
   input, select, textarea
     margin-top: 0.25em
   &.error
@@ -17,7 +22,7 @@ label
       margin: 1em 0
       font-size: 1em
       color: $textInactiveColor
-      bottom: 0
+      bottom: 2px
       right: 0
       margin: 0
       border: solid 1px $inputBorderColor

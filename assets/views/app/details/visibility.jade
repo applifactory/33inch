@@ -11,22 +11,25 @@ form.ui-kit(name="form" ng-submit="submitForm()" novalidate)
       span(ng-message="pattern") Wrong domain format
     span(ng-if="errorMessage") {{errorMessage}}
 
-  label
-    | Public
-    switch(ng-model="website.public")
+  .row
+    .col-6
+      label
+        | Public
+        switch(ng-model="website.public")
 
-  label(ng-class="{error: form.$submitted && form.name.$invalid}")
-    | Name
-    input(type="input" name="name" ng-model="website.name" ng-disabled="isLoading" required)
-  
-  label.suffix(ng-class="{error: form.$submitted && form.permalink.$invalid}")
-    | Permalink
-    input(type="input" name="permalink" ng-model="website.permalink" ng-disabled="isLoading" required pattern="^([A-Za-z0-9\-_]+)$")
-    .suffix .33inch.com
+      label(ng-class="{error: form.$submitted && form.name.$invalid}")
+        | Name
+        input(type="input" name="name" ng-model="website.name" ng-disabled="isLoading" required)
+        
+    .col-6
+      label.suffix(ng-class="{error: form.$submitted && form.permalink.$invalid}")
+        | Permalink
+        input(type="input" name="permalink" ng-model="website.permalink" ng-disabled="isLoading" required pattern="^([A-Za-z0-9\-_]+)$")
+        .suffix .33inch.com
     
-  label(ng-class="{error: form.$submitted && form.domain.$invalid}")
-    | Domain
-    input(type="input" name="domain" ng-model="website.domain" ng-disabled="isLoading" placeholder="No custom domain" pattern="^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$")
+      label(ng-class="{error: form.$submitted && form.domain.$invalid}")
+        | Domain
+        input(type="input" name="domain" ng-model="website.domain" ng-disabled="isLoading" placeholder="No custom domain" pattern="^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$")
   
   .actions
     input.button.success(type="submit" value="Save" ng-disabled="isLoading")

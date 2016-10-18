@@ -1,4 +1,5 @@
 var authUtil = require('../../../utils/AuthService.js');
+var extractObject = require('../../../utils/ExtractObject');
 var User = require('../../../models/user');
 var Website = require('../../../models/website');
 var Node = require('../../../models/node');
@@ -15,7 +16,7 @@ module.exports.index = function(req, res) {
 
 module.exports.details = function(req, res) {
   Website
-    .findOne({ permalink: req.params.link }, 'name permalink email')
+    .findOne({ permalink: req.params.link }, 'name permalink email public domain')
     .exec(function(err, website){
       if (err || !website) return res.status(404).end();
       res.json(website);
@@ -60,7 +61,7 @@ module.exports.create = function(req, res) {
     });
   } else
     res.status(400);
-}
+};
 
 module.exports.export = function(req, res) {
   Website
@@ -69,7 +70,7 @@ module.exports.export = function(req, res) {
     .populate('nodes')
     .exec(function(err, website){
       if ( req.body.domain ) {
-        website.domain = req.body.domain
+        website.domain = req.body.domain;
         website.save();
       }
       if (err) return res.status(404).end();
@@ -83,27 +84,29 @@ module.exports.export = function(req, res) {
 };
 
 module.exports.update = function(req, res) {
-  Website.findOne({ permalink: req.params.link }).exec(function(err, website){
-    if (err) return res.status(404).end();
-    if ( req.body.domain && website.domain != req.body.domain )
-      website.domain = req.body.domain;
-    if ( req.body.email && website.email != req.body.email )
-      website.email = req.body.email;
-    website.save(function(err){
-      if (err) {
-        var errorMsg = err.message;
-        if ( err.name == 'ValidationError' ) {
-          if ( err.errors.domain )
-            errorMsg = err.errors.domain.message;
-          if ( err.errors.email )
-            errorMsg = err.errors.email.message;
+
+  var update = extractObject(req.body, [
+    'name',
+    'public',
+    'permalink',
+    'domain'
+  ]);
+
+  Website.update({ permalink: req.params.link }, update, function(err) {
+    if ( err ) {
+      if ( err.code == 11000 ) {
+        if ( err.message.indexOf('index: domain') > 0 ) {
+          return res.status(400).json({ message: 'Domain "' + update.domain + '" is already in use' }).end();
+        } else {
+          return res.status(400).json({ message: 'Permalink "' + update.permalink + '" is already in use' }).end();
         }
-        return res.status(400).json({ message: errorMsg }).end();
       }
-      res.end();
-    });
+      return res.status(400).json({ message: err }).end();
+    }
+    res.end();
   });
-}
+
+};
 
 module.exports.sendMail = function(req, res) {
 
@@ -129,11 +132,11 @@ module.exports.sendMail = function(req, res) {
       var mailgun = new Mailgun( config.mailgun );
 
       var data = {
-        from: req.body['email'],
+        from: req.body.email,
         to: website.email,
         subject: title,
         html: message
-      }
+      };
 
       mailgun.messages().send(data, function (err, body) {
         if ( err )  {
@@ -146,4 +149,4 @@ module.exports.sendMail = function(req, res) {
       });
 
     });
-}
+};

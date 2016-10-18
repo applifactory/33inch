@@ -1,7 +1,5 @@
-'use strict';
-
-var websiteCtrl = require('../controllers/WebsiteController.js');
-var authUtil = require('../../../utils/AuthService.js');
+var websiteCtrl = require('../controllers/WebsiteController.js'),
+    authUtil = require('../../../utils/AuthService.js');
 
 module.exports = function(app) {
   app.route('/api/v1/website')
@@ -17,4 +15,4 @@ module.exports = function(app) {
     .put(websiteCtrl.export);
   app.route('/api/v1/mail').
     post(websiteCtrl.sendMail);
-}
+};

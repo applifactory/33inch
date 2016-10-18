@@ -1,14 +1,13 @@
 form.ui-kit(name="form" ng-submit="submitForm()" novalidate)
   .message.danger(ng-show="form.$submitted && ( form.$invalid || errorMessage )")
-    span(ng-if="form.$submitted" ng-messages="form.name.$error")
+    span(ng-messages="form.name.$error")
       span(ng-message="required") Enter website name
-    span(ng-if="form.$submitted" ng-messages="form.permalink.$error")
+    span(ng-messages="form.permalink.$error")
       span(ng-message="required") Enter website permalink
       span(ng-message="pattern") Permalink should have only small characters, letters, '-'  or '_'
-    span(ng-if="form.$submitted" ng-messages="form.domain.$error")
+    span(ng-messages="form.domain.$error")
       span(ng-message="pattern") Wrong domain format
-    span(ng-if="form.$submitted && errorMessage && !form.domain.$error && !form.permalink.$error && !form.name.$error")
-      | {{errorMessage}}
+    span(ng-if="errorMessage") {{errorMessage}}
 
   label(ng-class="{error: form.$submitted && form.name.$invalid}")
     | Name
@@ -25,5 +24,5 @@ form.ui-kit(name="form" ng-submit="submitForm()" novalidate)
   
   .actions
     input.button.success(type="submit" value="Save" ng-disabled="isLoading")
-    .button.primary(ui-sref="^.^") Cancel
+    .button.primary(ui-sref="^.^" ng-disabled="isLoading") Cancel
     

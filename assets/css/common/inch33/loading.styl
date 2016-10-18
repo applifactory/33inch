@@ -1,4 +1,4 @@
-form.loading
+form.loading, .loading
   position: relative
   overflow: hidden
   label
@@ -23,6 +23,24 @@ form.loading
     -webkit-animation-duration: 1s
     -webkit-animation-iteration-count: infinite
     -webkit-animation-timing-function: linear
+
+.loading
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  background: rgba(255, 255, 255, 0.7)
+  z-index: 1111
+  .message
+    position: absolute
+    top: 50%
+    left: 50%
+    width: 200px
+    text-align: center
+    margin-left: -100px
+    margin-top: 50px
+    color: $textActiveColor
 
 @keyframes rotate-bounce
   0%

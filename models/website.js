@@ -6,8 +6,9 @@ var User = require('./user.js');
 //  schema
 var WebsiteSchema = new Schema({
   name: String,
+  public: { type: Boolean, default: false },
   permalink: { type: String, required: true, index: { unique: true } },
-  domain: String,
+  domain: { type: String, required: true, index: { unique: true } },
   email: String,
   owners: [{ type: Schema.Types.ObjectId, ref: 'User', childPath: 'websites' }],
   nodes: [{ type: Schema.Types.ObjectId, ref: 'Node' }],

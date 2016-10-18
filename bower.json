@@ -43,6 +43,7 @@
     "angular-upload": "^1.0.12",
     "Sortable": "~1.2.0",
     "ngDialog": "~0.4.0",
-    "angular": "^1.5.8"
+    "angular": "^1.5.8",
+    "angular-elastic": "^2.5.1"
   }
 }

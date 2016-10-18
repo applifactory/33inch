@@ -21,7 +21,7 @@ module.exports.index = function(req, res) {
 
 module.exports.details = function(req, res) {
   Website
-    .findOne({ permalink: req.params.link }, 'name permalink email public domain')
+    .findOne({ permalink: req.params.link }, 'name permalink email public domain analytics customScript')
     .exec(function(err, website){
       if (err || !website) return res.status(404).end();
       res.json(website);
@@ -94,8 +94,13 @@ module.exports.update = function(req, res) {
     'name',
     'public',
     'permalink',
-    'domain'
+    'domain',
+    'email',
+    'analytics',
+    'customScript'
   ]);
+
+  console.log(update);
 
   Website.update({ permalink: req.params.link }, update, function(err) {
     if ( err ) {

@@ -11,6 +11,7 @@
 //= require vendors/Sortable/Sortable.js
 //= require vendors/Sortable/ng-sortable.js
 //= require vendors/ngDialog/js/ngDialog.js
+//= require vendors/angular-elastic/elastic.js
 
 //= require_tree common/utils
 

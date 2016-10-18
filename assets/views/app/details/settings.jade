@@ -1,1 +1,30 @@
-h1 Settings
+form(name="form" ng-submit="submitForm()" novalidate)
+  
+  .message.success.ng-hide(ng-show="updated") Settings updated
+  .message.danger.ng-hide(ng-show="form.$submitted && ( form.$invalid || errorMessage )")
+    span(ng-messages="form.email.$error")
+      span(ng-message="required") Enter website name
+      span(ng-message="email") Wrong email format
+    span(ng-messages="form.analytics.$error")
+      span(ng-message="pattern") Wrong Google Analytics ID format
+    span(ng-if="errorMessage") {{errorMessage}}
+  
+  .row
+    .col-6
+      label(ng-class="{error: form.$submitted && form.email.$invalid}")
+        | Contact email
+        input(type="email" name="email" ng-model="website.email" ng-disabled="isLoading" required placeholder="Website forms TO address")
+  
+    .col-6
+      label(ng-class="{error: form.$submitted && form.permalink.$invalid}")
+        | Google Analytics ID
+        input(type="input" name="analytics" ng-model="website.analytics" ng-disabled="isLoading" pattern="^([A-Za-z0-9\-]+)$" placeholder="UA-000000-01")
+    
+  label(ng-class="{error: form.$submitted && form.domain.$invalid}")
+    | Custom JavaScript
+    textarea.custom-script(name="customScript" ng-model="website.customScript" msd-elastic ng-disabled="isLoading" placeholder="Script will be added to the website")
+  
+  .actions
+    input.button.success(type="submit" value="Save" ng-disabled="isLoading")
+    .button.primary(ui-sref="^.^" ng-disabled="isLoading") Cancel
+    

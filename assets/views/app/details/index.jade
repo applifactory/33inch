@@ -1,5 +1,6 @@
 .website-details
   h1
+    a.fa.fa-chevron-left.back(ui-sref="^")
     | {{website.name}}
     .links
       a.button.small.success(ui-sref="edit.node({link: website.permalink})") Edit

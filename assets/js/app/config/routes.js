@@ -60,7 +60,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('app.details.settings', {
           url: '/settings',
-          templateUrl: 'assets/app/details/settings.html'
+          templateUrl: 'assets/app/details/settings.html',
+          controller: 'WebsiteDetailsSettingsController'
         })
       .state('app.account', {
         url: '/account',

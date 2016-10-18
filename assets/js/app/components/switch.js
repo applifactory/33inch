@@ -1,34 +1,18 @@
-app.directive('switch', {
-  template: '<handle></ handle>',
+app.component('switch', {
+  template: '<div class="switch" ng-click="$ctrl.click()" ng-class="{on: $ctrl.state}"><handle></ handle></div>',
   bindings: {
     state: '=ngModel',
     callback: '&onChange',
     disabled: '=disabled'
   },
-  controller: function(scope, el, attrs){
-    function updateView() {
-      if ( scope.state )
-        el[0].classList.add('on');
-      else
-        el[0].classList.remove('on');
-      if ( scope.disabled === undefined || !scope.disabled )
-        el[0].classList.remove('disabled');
-      else
-        el[0].classList.add('disabled');
-    }
-    el.bind('click', function(){
-      if (scope.disabled === undefined || !scope.disabled) {
-        scope.state = !scope.state;
-        updateView();
-        scope.$apply();
-        scope.callback({state: scope.state});
+  controller: function($scope){
+    this.click =  function(){
+      if (this.disabled === undefined || !this.disabled) {
+        this.state = !this.state;
+        if ( this.callback ) {
+          this.callback({state: this.state});
+        }
       }
-    });
-    scope.$watch('state', function(){
-      updateView();
-    });
-    scope.$watch('disabled', function(){
-      updateView();
-    });
+    };
   }
 });

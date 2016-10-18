@@ -2,28 +2,11 @@ header
   .container
     h1.logo33inch 33inch
     ul
-      li(ui-sref-active-eq="active")
-        a(ui-sref="app") Websites
+      li(ng-class="{active: $state.includes('app.list') || $state.includes('app.details')}")
+        a(ui-sref="app.list") Websites
       li(ui-sref-active="active")
         a(ui-sref="app.account") Account
       li(ui-sref-active="active")
         a.profile(ui-sref="app.profile") Mateusz
   
-ui-view  
-  .websites-list
-    h1 My websites
-    ul
-      li(ng-repeat="website in websites" ng-class="{active: $index==0}")
-        a(ui-sref="app.details.visibility({link: website.permalink})")
-          .tile
-          .name {{website.name}}
-          .public
-            i.fa.fa-eye
-            i.fa.fa-eye-slash
-          .address {{getWebsiteLink(website)}}
-          .date {{"2016-10-07T12:32:13"|date:'d.MM.yyyy'}}
-      li.add-website
-        a(ui-sref="app")
-          .tile
-            i.fa.fa-plus-circle
-          .placeholder New website
+ui-view.ui-kit

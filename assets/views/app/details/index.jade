@@ -1,5 +1,10 @@
 .website-details
-  h1 {{website.name}}
+  h1
+    | {{website.name}}
+    .links
+      a.button.small.success(ui-sref="edit.node({link: website.permalink})") Edit
+      a.button.small.primary(ng-if="website.public" ng-href="{{website | websiteUrl}}" target="_blank") Preview
+      a.button.small.primary(ng-if="!website.public" ng-disabled="true") Preview
   
   .tabs
     a.tab-nav(ui-sref=".visibility" ui-sref-active="active") Visibility

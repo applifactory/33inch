@@ -1,9 +1,7 @@
-'use strict';
-
-var jwt = require('jsonwebtoken');
-var validator = require('validator');
-var config = require('../config/config.js');
-var User = require('../models/user');
+var jwt = require('jsonwebtoken'),
+    validator = require('validator'),
+    config = require('../config/config.js'),
+    User = require('../models/user');
 
 module.exports.requireUserAuth = function(req, res, next) {
   var token = req.header('X-Auth-Token');
@@ -11,7 +9,7 @@ module.exports.requireUserAuth = function(req, res, next) {
     jwt.verify(token, config.secret, function(err, decoded) {
       if ( decoded ) {
         if ( decoded.roles && decoded.roles.indexOf('user') >= 0 ) {
-          User.findById(decoded.userId, 'name email websites').populate('websites', 'name permalink').exec(function(err, user){
+          User.findById(decoded.userId, 'name email websites').populate('websites', 'name permalink public domain').exec(function(err, user){
             if (err || !user) {
               console.error('requireUserAuth:unauthorized (cant find user)');
               return res.status(401).end();
@@ -84,13 +82,13 @@ module.exports.registerUser = function(email, password, callback) {
       var errorMessage = '';
       switch ( error.code ) {
         case 11000:
-          errorMessage = 'User with this email already exists'
+          errorMessage = 'User with this email already exists';
           break;
         default:
-          errorMessage = 'User registration failed'
+          errorMessage = 'User registration failed';
       }
       callback(errorMessage);
     } else
       callback(null);
   });
-}
+};

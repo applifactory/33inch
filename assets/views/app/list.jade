@@ -1,0 +1,17 @@
+.websites-list
+  h1 My websites
+  ul
+    li(ng-repeat="website in websites" ng-class="{active: website.public}")
+      a(ui-sref="app.details.visibility({link: website.permalink})")
+        .tile
+        .name {{website.name}}
+        .public
+          i.fa.fa-eye
+          i.fa.fa-eye-slash
+        .address {{website | websiteUrl:true}}
+        .date {{"2016-10-07T12:32:13"|date:'d.MM.yyyy'}}
+    li.add-website
+      a(ui-sref="app")
+        .tile
+          i.fa.fa-plus-circle
+        .placeholder New website

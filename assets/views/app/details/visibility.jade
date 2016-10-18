@@ -1,4 +1,6 @@
 form.ui-kit(name="form" ng-submit="submitForm()" novalidate)
+  
+  .message.success(ng-show="updated") Visibility updated
   .message.danger(ng-show="form.$submitted && ( form.$invalid || errorMessage )")
     span(ng-messages="form.name.$error")
       span(ng-message="required") Enter website name
@@ -8,6 +10,10 @@ form.ui-kit(name="form" ng-submit="submitForm()" novalidate)
     span(ng-messages="form.domain.$error")
       span(ng-message="pattern") Wrong domain format
     span(ng-if="errorMessage") {{errorMessage}}
+
+  label
+    | Public
+    switch(ng-model="website.public")
 
   label(ng-class="{error: form.$submitted && form.name.$invalid}")
     | Name

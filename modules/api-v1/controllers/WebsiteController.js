@@ -11,7 +11,12 @@ var Mailgun = require('mailgun-js');
 var nl2br  = require('nl2br');
 
 module.exports.index = function(req, res) {
-  res.json(req.params.authUser.websites);
+  Website.find({ owners: req.params.authUser._id }, function(err, websites){
+    if ( err ) {
+      if (err) return res.status(400).end();
+    }
+    res.json(websites);
+  });
 };
 
 module.exports.details = function(req, res) {

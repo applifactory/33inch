@@ -17,14 +17,27 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('app', {
       url: '/app',
       templateUrl: 'assets/app/index.html',
-      controller: 'AppIndexCtrl',
       resolve: {
         user: userResolver,
         bodyClass: function($rootScope) {
           $rootScope.bodyClass = 'app';
         }
-      }
+      },
+      redirectTo: 'app.list',
+      controller: 'AppController'
     })
+
+      .state('app.list', {
+        url: '/list',
+        templateUrl: 'assets/app/list.html',
+        resolve: {
+          websites: function(WebsitesService, $stateParams) {
+            return WebsitesService.getAll();
+          }
+        },
+        controller: 'WebsitesListController'
+      })
+
       .state('app.details', {
         url: '/details/:link',
         templateUrl: 'assets/app/details/index.html',
@@ -58,6 +71,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         template: 'profile'
       })
 
+    //  Editor
     .state('edit', {
       url: '/app/:link',
       abstract: true,

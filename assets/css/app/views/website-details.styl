@@ -11,8 +11,7 @@
           display: inline-block
       +size($mediumScreen)
         float: right
-        font-size: 14px
-        margin-top: 0.4em
+        margin-top: 0
   .export
     position: relative
     .export-ctrls
@@ -27,9 +26,11 @@
         overflow: hidden
         float: left
         margin: 0
+        white-space: nowrap
         dt
           text-align: right
           color: $textInactiveColor
+          clear: both
         dd
           color: $textColor
         dt, dd
@@ -39,6 +40,7 @@
           box-sizing: border-box
           float: left
           width: 50%
+          min-width: 130px
   .custom-script
     font-family: "monospace", "Times New Roman", Times, serif
   label.suffix

@@ -19,9 +19,11 @@ form.ui-kit(name="form" ng-submit="submitForm()" novalidate)
         .export-ctrls
           dl
             dt Last export:
-            dd(am-time-ago="website.lastExport")
+            dd(am-time-ago="website.lastExport" ng-if="website.lastExport")
+            dd(ng-if="!website.lastExport") never
             dt Last changes:
-            dd(am-time-ago="website.lastChanges")
+            dd(am-time-ago="website.lastChanges" ng-if="website.lastChanges")
+            dd(ng-if="!website.lastChanges") never
           .button.small(ng-click="export()") Export
 
       label(ng-class="{error: form.$submitted && form.name.$invalid}")

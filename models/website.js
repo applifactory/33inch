@@ -18,7 +18,7 @@ var WebsiteSchema = new Schema({
   analytics: String,
   customScript: String,
   lastExport: { type: Date },
-  lastChanges: { type: Date, default: Date.now }
+  lastChanges: { type: Date }
 });
 
 //  relations

@@ -70,8 +70,17 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       })
       .state('app.profile', {
         url: '/profile',
-        template: 'profile'
+        templateUrl: 'assets/app/account/profile/index.html',
+        redirectTo: 'app.profile.data'
       })
+        .state('app.profile.data', {
+          url: '/data',
+          templateUrl: 'assets/app/account/profile/data.html'
+        })
+        .state('app.profile.password', {
+          url: '/password',
+          templateUrl: 'assets/app/account/profile/password.html'
+        })
 
     //  Editor
     .state('edit', {

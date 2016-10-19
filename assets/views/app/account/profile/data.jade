@@ -1,0 +1,18 @@
+form.ui-kit(name="form" ng-submit="submitForm()" novalidate)
+
+  .row
+    .col-6
+      label(ng-class="{error: form.$submitted && form.permalink.$invalid}")
+        | Name
+        input(type="input" name="permalink" value="Mateusz")
+      label(ng-class="{error: form.$submitted && form.domain.$invalid}")
+        | Email
+        input(type="email" value="mateusz@applifactory.pl" disabled="")
+    .col-6
+      label(ng-class="{error: form.$submitted && form.permalink.$invalid}")
+        | Surname
+        input(type="input" name="permalink" value="Witalinski")
+
+  .actions
+    input.button.success(type="submit" value="Save" ng-disabled="isLoading")
+    .button Cancel

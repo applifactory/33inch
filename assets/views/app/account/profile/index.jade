@@ -1,0 +1,9 @@
+.user-profile
+
+  h1 Mateusz's Profile
+    .links
+      a.button.small.info(ui-sref="logout") Logout
+  .tabs
+    a.tab-nav(ui-sref=".data" ui-sref-active="active") Profile
+    a.tab-nav(ui-sref=".password" ui-sref-active="active") Change password
+    ui-view.tab-content

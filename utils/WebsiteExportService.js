@@ -1,5 +1,3 @@
-'use strict';
-
 var fs = require('fs-extra');
 var async = require('async');
 var jade = require('jade');
@@ -20,7 +18,7 @@ var exportPath = 'build/unknown';
 function loadConfig(callback) {
   var _file = __dirname.replace(/^(.+)\/([\w]+)$/gi, '$1') + '/assets/js/app/services/Inch33ElementsConfig.js';
   fs.readFile(_file, 'utf8', function (err, data) {
-    if (err) return callback('Error: ' + err, null);
+    if (err) { return callback('Error: ' + err, null); }
     data = data.replace('var Inch33ElementsConfig = ', '');
     var config = JSON.parse(data);
     callback(null, config);
@@ -130,29 +128,28 @@ function copyAssets(callback) {
   attachements = attachements.filter(function(elem, pos) {
     return attachements.indexOf(elem) == pos;
   });
-  console.log(attachements);
   async.each(attachements, function(file, _callback) {
+    file = file.replace(/["|']/gi, '');
+    console.log('#COPY', file);
     if ( file.indexOf('http://') < 0 ) {
       fs.copy('public' + file, exportPath + file.replace('/fx/', '/assets/'), function (err) {
         _callback(err);
       });
     } else {
       var _file = file.replace(/[\S]+\//, '');
-      fs.copy('assets/img/placeholder/' + file.replace(/[\S]+\//, ''), exportPath + '/assets/' + _file, function (err) {
+      fs.copy('./assets/img/placeholder/' + file.replace(/[\S]+\//, ''), exportPath + '/assets/' + _file, function (err) {
         _callback(err);
       });
     }
   }, function(err){
     if (err) {
-      callback('Copy attachements error');
-      console.log('Copy attachements error', err);
-    } else {
-      callback();
+      console.error('Copy attachements error', err);
     }
+    callback();
   });
 }
 
-var WebsiteExportService = function(){}
+var WebsiteExportService = function(){};
 
 WebsiteExportService.prototype.export = function(website, callback) {
 
@@ -183,6 +180,6 @@ WebsiteExportService.prototype.export = function(website, callback) {
     });
   });
 
-}
+};
 
 module.exports = WebsiteExportService;

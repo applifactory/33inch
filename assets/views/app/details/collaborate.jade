@@ -1,1 +1,21 @@
-h1 Collaborate
+form(name="form" ng-submit="submitForm()" novalidate)
+  
+  .message.success.ng-hide(ng-show="updated") {{updated}}
+  .message.danger.ng-hide(ng-show="form.$submitted && form.$invalid")
+    span(ng-messages="form.email.$error")
+      span(ng-message="email") Wrong email format
+  
+  label.suffix(ng-class="{error: form.$submitted && form.email.$invalid}")
+    | Invite people to edit
+    input(type="email" name="email" ng-model="inviteEmail" ng-disabled="isLoading" placeholder="User email address")
+    input.suffix.invite(type="submit" value="invite")
+  
+  label
+    | Shared with 
+    ul.share-list
+      li(ng-repeat="share in shares")
+        | {{share.email}}
+        span - invitation sent
+        i.fa.fa-ban(ng-click="deleteShare(share)")
+      li.placeholder(ng-if="!shares.length") No one invited yet
+        

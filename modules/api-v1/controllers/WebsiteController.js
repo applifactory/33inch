@@ -21,7 +21,7 @@ module.exports.index = function(req, res) {
 
 module.exports.details = function(req, res) {
   Website
-    .findOne({ permalink: req.params.link }, 'name permalink email public domain analytics customScript')
+    .findOne({ owners: req.params.authUser._id, permalink: req.params.link }, 'name permalink email public domain analytics customScript')
     .exec(function(err, website){
       if (err || !website) return res.status(404).end();
       res.json(website);
@@ -70,7 +70,7 @@ module.exports.create = function(req, res) {
 
 module.exports.export = function(req, res) {
   Website
-    .findOne({ permalink: req.params.link })
+    .findOne({ owners: req.params.authUser._id, permalink: req.params.link })
     .populate('elements')
     .populate('nodes')
     .exec(function(err, website){
@@ -99,8 +99,6 @@ module.exports.update = function(req, res) {
     'analytics',
     'customScript'
   ]);
-
-  console.log(update);
 
   Website.update({ permalink: req.params.link }, update, function(err) {
     if ( err ) {

@@ -56,6 +56,35 @@ app.service('WebsitesService', function($http, $state, $q, SettingsService, Auth
         deferred.reject(data);
       });
       return deferred.promise;
+    },
+    share: function(link, email) {
+      var deferred = $q.defer();
+      var _self = this;
+      $http.put(SettingsService.apiUrl + 'website/' + link + '/shares', { email: email }).success(function(data){
+        deferred.resolve(data);
+      }).error(function(error, status) {
+        deferred.reject(error, status);
+      });
+      return deferred.promise;
+    },
+    getShares: function(link) {
+      var deferred = $q.defer();
+      var _self = this;
+      $http.get(SettingsService.apiUrl + 'website/' + link + '/shares').success(function(data){
+        deferred.resolve(data);
+      }).error(function(error, status){
+        deferred.reject(error, status);
+      });
+      return deferred.promise;
+    },
+    deleteShare: function(link, share) {
+      var deferred = $q.defer();
+      $http.delete(SettingsService.apiUrl + 'website/' + link + '/shares/' + share._id).success(function(){
+        deferred.resolve();
+      }).error(function(){
+        deferred.reject();
+      });
+      return deferred.promise;
     }
   };
 });

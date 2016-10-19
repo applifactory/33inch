@@ -15,3 +15,43 @@
         margin-top: 0.4em
   .custom-script
     font-family: "monospace", "Times New Roman", Times, serif
+  label.suffix
+    .suffix.invite
+      color: $textColor
+      cursor: pointer
+      border-color: $borderActiveColor !important
+      background: white !important
+      &:hover, &:focus
+        border-color: lighten($borderActiveColor, 30%) !important
+      &:active
+          border-color: darken($borderActiveColor, 5%) !important
+    &.error
+      input + .suffix
+        border-color: dangerColor !important
+  .share-list
+    list-style: none
+    margin: 0
+    padding: 0
+    border: solid 1px $borderColor
+    border-radius: 4px
+    li
+      color: $textColor
+      padding: 10px
+      border-bottom: solid 1px lighten($borderColor, 40%)
+      &:last-child
+        border-bottom: none
+      span
+        color: $textInactiveColor
+        margin-left: 4px
+      i.fa
+        float: right
+        color: $textInactiveColor
+        cursor: pointer
+        font-size: 20px
+        &:hover
+          color: $textActiveColor
+        &:active
+          color: darken($textActiveColor, 10%)
+      &.placeholder
+        text-align: center
+        color: $textInactiveColor

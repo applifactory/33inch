@@ -56,7 +56,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('app.details.collaborate', {
           url: '/collaborate',
-          templateUrl: 'assets/app/details/collaborate.html'
+          templateUrl: 'assets/app/details/collaborate.html',
+          controller: 'WebsiteDetailsCollaborateController'
         })
         .state('app.details.settings', {
           url: '/settings',

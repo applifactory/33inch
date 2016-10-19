@@ -1,7 +1,7 @@
-app.controller('WebsiteDetailsSettingsController', function(website, $scope, $state, $stateParams, WebsitesService, Loader, $timeout) {
+app.controller('WebsiteDetailsSettingsController', function($scope, $state, $stateParams, WebsitesService, Loader, $timeout) {
 
   var updatedTimeout = null;
-  $scope.website = angular.copy(website);
+  $scope.website = angular.copy($scope.$parent.website);
   WebsitesService.get($stateParams.link).then(function(website){
     $scope.website = website;
     $scope.$parent.website = angular.copy(website);

@@ -28,6 +28,17 @@ module.exports.details = function(req, res) {
     });
 };
 
+function takeScreenshot(link, callback) {
+  // console.log('http://' + link + '.' + config.domain);
+  // var page = phantomjs.create();
+  //   page.viewportSize = { width: 1920, height: 1080 };
+  //   page.open('https://davidwalsh.name/', function() {
+  //     page.render('davidwalshblog1920.png');
+  //     phantom.exit();
+  //   });
+  callback();
+}
+
 module.exports.create = function(req, res) {
   if ( req.body.name ) {
     var userId = req.params.authUser._id;
@@ -84,8 +95,10 @@ module.exports.export = function(req, res) {
         if (err) {
           return res.status(400).json({message: err}).end();
         }
-        Website.update({ owners: req.params.authUser._id, permalink: req.params.link }, { $set: { lastExport: new Date() } }, function(err){
-          res.json({message: 'Export success'});
+        Website.update({ owners: req.params.authUser._id, permalink: req.params.link }, { $set: { lastExport: new Date() } }, function(err) {
+          takeScreenshot(req.params.link, function(){
+            res.json({message: 'Export success'});
+          });
         });
       });
     });

@@ -2,10 +2,13 @@ app.controller('WebsiteDetailsVisibilityController', function($scope, $state, $s
 
   var updatedTimeout = null;
   $scope.website = angular.copy($scope.$parent.website);
-  WebsitesService.get($stateParams.link).then(function(website){
-    $scope.website = website;
-    $scope.$parent.website = angular.copy(website);
-  });
+  var reloadWebsite = function() {
+    WebsitesService.get($stateParams.link).then(function(website){
+      $scope.website = website;
+      $scope.$parent.website = angular.copy(website);
+    });
+  }
+  reloadWebsite();
 
   $scope.submitForm = function() {
     if ( $scope.isLoading ) {
@@ -29,17 +32,30 @@ app.controller('WebsiteDetailsVisibilityController', function($scope, $state, $s
           $state.go('app.details.visibility', { link: $scope.website.permalink });
         }
         Loader.hide();
-        $scope.updated = true;
-        $timeout.cancel(updatedTimeout);
-        updatedTimeout = $timeout(function(){
-          $scope.updated = false;
-        }, 2000);
+        $scope.showUpdated('Visibility updated');
       }, function(error){
         $scope.errorMessage = error.message;
         $scope.isLoading = false;
         Loader.hide();
       });
     }
+  };
+
+  $scope.showUpdated = function(message) {
+    $scope.updated = message;
+    $timeout.cancel(updatedTimeout);
+    updatedTimeout = $timeout(function(){
+      $scope.updated = false;
+    }, 2000);
+  };
+
+  $scope.export = function(){
+    Loader.show('Exporting website...');
+    WebsitesService.export($scope.website.permalink).then(function(){
+      Loader.hide();
+      $scope.showUpdated('Website exported');
+      reloadWebsite();
+    });
   };
 
 });

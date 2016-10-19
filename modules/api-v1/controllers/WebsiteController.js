@@ -21,7 +21,7 @@ module.exports.index = function(req, res) {
 
 module.exports.details = function(req, res) {
   Website
-    .findOne({ owners: req.params.authUser._id, permalink: req.params.link }, 'name permalink email public domain analytics customScript')
+    .findOne({ owners: req.params.authUser._id, permalink: req.params.link }, 'name permalink email public domain analytics customScript lastExport lastChanges')
     .exec(function(err, website){
       if (err || !website) return res.status(404).end();
       res.json(website);
@@ -81,9 +81,12 @@ module.exports.export = function(req, res) {
       if (err) return res.status(404).end();
       var websiteExport = new WebsiteExport();
       websiteExport.export(website, function(err, result){
-        if (err)
+        if (err) {
           return res.status(400).json({message: err}).end();
-        res.json({message: 'Export success'});
+        }
+        Website.update({ owners: req.params.authUser._id, permalink: req.params.link }, { $set: { lastExport: new Date() } }, function(err){
+          res.json({message: 'Export success'});
+        });
       });
     });
 };

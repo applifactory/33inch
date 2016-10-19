@@ -1,6 +1,7 @@
-button(color = black, altColor = transparent)
+button(color = black, altColor = transparent, borderColor = null)
+  borderColor = borderColor || color
   color: $textColor
-  border: color 1px solid
+  border: borderColor 1px solid
   background: altColor
   font-size: 1em
   font-weight: bold
@@ -50,7 +51,7 @@ button(color = black, altColor = transparent)
       background: darken(color, 5%)
 
 .button, button, input[type=submit], submit
-  button(defaultColor)
+  button(defaultColor, transparent, $borderColor)
   &.success
     button(successColor)
   &.primary

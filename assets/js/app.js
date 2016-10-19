@@ -12,6 +12,8 @@
 //= require vendors/Sortable/ng-sortable.js
 //= require vendors/ngDialog/js/ngDialog.js
 //= require vendors/angular-elastic/elastic.js
+//= require vendors/moment/moment.js
+//= require vendors/angular-moment/angular-moment.js
 
 //= require_tree common/utils
 

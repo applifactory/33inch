@@ -11,17 +11,19 @@ module.exports.findWebsite = function(req, res, next) {
     req.params.website = website;
     return next();
   });
-}
+};
 
 module.exports.updatePositions = function(req, res) {
   var ids = req.body.ids;
-  if ( ids )
+  if ( ids ) {
     ids.forEach(function(_id, _index){
       Node.findByIdAndUpdate(_id, { $set: { sortOrder: _index }}, function (err, node) { });
       Element.findByIdAndUpdate(_id, { $set: { menuOrder: _index }}, function (err, node) { });
     });
+    Website.update({ permalink: req.params.link }, { $set: { lastChanges: new Date() } }).exec();
+  }
   res.end();
-}
+};
 
 module.exports.getMenu = function(websiteId, callback) {
   Node
@@ -48,11 +50,11 @@ module.exports.getMenu = function(websiteId, callback) {
             softLink: element.menuLink,
             sortOrder: element.menuOrder
           });
-        })
+        });
         delete node.elements;
         delete node.nodes;
         nodes[index] = node;
-      })
+      });
       nodes = nodes.concat(elements);
 
       Element.find({
@@ -65,18 +67,18 @@ module.exports.getMenu = function(websiteId, callback) {
             name: element.menuTitle,
             softLink: element.menuLink,
             sortOrder: element.menuOrder
-          })
-        })
+          });
+        });
 
         nodes.sort(function(a,b) {
-          return a.sortOrder > b.sortOrder ? 1 : -1
+          return a.sortOrder > b.sortOrder ? 1 : -1;
         });
 
         callback(false, nodes);
 
-      })
+      });
     });
-}
+};
 
 module.exports.list = function(req, res) {
 
@@ -85,8 +87,7 @@ module.exports.list = function(req, res) {
     res.json(nodes);
   });
 
-
-}
+};
 
 module.exports.details = function(req, res) {
   req.params.website.populate('elements', 'template data', function(err, website){
@@ -100,7 +101,7 @@ module.exports.details = function(req, res) {
       });
     });
   });
-}
+};
 
 module.exports.create = function(req, res) {
   var node = new Node();
@@ -113,35 +114,40 @@ module.exports.create = function(req, res) {
   else
     node.parentWebsite = req.params.website._id;
   node.save(function(err, node){
-    if (err) return res.status(400).end();
+    if (err) {return res.status(400).end();}
+    Website.update({ permalink: req.params.link }, { $set: { lastChanges: new Date() } }).exec();
     res.json(node);
   });
-}
+};
 
 module.exports.update = function(req, res) {
   console.log('update', req.params, req.body);
   Node.findOne({ _id: req.params.nodeId }).exec(function(err, node){
-    if (err) return res.status(404).end();
+    if (err) { return res.status(404).end(); }
     if ( req.body.name ) {
       node.name = req.body.name;
-      if ( node.link != '' )
+      if ( node.link !== '' ) {
         node.link = normalize(req.body.name).replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '').toLowerCase();
+      }
     }
     node.save(function(err){
-      if (err) return res.status(400).end();
+      if (err) {return res.status(400).end();}
       res.end();
     });
+    Website.update({ permalink: req.params.link }, { $set: { lastChanges: new Date() } }).exec();
   });
-}
+};
 
 module.exports.delete = function(req, res) {
   Node.findOne({ _id: req.params.nodeId }).exec(function(err, node){
-    if (err) return res.status(404).end();
-    if ( node.link != '' )
+    if (err) { return res.status(404).end(); }
+    if ( node.link !== '' ) {
       node.remove(function(){
         res.end();
       });
-    else
+    } else {
       res.status(400).end();
+    }
   });
-}
+  Website.update({ permalink: req.params.link }, { $set: { lastChanges: new Date() } }).exec();
+};

@@ -3,6 +3,7 @@ var Website = require('../../../models/website');
 var Element = require('../../../models/element');
 var Image = require('../../../models/image');
 var File = require('../../../models/file');
+var Website = require('../../../models/website');
 var merge = require('merge-util');
 var ImageUtil = require('../../../utils/ImageService.js');
 var multiparty = require('multiparty');
@@ -13,7 +14,7 @@ module.exports.findWebsite = function(req, res, next) {
     req.params.website = website;
     return next();
   });
-}
+};
 
 module.exports.create = function(req, res) {
   var element = new Element();
@@ -29,10 +30,11 @@ module.exports.create = function(req, res) {
     element.markModified('data');
   }
   element.save(function(err, element){
-    if (err) return res.status(400).end();
+    if (err) {return res.status(400).end();}
     res.json(element);
+    Website.update({ permalink: req.params.link }, { $set: { lastChanges: new Date() } }).exec();
   });
-}
+};
 
 module.exports.update = function(req, res) {
   Element.findById(req.params.elementId, function (err, element) {
@@ -51,14 +53,14 @@ module.exports.update = function(req, res) {
         element.menuOrder = 1000;
     }
     element.save(function(err){
-      if(err) return res.status(400).end();
+      if(err) {return res.status(400).end();}
+      Website.update({ permalink: req.params.link }, { $set: { lastChanges: new Date() } }).exec();
       res.end();
-    })
+    });
   });
-}
+};
 
 module.exports.uploadImage = function(req, res) {
-  console.log('upload');
   Element.findById(req.params.elementId, function (err, element) {
     if ( err ) return res.status(404).end();
     var form = new multiparty.Form();
@@ -72,10 +74,11 @@ module.exports.uploadImage = function(req, res) {
         image.parentWebsite = req.params.website._id;
         image.save();
         res.json({ file: fileName });
-      })
+      });
+      Website.update({ permalink: req.params.link }, { $set: { lastChanges: new Date() } }).exec();
     });
   });
-}
+};
 
 module.exports.deleteImage = function(req, res) {
   Image.findOne({
@@ -87,59 +90,60 @@ module.exports.deleteImage = function(req, res) {
     ImageUtil.deleteImage(req.params.image, function(fileName){
       res.end();
     });
+    Website.update({ permalink: req.params.link }, { $set: { lastChanges: new Date() } }).exec();
   });
-}
+};
 
 module.exports.updatePositions = function(req, res) {
-  console.log('updatePositions', req.body.ids);
   var ids = req.body.ids;
-  if ( ids )
+  if ( ids ) {
     ids.forEach(function(_id, _index){
       Element.findByIdAndUpdate(_id, { $set: { sortOrder: _index }}, function (err, element) { });
     });
+    Website.update({ permalink: req.params.link }, { $set: { lastChanges: new Date() } }).exec();
+  }
   res.end();
-}
+};
 
 module.exports.delete = function(req, res) {
   Element.findById(req.params.elementId, function(err, element){
     if ( err || !element )  res.status(404).end();
     element.remove();
+    Website.update({ permalink: req.params.link }, { $set: { lastChanges: new Date() } }).exec();
     res.end();
   });
-}
+};
 
 module.exports.uploadFile = function(req, res) {
-  console.log('upload file');
   Element.findById(req.params.elementId, function (err, element) {
     if ( err ) return res.status(404).end();
-    console.log('got element');
     var form = new multiparty.Form();
     form.parse(req, function(err, fields, files) {
       if ( err ) return res.status(400).end();
-      console.log('got file');
       var file = files.file[0];
       ImageUtil.processFile(file, function(fileName){
-        console.log('processed');
         var file = new File();
         file.filename = fileName;
         file.parentElement = req.params.elementId;
         file.parentWebsite = req.params.website._id;
         file.save();
         res.json({ file: fileName });
-      })
+      });
+      Website.update({ permalink: req.params.link }, { $set: { lastChanges: new Date() } }).exec();
     });
   });
-}
+};
 
 module.exports.deleteFile = function(req, res) {
   File.findOne({
     filename: req.params.file,
     parentElement: req.params.elementId
   }, function(err, file){
-    if ( err || !file ) return res.status(404).end();
+    if ( err || !file ) {return res.status(404).end();}
     file.remove();
     ImageUtil.deleteFile(req.params.image, function(fileName){
       res.end();
     });
+    Website.update({ permalink: req.params.link }, { $set: { lastChanges: new Date() } }).exec();
   });
-}
+};

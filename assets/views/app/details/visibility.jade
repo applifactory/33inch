@@ -1,6 +1,6 @@
 form.ui-kit(name="form" ng-submit="submitForm()" novalidate)
   
-  .message.success(ng-show="updated") Visibility updated
+  .message.success(ng-show="updated") {{updated}}
   .message.danger(ng-show="form.$submitted && ( form.$invalid || errorMessage )")
     span(ng-messages="form.name.$error")
       span(ng-message="required") Enter website name
@@ -13,9 +13,16 @@ form.ui-kit(name="form" ng-submit="submitForm()" novalidate)
 
   .row
     .col-6
-      label
+      label.export
         | Public
         switch(ng-model="website.public")
+        .export-ctrls
+          dl
+            dt Last export:
+            dd(am-time-ago="website.lastExport")
+            dt Last changes:
+            dd(am-time-ago="website.lastChanges")
+          .button.small(ng-click="export()") Export
 
       label(ng-class="{error: form.$submitted && form.name.$invalid}")
         | Name

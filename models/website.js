@@ -16,7 +16,9 @@ var WebsiteSchema = new Schema({
   files: [{ type: Schema.Types.ObjectId, ref: 'File' }],
   elements: [{ type: Schema.Types.ObjectId, ref: 'Element' }],
   analytics: String,
-  customScript: String
+  customScript: String,
+  lastExport: { type: Date },
+  lastChanges: { type: Date, default: Date.now }
 });
 
 //  relations

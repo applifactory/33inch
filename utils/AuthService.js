@@ -5,11 +5,11 @@ var jwt = require('jsonwebtoken'),
 
 module.exports.requireUserAuth = function(req, res, next) {
   var token = req.header('X-Auth-Token');
-  if ( token )
+  if ( token ) {
     jwt.verify(token, config.secret, function(err, decoded) {
       if ( decoded ) {
         if ( decoded.roles && decoded.roles.indexOf('user') >= 0 ) {
-          User.findById(decoded.userId, 'name email websites').populate('websites', 'name permalink public domain').exec(function(err, user){
+          User.findById(decoded.userId, 'name surname email websites').populate('websites', 'name permalink public domain').exec(function(err, user){
             if (err || !user) {
               console.error('requireUserAuth:unauthorized (cant find user)');
               return res.status(401).end();
@@ -27,7 +27,7 @@ module.exports.requireUserAuth = function(req, res, next) {
         res.status(401).end();
       }
     });
-  else {
+  } else {
     console.error('requireUserAuth:unauthorized (3)');
     res.status(401).end();
   }
@@ -50,8 +50,7 @@ module.exports.requireAdminAuth = function(req, res, next) {
 };
 
 module.exports.loginUser = function(login, password, stayLogged, callback) {
-  User.findOne({email: login}).select('name email password roles').exec(function(err, user){
-    console.log(login, password, stayLogged);
+  User.findOne({email: login}).select('name surname email password roles').exec(function(err, user){
     if ( !user || !user.comparePassword(password) ) {
       callback(false);
     } else {
@@ -64,15 +63,18 @@ module.exports.loginUser = function(login, password, stayLogged, callback) {
       );
     }
   });
-}
+};
 
 module.exports.registerUser = function(email, password, callback) {
-  if ( !email )
+  if ( !email ) {
     return callback( 'Please type in your email' );
-  if ( !validator.isEmail(email) )
+  }
+  if ( !validator.isEmail(email) ) {
     return callback( 'Wrong email format' );
-  if ( !validator.isLength(password, 6) )
+  }
+  if ( !validator.isLength(password, 6) ) {
     return callback( 'Password must have at least 6 characters' );
+  }
   var user = new User();
   user.email = email;
   user.password = password;

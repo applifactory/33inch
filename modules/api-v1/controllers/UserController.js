@@ -1,4 +1,6 @@
-var authService = require('../../../utils/AuthService.js');
+var authService = require('../../../utils/AuthService.js'),
+    extractObject = require('../../../utils/ExtractObject'),
+    User = require('../../../models/user');
 
 module.exports.register = function(req, res) {
 
@@ -18,4 +20,30 @@ module.exports.register = function(req, res) {
     }
   });
 
+};
+
+module.exports.find = function(req, res) {
+  if ( req.params.id == req.params.authUser._id ) {
+    res.json({user: req.params.authUser});
+  } else {
+    res.status(403).end();
+  }
+};
+
+
+module.exports.update = function(req, res) {
+  if ( req.params.id == req.params.authUser._id ) {
+    var update = extractObject(req.body, [
+      'name',
+      'surname'
+    ]);
+    User.update({ _id: req.params.id }, update, function(err) {
+      if ( err ) {
+        return res.status(400).json({ message: err }).end();
+      }
+      res.end();
+    });
+  } else {
+    res.status(403).end();
+  }
 };

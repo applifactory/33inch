@@ -1,18 +1,26 @@
-form.ui-kit(name="form" ng-submit="submitForm()" novalidate)
+form(name="form" ng-submit="submitForm()" novalidate)
 
+  .message.success.ng-hide(ng-show="updated") Profile updated
+  .message.danger.ng-hide(ng-show="form.$submitted && ( form.$invalid || errorMessage )")
+    span(ng-messages="form.name.$error")
+      span(ng-message="required") Name is required
+    span(ng-messages="form.surname.$error")
+      span(ng-message="required") Surname is required
+    span(ng-if="errorMessage") {{errorMessage}}
+  
   .row
     .col-6
-      label(ng-class="{error: form.$submitted && form.permalink.$invalid}")
+      label(ng-class="{error: form.$submitted && form.name.$invalid}")
         | Name
-        input(type="input" name="permalink" value="Mateusz")
-      label(ng-class="{error: form.$submitted && form.domain.$invalid}")
+        input(type="input" name="name" ng-model="user.name" required="true")
+      label(ng-class="{error: form.$submitted && form.email.$invalid}")
         | Email
-        input(type="email" value="mateusz@applifactory.pl" disabled="")
+        input(type="email" ng-model="user.email" disabled="")
     .col-6
-      label(ng-class="{error: form.$submitted && form.permalink.$invalid}")
+      label(ng-class="{error: form.$submitted && form.surname.$invalid}")
         | Surname
-        input(type="input" name="permalink" value="Witalinski")
+        input(type="input" name="surname" ng-model="user.surname" required="true")
 
   .actions
-    input.button.success(type="submit" value="Save" ng-disabled="isLoading")
-    .button Cancel
+    input.button.success(type="submit" value="Save" ng-disabled="isLoading || form.$pristine")
+    .button(ng-click="reset()" ng-disabled="form.$pristine") Cancel

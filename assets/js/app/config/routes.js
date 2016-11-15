@@ -4,8 +4,9 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
   $urlRouterProvider.otherwise("/app");
 
-  var userResolver = function(AuthService, $state) {
+  var userResolver = function(AuthService, $state, $rootScope) {
     return AuthService.me().then(function(me){
+      $rootScope.currentUser = me.user;
       return me.user;
     }, function(){
       $state.go('sign-in');
@@ -75,7 +76,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       })
         .state('app.profile.data', {
           url: '/data',
-          templateUrl: 'assets/app/account/profile/data.html'
+          templateUrl: 'assets/app/account/profile/data.html',
+          controller: 'ProfileDataController'
         })
         .state('app.profile.password', {
           url: '/password',

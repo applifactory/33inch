@@ -1,12 +1,12 @@
 header
   .container
-    h1.logo33inch 33inch
+    h1.logo33inch(ui-sref="app.list") 33inch
     ul
       li(ng-class="{active: $state.includes('app.list') || $state.includes('app.details')}")
         a(ui-sref="app.list") Websites
       li(ui-sref-active="active")
         a(ui-sref="app.account") Account
       li(ui-sref-active="active")
-        a.profile(ui-sref="app.profile") Mateusz
+        a.profile(ui-sref="app.profile") {{currentUser | userName}}
   
 ui-view.ui-kit

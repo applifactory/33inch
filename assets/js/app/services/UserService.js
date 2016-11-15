@@ -18,6 +18,19 @@ app.service('UserService', function($http, $q, SettingsService, $window, $timeou
         deferred.reject(error, status);
       });
       return deferred.promise;
+    },
+    changePassword: function(userId, currentPassword, newPassword) {
+      var deferred = $q.defer();
+      var _self = this;
+      $http.put(SettingsService.apiUrl + 'user/' + userId + '/password', {
+        currentPassword: currentPassword,
+        newPassword: newPassword
+      }).success(function(data){
+        deferred.resolve(data);
+      }).error(function(error, status){
+        deferred.reject(error, status);
+      });
+      return deferred.promise;
     }
   };
 });

@@ -81,7 +81,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('app.profile.password', {
           url: '/password',
-          templateUrl: 'assets/app/account/profile/password.html'
+          templateUrl: 'assets/app/account/profile/password.html',
+          controller: 'ProfilePasswordController'
         })
 
     //  Editor

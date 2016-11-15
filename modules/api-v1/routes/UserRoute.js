@@ -8,4 +8,7 @@ module.exports = function(app) {
     .all(authUtil.requireUserAuth)
     .get(userCtrl.find)
     .put(userCtrl.update);
+  app.route('/api/v1/user/:id/password')
+    .all(authUtil.requireUserAuth)
+    .put(userCtrl.changePassword);
 };

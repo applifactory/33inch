@@ -67,7 +67,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
       .state('app.account', {
         url: '/account',
-        template: 'account'
+        templateUrl: 'assets/app/account/account/index.html',
       })
       .state('app.profile', {
         url: '/profile',

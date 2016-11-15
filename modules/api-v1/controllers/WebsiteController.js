@@ -9,6 +9,7 @@ var smtpTransport = require('nodemailer-smtp-transport');
 var config = require('../../../config/config.js');
 var Mailgun = require('mailgun-js');
 var nl2br  = require('nl2br');
+var webshot = require('webshot');
 
 module.exports.index = function(req, res) {
   Website.find({ owners: req.params.authUser._id }, function(err, websites){
@@ -29,14 +30,21 @@ module.exports.details = function(req, res) {
 };
 
 function takeScreenshot(link, callback) {
-  // console.log('http://' + link + '.' + config.domain);
-  // var page = phantomjs.create();
-  //   page.viewportSize = { width: 1920, height: 1080 };
-  //   page.open('https://davidwalsh.name/', function() {
-  //     page.render('davidwalshblog1920.png');
-  //     phantom.exit();
-  //   });
-  callback();
+  var previewUrl = 'http://' + link + '.' + config.domain + '/?preview',
+      previewPath = './build/' + link + '/preview.jpg',
+      options = {
+        screenSize: {
+          width: 1280,
+          height: 900
+        }, shotSize: {
+          width: 1280,
+          height: 900
+        },
+        defaultWhiteBackground: true
+      };
+  webshot(previewUrl, previewPath, options, function(err) {
+    callback();
+  });
 }
 
 module.exports.create = function(req, res) {
@@ -49,7 +57,6 @@ module.exports.create = function(req, res) {
     website.owners.push(req.params.authUser);
     website.save(function(error){
       if ( error ) {
-        console.log('website save error', error);
         var errMessage = 'Unknown error';
         if ( error.code == 11000 ) {
           if ( error.err.indexOf('permalink') > 0 )

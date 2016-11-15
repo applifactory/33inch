@@ -3,7 +3,7 @@
   ul
     li(ng-repeat="website in websites" ng-class="{active: website.public}")
       a(ui-sref="app.details.visibility({link: website.permalink})")
-        .tile
+        .tile(website-preview="website")
         .name {{website.name}}
         .public
           i.fa.fa-eye

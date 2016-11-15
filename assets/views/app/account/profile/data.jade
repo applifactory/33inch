@@ -23,4 +23,4 @@ form(name="form" ng-submit="submitForm()" novalidate)
 
   .actions
     input.button.success(type="submit" value="Save" ng-disabled="isLoading || form.$pristine")
-    .button(ng-click="reset()" ng-disabled="form.$pristine") Cancel
+    .button(ng-click="reset()" ng-disabled="isLoading || form.$pristine") Cancel

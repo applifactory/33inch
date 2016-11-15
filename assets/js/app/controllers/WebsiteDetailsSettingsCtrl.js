@@ -7,6 +7,11 @@ app.controller('WebsiteDetailsSettingsController', function($scope, $state, $sta
     $scope.$parent.website = angular.copy(website);
   });
 
+  $scope.reset = function() {
+    $scope.website = angular.copy($scope.$parent.website);
+    $scope.form.$setPristine();
+  };
+
   $scope.submitForm = function() {
     if ( $scope.isLoading ) {
       return;
@@ -24,6 +29,7 @@ app.controller('WebsiteDetailsSettingsController', function($scope, $state, $sta
       WebsitesService.update($stateParams.link, update).then(function(){
         $scope.isLoading = false;
         $scope.$parent.website = angular.copy($scope.website);
+        $scope.form.$setPristine();
         Loader.hide();
         $scope.updated = true;
         $timeout.cancel(updatedTimeout);

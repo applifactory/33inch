@@ -25,6 +25,6 @@ form(name="form" ng-submit="submitForm()" novalidate)
     textarea.custom-script(name="customScript" ng-model="website.customScript" msd-elastic ng-disabled="isLoading" placeholder="Script will be added to the website <head>. jQuery v2.1.4 is available.")
   
   .actions
-    input.button.success(type="submit" value="Save" ng-disabled="isLoading")
-    .button(ui-sref="^.^" ng-disabled="isLoading") Cancel
+    input.button.success(type="submit" value="Save" ng-disabled="isLoading || form.$pristine")
+    .button(ng-click="reset()" ng-disabled="isLoading || form.$pristine") Cancel
     

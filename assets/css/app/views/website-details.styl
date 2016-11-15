@@ -1,6 +1,13 @@
 .website-details
   @extend .app .container
   h1
+    a
+      text-decoration: none
+      color: inherit
+      &:hover
+        color: $toolAccent
+        .back
+          color: $toolAccent
     .links
       font-size: 18px
       margin-top: 0.5em
@@ -12,6 +19,14 @@
       +size($mediumScreen)
         float: right
         margin-top: 0
+  [hint]
+    margin-left: 3px
+    font-size: 16px
+    &:hover
+      color: $toolAccent
+    &::after
+      min-width: 230px
+      font-size: 14px
   .export
     position: relative
     .export-ctrls

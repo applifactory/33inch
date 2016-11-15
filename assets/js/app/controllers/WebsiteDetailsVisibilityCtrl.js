@@ -6,9 +6,14 @@ app.controller('WebsiteDetailsVisibilityController', function($scope, $state, $s
     WebsitesService.get($stateParams.link).then(function(website){
       $scope.website = website;
       $scope.$parent.website = angular.copy(website);
+      $scope.form.$setPristine();
     });
-  }
+  };
   reloadWebsite();
+
+  $scope.reset = function(){
+    reloadWebsite();
+  };
 
   $scope.submitForm = function() {
     if ( $scope.isLoading ) {
@@ -28,6 +33,7 @@ app.controller('WebsiteDetailsVisibilityController', function($scope, $state, $s
       WebsitesService.update($stateParams.link, update).then(function(){
         $scope.isLoading = false;
         $scope.$parent.website = angular.copy($scope.website);
+        $scope.form.$setPristine();
         if ( $scope.$parent.permalink != $scope.website.permalink ) {
           $state.go('app.details.visibility', { link: $scope.website.permalink });
         }

@@ -1,7 +1,8 @@
 .website-details
   h1
-    a.fa.fa-chevron-left.back(ui-sref="^")
-    | {{website.name}}
+    a(ui-sref="^")
+      .fa.fa-chevron-left.back
+      | {{website.name}}
     .links
       a.button.small.success(ui-sref="edit.node({link: website.permalink})") Edit
       a.button.small.primary(ng-if="website.public" ng-href="{{website | websiteUrl}}" target="_blank") Preview

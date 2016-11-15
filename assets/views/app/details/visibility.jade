@@ -15,7 +15,7 @@ form.ui-kit(name="form" ng-submit="submitForm()" novalidate)
     .col-6
       label.export
         | Public
-        switch(ng-model="website.public")
+        switch(ng-model="website.public" on-change="form.$pristine = false")
         .export-ctrls
           dl
             dt Last export:
@@ -38,9 +38,12 @@ form.ui-kit(name="form" ng-submit="submitForm()" novalidate)
     
       label(ng-class="{error: form.$submitted && form.domain.$invalid}")
         | Domain
+        span.right(hint="Redirect your domain to IP address 178.62.70.36 in your domain config")
+          i.fa.fa-info-circle
+        
         input(type="input" name="domain" ng-model="website.domain" ng-disabled="isLoading" placeholder="No custom domain" pattern="^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$")
   
   .actions
-    input.button.success(type="submit" value="Save" ng-disabled="isLoading")
-    .button(ui-sref="^.^" ng-disabled="isLoading") Cancel
+    input.button.success(type="submit" value="Save" ng-disabled="isLoading || form.$pristine")
+    .button(ng-click="reset()" ng-disabled="isLoading || form.$pristine") Cancel
     

@@ -127,7 +127,7 @@ function exportElement(element, nodes, callback) {
 }
 
 function copyAssets(callback) {
-  console.log('# copyAssets');
+  console.log('# copyAssets', attachements);
   // attachements = attachements.filter(function(elem, pos) {
   //   return attachements.indexOf(elem) == pos;
   // });

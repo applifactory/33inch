@@ -9,7 +9,7 @@
           i.fa.fa-eye
           i.fa.fa-eye-slash
         .address {{website | websiteUrl:true}}
-        .date {{"2016-10-07T12:32:13"|date:'d.MM.yyyy'}}
+        .date(am-time-ago="website.lastExport")
     li.add-website
       a(ng-click="newWebsite()")
         .tile

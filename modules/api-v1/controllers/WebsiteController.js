@@ -42,7 +42,13 @@ function takeScreenshot(link, callback) {
         },
         defaultWhiteBackground: true
       };
+  console.log('Taking screenshot', previewUrl);
   webshot(previewUrl, previewPath, options, function(err) {
+    if ( err ) {
+      console.log('error', err);
+    } else {
+      console.log('success');
+    }
     callback();
   });
 }

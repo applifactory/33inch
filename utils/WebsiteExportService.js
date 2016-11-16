@@ -87,7 +87,7 @@ function saveNode(link, content) {
 }
 
 function saveCss() {
-  console.log(' #saveCss');
+  console.log('# saveCss');
   fs.writeFileSync(exportPath + '/assets/style.css', styles);
 }
 
@@ -128,10 +128,6 @@ function exportElement(element, nodes, callback) {
 
 function copyAssets(callback) {
   console.log('# copyAssets', attachements);
-  // attachements = attachements.filter(function(elem, pos) {
-  //   return attachements.indexOf(elem) == pos;
-  // });
-  // console.log('# going');
   async.each(attachements, function(file, _callback) {
     console.log('# copy', file);
     if ( file.indexOf('/placeholder/') >= 0 ) {
@@ -151,6 +147,8 @@ function copyAssets(callback) {
   }, function(err){
     if (err) {
       console.error('Copy attachements error', err);
+    } else {
+      console.error('Copy attachements complete');
     }
     callback();
   });

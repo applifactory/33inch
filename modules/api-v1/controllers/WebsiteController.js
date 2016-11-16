@@ -54,21 +54,28 @@ module.exports.create = function(req, res) {
     website.name = req.body.name;
     website.permalink = ( req.body.permalink ? req.body.permalink.toLowerCase() : website.name.replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '').toLowerCase() );
     if ( req.body.domain )  website.domain = req.body.domain;
+
+    console.log('# create website', req.body.name, req.body.permalink);
     website.owners.push(req.params.authUser);
     website.save(function(error){
+      console.log(error);
       if ( error ) {
         var errMessage = 'Unknown error';
         if ( error.code == 11000 ) {
-          if ( error.err.indexOf('permalink') > 0 )
+          console.log('110000', error.message);
+          if ( error.message && error.message.indexOf('permalink') > 0 ) {
             errMessage = 'Link already taken';
+          }
         } else if ( error.message ) {
           errMessage = error.message;
         }
         if ( error.errors ) {
-          if ( error.errors.hasOwnProperty('domain') )
+          if ( error.errors.hasOwnProperty('domain') ) {
             errMessage = error.errors.domain.message;
-          if ( error.errors.hasOwnProperty('permalink') )
+          }
+          if ( error.errors.hasOwnProperty('permalink') ) {
             errMessage = error.errors.permalink.message;
+          }
         }
         res.status(400).json({message: errMessage});
       } else {

@@ -35,6 +35,16 @@ app.service('WebsitesService', function($http, $state, $q, SettingsService, Auth
       });
       return deferred.promise;
     },
+    create: function(website) {
+      var deferred = $q.defer();
+      var _self = this;
+      $http.post(SettingsService.apiUrl + 'website', website).success(function(data){
+        deferred.resolve(data);
+      }).error(function(error, status){
+        deferred.reject(error, status);
+      });
+      return deferred.promise;
+    },
     update: function(link, update) {
       var deferred = $q.defer();
       var _self = this;

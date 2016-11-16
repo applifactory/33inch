@@ -8,7 +8,7 @@ var WebsiteSchema = new Schema({
   name: String,
   public: { type: Boolean, default: false },
   permalink: { type: String, required: true, index: { unique: true } },
-  domain: { type: String, required: true, index: { unique: true } },
+  domain: { type: String },
   email: String,
   owners: [{ type: Schema.Types.ObjectId, ref: 'User', childPath: 'websites' }],
   nodes: [{ type: Schema.Types.ObjectId, ref: 'Node' }],

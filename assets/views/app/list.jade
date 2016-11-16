@@ -11,7 +11,7 @@
         .address {{website | websiteUrl:true}}
         .date {{"2016-10-07T12:32:13"|date:'d.MM.yyyy'}}
     li.add-website
-      a(ui-sref="app")
+      a(ng-click="newWebsite()")
         .tile
           i.fa.fa-plus-circle
         .placeholder Create new website

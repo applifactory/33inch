@@ -135,6 +135,7 @@ function copyAssets(callback) {
   async.each(attachements, function(file, _callback) {
     console.log('# copy', file);
     if ( file.indexOf('/placeholder/') >= 0 ) {
+      console.log('skip');
       return _callback(null);
     }
     file = file.replace(/["|']/gi, '');

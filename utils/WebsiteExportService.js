@@ -9,10 +9,7 @@ var headers = '';
 var footers = '';
 var config = null;
 var styles = '';
-var attachements = [
-  '/assets/inch33.min.css',
-  '/assets/inch33.js'
-];
+var attachements = [];
 var exportPath = 'build/unknown';
 
 function loadConfig(callback) {
@@ -129,18 +126,18 @@ function copyAssets(callback) {
     return attachements.indexOf(elem) == pos;
   });
   async.each(attachements, function(file, _callback) {
+    if ( file.indexOf('/placeholder/') >= 0 ) {
+      return _callback(null);
+    }
     file = file.replace(/["|']/gi, '');
+
     if ( file.indexOf('http://') < 0 && file.indexOf('/placeholder/') !== 0 ) {
-      console.log('#COPY1', file);
+      // console.log('#COPY', 'public' + file, ' - to - ', exportPath + file.replace('/fx/', '/assets/'));
       fs.copy('public' + file, exportPath + file.replace('/fx/', '/assets/'), function (err) {
         _callback(err);
       });
     } else {
-      console.log('#COPY2', file);
-      var _file = file.replace(/[\S]+\//, '');
-      fs.copy('./assets/img/placeholder/' + file.replace(/[\S]+\//, ''), exportPath + '/assets/' + _file, function (err) {
-        _callback(err);
-      });
+      _callback(null);
     }
   }, function(err){
     if (err) {

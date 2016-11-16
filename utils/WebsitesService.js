@@ -9,8 +9,11 @@ function serveWebsite(req, res, next, website) {
   if ( !fs.existsSync(websitePath) )
     return next();
 
-  if ( req.params[0] == '/' || req.params[0].indexOf('.html') > 0 || req.params[0] == '/preview.jpg' || req.params[0].indexOf('/assets') === 0 ) {
+  if ( req.params[0] == '/' || req.params[0].indexOf('.html') > 0 || req.params[0].indexOf('/assets') === 0 ) {
     var file = req.params[0] == '/' ? '/index.html' : req.params[0];
+    if ( ['/assets/inch33.min.css', '/assets/inch33.js'].indexOf(file) >= 0 ) {
+      return next();
+    }
     return res.sendFile(file, {root: websitePath});
   }
   next();

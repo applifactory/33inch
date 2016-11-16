@@ -131,7 +131,7 @@ function copyAssets(callback) {
   async.each(attachements, function(file, _callback) {
     file = file.replace(/["|']/gi, '');
     console.log('#COPY', file);
-    if ( file.indexOf('http://') < 0 ) {
+    if ( file.indexOf('http://') < 0 && file.indexOf('/placeholder/') !== 0 ) {
       fs.copy('public' + file, exportPath + file.replace('/fx/', '/assets/'), function (err) {
         _callback(err);
       });

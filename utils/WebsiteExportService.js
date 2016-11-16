@@ -13,6 +13,7 @@ var attachements = [];
 var exportPath = 'build/unknown';
 
 function loadConfig(callback) {
+  console.log('# loadConfig');
   var _file = __dirname.replace(/^(.+)\/([\w]+)$/gi, '$1') + '/assets/js/app/services/Inch33ElementsConfig.js';
   fs.readFile(_file, 'utf8', function (err, data) {
     if (err) { return callback('Error: ' + err, null); }
@@ -50,6 +51,7 @@ function exportNodes(nodes, baseElements, callback) {
 }
 
 function exportNode(node, topElements, bottomElements, nodes, callback) {
+  console.log('# exportNode');
   Node.findOne({ _id: node._id }, 'link name elements').populate('elements', 'template data menuLink', null, { sort: { sortOrder: 1 } } ).exec(function(err, node){
     if (err) return callback('Node not found');
     var link = ( node.link ? node.link : 'index' ) + '.html';
@@ -85,10 +87,12 @@ function saveNode(link, content) {
 }
 
 function saveCss() {
+  console.log(' #saveCss');
   fs.writeFileSync(exportPath + '/assets/style.css', styles);
 }
 
 function exportElements(elements, nodes, callback) {
+  console.log('# exportElements');
   var content = '';
   async.eachSeries(elements, function(element, _callback) {
     exportElement(element, nodes, function(err, result){
@@ -109,6 +113,7 @@ function exportElements(elements, nodes, callback) {
 }
 
 function exportElement(element, nodes, callback) {
+  console.log('# exportElement');
   var _file = __dirname.replace(/^(.+)\/([\w]+)$/gi, '$1') + '/assets/views/app/website/components/' + element.template + '.jade';
   fs.readFile(_file, 'utf8', function (err, data) {
     if (err) return callback('Error: ' + err, null);
@@ -122,6 +127,7 @@ function exportElement(element, nodes, callback) {
 }
 
 function copyAssets(callback) {
+  console.log('# copyAssets');
   attachements = attachements.filter(function(elem, pos) {
     return attachements.indexOf(elem) == pos;
   });
@@ -130,9 +136,8 @@ function copyAssets(callback) {
       return _callback(null);
     }
     file = file.replace(/["|']/gi, '');
-
     if ( file.indexOf('http://') < 0 && file.indexOf('/placeholder/') !== 0 ) {
-      // console.log('#COPY', 'public' + file, ' - to - ', exportPath + file.replace('/fx/', '/assets/'));
+      console.log('#COPY', 'public' + file, ' - to - ', exportPath + file.replace('/fx/', '/assets/'));
       fs.copy('public' + file, exportPath + file.replace('/fx/', '/assets/'), function (err) {
         _callback(err);
       });

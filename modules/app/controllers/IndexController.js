@@ -21,7 +21,9 @@ module.exports.websitePreview = function(req, res) {
     }
   } else {
     if ( previewExists ) {
-      res.send('<img src="/preview/' + req.params.link + '.jpg" />');
+      var stats = fs.statSync(websitePath + '/preview.jpg'),
+          mtime = new Date(stats.mtime);
+      res.send('<img src="/preview/' + req.params.link + '.jpg?' + mtime.getTime() + '" />');
     } else {
       res.send('');
     }

@@ -128,9 +128,10 @@ function exportElement(element, nodes, callback) {
 
 function copyAssets(callback) {
   console.log('# copyAssets');
-  attachements = attachements.filter(function(elem, pos) {
-    return attachements.indexOf(elem) == pos;
-  });
+  // attachements = attachements.filter(function(elem, pos) {
+  //   return attachements.indexOf(elem) == pos;
+  // });
+  // console.log('# going');
   async.each(attachements, function(file, _callback) {
     if ( file.indexOf('/placeholder/') >= 0 ) {
       return _callback(null);

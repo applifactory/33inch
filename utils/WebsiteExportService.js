@@ -133,6 +133,7 @@ function copyAssets(callback) {
   // });
   // console.log('# going');
   async.each(attachements, function(file, _callback) {
+    console.log('# copy', file);
     if ( file.indexOf('/placeholder/') >= 0 ) {
       return _callback(null);
     }
@@ -143,6 +144,7 @@ function copyAssets(callback) {
         _callback(err);
       });
     } else {
+      console.log('#COPY2', 'skip');
       _callback(null);
     }
   }, function(err){

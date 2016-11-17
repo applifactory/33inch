@@ -14,7 +14,9 @@ function serveWebsite(req, res, next, website) {
     if ( ['/assets/inch33.min.css', '/assets/inch33.js'].indexOf(file) >= 0 ) {
       return next();
     }
-    return res.sendFile(file, {root: websitePath});
+    if ( fs.existsSync(websitePath + file) ) {
+      return res.sendFile(file, {root: websitePath});
+    }
   }
   next();
 }

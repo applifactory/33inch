@@ -37,7 +37,7 @@ module.exports = function(app) {
 
     //  mateusz.im static website routing
     if ( req.hostname.indexOf('mateusz.im') >= 0 ) {
-      var file = req.params[0] == '/' ? '/imdex.html' : req.params[0];
+      var file = req.params[0] == '/' ? '/index.html' : req.params[0];
       return res.sendFile(file, {root: 'build/mateusz.im'});
     }
 

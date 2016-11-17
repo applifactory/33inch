@@ -17,6 +17,12 @@ function serveWebsite(req, res, next, website) {
     if ( fs.existsSync(websitePath + file) ) {
       return res.sendFile(file, {root: websitePath});
     }
+
+    //  show placeholder if possible
+    file = file.replace(/^.*\//, '');
+    if ( fs.existsSync('assets/img/placeholder/' + file) ) {
+      return res.sendFile(file, {root: 'assets/img/placeholder'});
+    }
   }
   next();
 }

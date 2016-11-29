@@ -1,0 +1,65 @@
+#features
+  background: $toolAccent
+  color: white
+  overflow: hidden
+  ul
+    list-style: none
+    padding: 0
+    text-align: center
+    li
+      max-width: 310px
+      margin: 100px auto
+      +size($smallScreen)
+        display: inline-block
+        vertical-align: top
+        max-width: 230px
+        margin: 60px 10px
+      +size($mediumScreen)
+        max-width: 310px
+      +size($largeScreen)
+        margin: 100px 50px
+      .icon
+        width: 170px
+        height: 170px
+        background: $navyBg
+        border-radius: 100%
+        position: relative
+        margin: 0 auto
+        &::after
+          content: ''
+          display: block
+          width: 160px
+          height: 150px
+          background: no-repeat center
+          position: absolute
+      &.design .icon::after
+        background-image: url(/features-design.png)
+        left: 40px
+        top: 5px
+        +retina()
+          background-image: url(/features-design@2x.png)
+          background-size: 143px 99px
+      &.collaborate .icon::after
+        background-image: url(/features-collaborate.png)
+        left: 33px
+        top: 5px
+        +retina()
+          background-image: url(/features-collaborate@2x.png)
+          background-size: 159px 129px
+      &.deliver .icon::after
+        background-image: url(/features-deliver.png)
+        left: 20px
+        top: -7px
+        +retina()
+          background-image: url(/features-deliver@2x.png)
+          background-size: 148px 148px
+      h3
+        font-size: 25px
+        font-weight: 400
+        margin: 22px 5px 0
+      p
+        font-size: 20px
+        font-weight: 300
+    // .design
+    // .collaborate
+    // .deliver

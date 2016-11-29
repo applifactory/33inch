@@ -1,0 +1,23 @@
+#register
+  text-align: center
+  h1
+    color: $navyBg
+    font-size: 48px
+    letter-spacing: 2px
+    margin-bottom: 0
+  p
+    color: $toolAccent
+    font-size: 20px
+  a.button
+    border-color: $toolAccent !important
+    color: $navyBg !important
+    font-size: 25px !important
+    font-weight: 400 !important
+    margin-top: 20px !important
+    margin-bottom: 60px !important
+    &:hover
+      border-color: lighten($toolAccent, 20%) !important
+      background: rgba($toolAccent, 0.2) !important
+    &:active
+      border-color: darken($toolAccent, 10%) !important
+      background: rgba(darken($toolAccent, 40%), 0.2) !important

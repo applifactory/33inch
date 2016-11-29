@@ -8,24 +8,56 @@ block variables
 
 block content
 
-  section.teaser
+  header.ui-kit#home
     h1 33inch
-    .sides
-      .left
-        .description
-          p Best websites do not form themselves. They are made by experts: graphic designers, copywriters, SEO specialists. Find experts in your website with 33inch with inspect their work.
-          p 33inch allows on-line to check the status of the project web page and provides tools for communication with experts.
-      .right
-        .description
-          p The website should be nice. This is a broad and difficult to define term. The website should be first and foremost a look that pleases the eye, but does not interfere in accessing and viewing content.
-          p With 33inch you can edit your page how many times you want without shares programmer, and the publication is just one click.
-    .content
-      h2 #websites do not form themselves
-    .scroll-down
+    nav
+      ul
+        li
+          a(href='#features') features
+        li
+          a(href='#about') about
+        li
+          a(href='/sign-in') login
+    h2 
+      | Think outside the templates
+      small Make websites with excellent UX
+    a.button(href="/sign-up") start creating
+  
+  section
+    article#features
+      ul
+        li.design
+          .icon
+          h3 Design faster
+          p 33inch allows you to create simple responsive and editable websites
+        li.collaborate
+          .icon
+          h3 Collaborate online
+          p You can collaborate with your team on-line directly on the project created
+        li.deliver
+          .icon
+          h3 Publish on the fly
+          p Publish automatically your projects on the Internet under your own domain
 
-  section.newsletter
-    h2 Are you interested?
-    p Leave your email
-    form
-      input(type="email", name="email")
-      input(type="submit")
+    article#about
+      .content
+        h1 About 33inch
+        p 33inch is a platform to create and edit content on the Internet with collaboration and communication modules online.
+        h2 33inch helps you
+        ul
+          li Creating web pages with complex structure without a developer needed.
+          li The immediate visualisation of your project. Your customers can see the results of your work instantly.
+          li Export the code if necessary.
+          li Improving communication with your customers and partners.
+        .logo
+    
+    article#register.ui-kit
+      h1 Register now for free!
+      p Start with a FREE 14 days trial. No credit card required.
+      a.button(href="/sign-up") sign up
+
+  footer
+    .content
+      p © 33inch.com 2016 all rights reserved
+      a.up(href="#home")
+      p Proudly created with 33inch.com

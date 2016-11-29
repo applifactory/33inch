@@ -1,0 +1,28 @@
+footer
+  display: block
+  background: $navyBg
+  color: #2B689C
+  font-weight: 300
+  .content
+    max-width: 600px
+    height: 45px
+    position: relative
+    margin: 0 auto
+    p
+      position: absolute
+      top: 0px
+      font-size: 13px
+      &:first-child
+        left: 0
+      &:last-child
+        right: 0
+    a.up
+      position: absolute
+      top: 50%
+      left: 50%
+      margin: -7px 0 0 -12px
+      width: 25px
+      height: 14px
+      background: url(/chevron-up.png)
+      +retina()
+        background: url(/chevron-up@2x.png)

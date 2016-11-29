@@ -1,0 +1,48 @@
+#about
+  background: $navyBg
+  position: relative
+  display: block
+  color: white
+  overflow: hidden
+  font-weight: 300
+  &::after
+    content: ''
+    display: block
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    background: url(/dot-bg.png) center
+    background-size: 25px 25px
+    opacity: 0.5
+  .content
+    max-width: 700px
+    margin: 50px auto
+    padding: 1em
+    h1
+      text-align: center
+      font-size: 28px
+      font-weight: 400
+    p
+      font-size: 20px
+      text-align: center
+      color: $toolAccent
+    h2
+      margin-top: 50px
+      font-size: 20px
+      text-align: center
+    ul
+      margin: 0 0 50px
+      li
+        font-size: 18px
+        margin: 10px
+
+    .logo
+      width: 102px
+      height: 79px
+      background: url(/logo-green-compact.png) no-repeat center
+      margin: 50px auto 20px
+      +retina()
+        background-image: url(/logo-green-compact@2x.png)
+        background-size: 100%

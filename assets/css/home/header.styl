@@ -1,0 +1,58 @@
+header
+  display: block
+  position: relative
+  background: $navyBg
+  text-align: center
+  overflow: hidden
+  nav
+    display: none
+    +size($smallScreen)
+      display: block
+      position: absolute
+      top: 10px
+      right: 10px
+    ul
+      list-style: none
+      margin: 0 1em
+      padding: 0
+      li
+        display: inline-block
+        padding: 1em
+        a
+          color: white
+          text-decoration: none
+          &:hover
+            color: $toolAccent
+  h1
+    background: url(/logo-green-big.png) no-repeat center
+    background-size: 100%
+    width: 279px
+    height: 100px
+    overflow: hidden
+    text-indent: -500px
+    margin: 80px auto
+    +retina()
+      background-image: url(/logo-green-big@2x.png)
+  h2
+    color: white
+    font-weight: 300
+    font-size: 49px
+    letter-spacing: 3px
+    small
+      display: block
+      font-size: 23px
+      color: $toolAccent
+      font-weight: 300
+  a.button
+    border-color: $toolAccent !important
+    color: white !important
+    font-size: 25px !important
+    font-weight: 400 !important
+    margin-top: 20px !important
+    margin-bottom: 100px !important
+    &:hover
+      border-color: lighten($toolAccent, 20%) !important
+      background: rgba($toolSecondary, 0.2) !important
+    &:active
+      border-color: darken($toolAccent, 10%) !important
+      background: rgba(darken($toolSecondary, 40%), 0.3) !important
